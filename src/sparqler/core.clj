@@ -1,0 +1,414 @@
+(ns sparqlrr.core
+  (:refer-clojure :exclude [filter concat group-by max min count update])
+  (:require [boutros.matsu.compiler :refer [encode]]
+            [boutros.matsu.core :refer [register-namespaces]]
+            [boutros.matsu.sparql :refer :all]
+            [boutros.matsu.util])
+  (:require [clojure.string :as string])
+  (:require loom.graph)
+  (:require [clj-sparql.core :referl :all :as sparql])
+  (:use clojure.java.browse)
+  (:import java.net.URI
+           [java.net URLEncoder URLDecoder]))
+                                     
+
+; Print
+
+(def kabob {:endpoint "http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev" :user "secret" :pass "secret"})
+
+(def local {:endpoint "http://localhost:8890/sparql"})
+
+(register-namespaces {:obo     "<http://purl.obolibrary.org/obo/>"
+                      :rdf     "<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                      :rdfs    "<http://www.w3.org/2000/01/rdf-schema#>"
+                      :owl     "<http://www.w3.org/2002/07/owl#>"
+                      :bio     "<http://kabob.ucdenver.edu/bio/>"
+                      :oboinowl "<http://www.geneontology.org/formats/oboInOwl#>"
+                      :chebi   "<http://purl.obolibrary.org/obo/chebi#>"
+                      :uniprot "<http://kabob.ucdenver.edu/iao/uniprot/>"
+                      :kro     "<http://kabob.ucdenver.edu/ro/>"
+                      :kso     "<http://kabob.ucdenver.edu/so/>"
+                      :kbio    "<http://kabob.ucdenver.edu/bio/>"
+                      :kiao    "<http://kabob.ucdenver.edu/iao/>"
+                      :xsd     "<http://www.w3.org/2001/XMLSchema#>"
+                      :eg      "<http://kabob.ucdenver.edu/iao/eg/>"
+                      :iaonbo  "<http://kabob.ucdenver.edu/iao/nbo/>"})
+
+;;(doall (map #(URI. (:gene %1)) genes))
+
+(defrecord GO [URI Accession Name Ontology])
+(defmethod print-method GO [term ^java.io.Writer w]
+  ;if it's empty, look it up
+  (print (str (.Name term) " (" (.Accession term) ")")))
+
+(def rdfs:label [:rdfs :label])
+(def rdf:type [:rdf :type])
+(def rdfs:subClassOf [:rdfs :subClassOf])
+(def rdfs:subClassOf* [:rdfs :subClassOf*])
+
+(def owl:onProperty [:owl :onProperty])
+(def owl:someValuesFrom [:owl :someValuesFrom])
+(def owl:Restriction [:owl :Restriction])
+(def owl:cardinality [:owl :cardinality])
+(def owl:Axiom [:owl :Axiom])
+(def owl:annotatedTarget [:owl :annotatedTarget])
+
+(def oboinowl:hasRelatedSynonym [:oboinowl :hasRelatedSynonym])
+(def oboinowl:hasDbXref [:oboinowl :hasDbXref])
+(def oboinowl:hasSynonymType [:oboinowl :hasSynonymType])
+
+(def iao:denotes [:obo :IAO_0000219])
+(def iao:defines [:obo :IAO_0000115])
+(def iao:preferred_term [:obo :IAO_000111])
+
+(def kiao:hasTemplate [:kiao :hasTemplate])
+
+(def RO:in_taxon [:obo :RO_0002162])
+(def RO:has_participant [:obo :RO_0000057])
+(def RO:transports_or_maintains_localization_of [:obo :RO_0002313])
+(def RO:has_target_end_location [:obo :RO_0002339])
+(def RO:has_role [:obo :RO_0000087])
+(def RO:homologous_to [:obo :RO_0002158])
+
+(def MI:interaction_type [:obo :MI_0190])
+
+(def BFO:hasPart [:obo :BFO_0000051])
+
+(def gene [:obo :SO_0000704])
+
+(def GO:localization [:obo :GO_0051179]) ; GO:0051179
+(def GO:cellular_component [:obo :GO_0005575])
+(def GO:mitochondria [:obo :GO_0005739])
+
+(def CHEBI:protein [:obo :CHEBI_36080])
+(def CHEBI:ltb4 [:obo :CHEBI_36080])
+(def CHEBI:chemical-entity [:obo :CHEBI_24431])
+(def CHEBI:InChI [:chebi :InChI])
+
+(def Human :NCBITaxon_9606)
+(def Mouse :NCBITaxon_10090)
+
+(defn kabob-query [q] (sparql/query kabob q))
+(defn local-query [q] (sparql/query local q))
+(defn go:? [id])
+
+(defquery po [s] (select :p :o) (where- s :p :o))
+(defquery sp [o] (select :s :p) (where- :s :p o))
+
+(defquery define [uri] (select :definition) (where- uri iao:defines :definition))
+(defquery synonym [uri] (select :synonym) (where- uri oboinowl:hasRelatedSynonym :synonym))
+(defquery xref [uri] (select :xref) (where- uri oboinowl:hasDbXref :xref))
+
+(defquery label [l] (select :uri) (where :uri rdfs:label :label \. (filter (regex :label l))))
+
+(defquery labelOf [uri] (select :l) (where uri rdfs:label :l))
+
+(defquery labell [l lang] (select :uri) (where :uri rdfs:label l (raw lang)))
+
+(defn kabob-label [name] (kabob-query (label name)))
+(defn kabob-define [object] (kabob-query (define (.URI object))))
+(defn kabob-po [object] (kabob-query (po (.URI object))))
+(defn kabob-synonym [object] (kabob-query (synonym (.URI object))))
+(defn kabob-xref [object] (kabob-query (xref (.URI object))))
+; kabob-xref-hmdb
+
+(defn webview [uri]
+  (def url (str "http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev#node/%3c" uri "%3e"))
+  (prn url)
+  (browse-url url))
+
+(defn webview-query [q]
+  (def url (str "http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev#query/d/"
+                (clojure.string/replace (URLEncoder/encode (boutros.matsu.util/pprint q) "UTF-8") "+" "%20")))
+  (prn url)
+  (browse-url url))
+
+(defn webchebi [s]
+  (browse-url (str "http://www.ebi.ac.uk/chebi/advancedSearchFT.do?searchString=" s)))
+
+(defn webview-key [c k]
+  (for [{u k} c] (webview u)))
+
+
+(defquery predicate [u] (select :p :o) (where u :p :o))
+
+(defquery hasRole [uri]
+  (select :role :svf)
+  (where uri rdfs:subClassOf :restriction \.
+         :restriction owl:someValuesFrom :svf \.
+         :svf rdfs:label :role \.
+         :restriction owl:onProperty RO:has_role))
+
+
+(defrecord PROTEIN [URI])
+(defrecord ENZYME [URI])
+(defrecord REACTION [URI])
+(defrecord MOLECULE [URI])
+(defmethod print-method MOLECULE [v ^java.io.Writer w]
+  (.write w (str "A MOLECULE with URI " (.URI v) " and label " (:l (first (kabob-query (labelOf (.URI v))))))))
+
+
+(defrecord GENE [URI])
+(defmethod print-method GENE [v ^java.io.Writer w]
+  (.write w [:URI v]))
+
+
+
+(defquery by-taxon [taxon]
+  (select :gene)
+  (where :taxon_r owl:onProperty RO:in_taxon \.
+         :taxon_r owl:someValuesFrom [:obo taxon] \.
+         :gene rdfs:subClassOf :taxon_r \.
+         :gene rdfs:subClassOf gene)
+  (limit 10))
+
+;=> ({:gene "http://kabob.ucdenver.edu/bio/BIO_2dcb6751318b32ef72604b7aad917da5"} {:gene "http://kabob.ucdenver.edu/bio/BIO_7d83a338faf3beb5f5a5a7127b5d891a"} {:gene "http://kabob.ucdenver.edu/bio/BIO_4a698290713fa53420c0c62d694af93e"} {:gene "http://kabob.ucdenver.edu/bio/BIO_4dae9fe6159bf1b20bc2aebf45fa2c06"} {:gene "http://kabob.ucdenver.edu/bio/BIO_bd1a2dd509958bdc4eb3a27942f8694e"} {:gene "http://kabob.ucdenver.edu/bio/BIO_17b6ffbb33c7a105e9020e2df721a836"} {:gene "http://kabob.ucdenver.edu/bio/BIO_a09dec935ded88f605c2538f4f5c97ed"} {:gene "http://kabob.ucdenver.edu/bio/BIO_f7feb659886a7bb894c2ca78c283eac3"} {:gene "http://kabob.ucdenver.edu/bio/BIO_f4d100736a14733d205b1c68f9ee6f9b"} {:gene "http://kabob.ucdenver.edu/bio/BIO_5e553f61143214a038289604965848a"})
+
+
+(defquery participants [process-id]
+  (select process-id :process_id)
+  (where- :specificbp rdfs:subClassOf process-id \.
+          :specificbp rdfs:subClassOf :has_participant_r \.
+          :has_participant_r owl:onProperty RO:has_participant \. ;# RO:has_participant
+          :has_participant_r owl:someValuesFrom :specificbioentity \.
+          :specificbioentity rdfs:subClassOf :participant_bio_entity \.
+          :ice iao:denotes :participant_bio_entity)
+  (group :participant_bio_entity))
+
+(defquery cellular-components [src-id bio-id]
+  (select [(raw src-id) :source-id] :cc :label)
+  (where- :specificbioentity rdfs:subClassOf bio-id \.
+          :localizes_r owl:onProperty RO:transports_or_maintains_localization_of \.
+          :localizes_r owl:someValuesFrom :specificbioentity \.
+          :localization rdfs:subClassOf :localizes_r \.
+          :localization rdfs:subClassOf GO:localization \.
+          :localization rdfs:subClassOf :location_r \.
+          :location_r owl:onProperty RO:has_target_end_location \.
+          :location_r owl:someValuesFrom :specificcc \.
+          :specificcc rdfs:subClassOf :cc \.
+          :cc rdfs:subClassOf* GO:cellular_component \. 
+          :cc rdfs:label :label))
+
+(def uniprot:HUMAN_CYC [:uniprot :UNIPROT_P99999_ICE])
+
+
+(defquery localize [name]
+  (select :location_class :location_name)
+  (where :localization rdfs:subClassOf GO:localization \.
+           :localization rdfs:subClassOf :of_restriction \.
+           :of_restriction rdf:type owl:Restriction \. 
+           :of_restriction owl:onProperty RO:transports_or_maintains_localization_of  \.
+           :of_restriction owl:someValuesFrom :protein_subclass \.
+           :protein_subclass rdfs:subClassOf :protein_class \.
+           :protein_class rdfs:subClassOf CHEBI:protein \. 
+           :protein_name iao:denotes :protein_class \. 
+           :localization rdfs:subClassOf :to_restriction  \.
+           :to_restriction rdf:type owl:Restriction \. 
+           :to_restriction owl:onProperty RO:has_target_end_location \.
+           :to_restriction owl:someValuesFrom :location_subclass \.
+           :location_subclass rdfs:subClassOf :location_class \.
+           :location_class rdfs:subClassOf* GO:cellular_component \.
+           :location_class rdfs:label :location_name \.
+           (filter :protein_name = name)))
+
+;> (def result (sparql/query kabob (localize [:uniprot :UNIPROT_P99999_ICE])))
+
+;; sparqlr.core> (kabob-query (localize uniprot:HUMAN_CYC))
+
+;; |                      :location_name |                           :location_class |
+;; |-------------------------------------+-------------------------------------------|
+;; |                       mitochondrion | http://purl.obolibrary.org/obo/GO_0005739 |
+;; | protein phosphatase type 2A complex | http://purl.obolibrary.org/obo/GO_0000159 |
+;; |   mitochondrial intermembrane space | http://purl.obolibrary.org/obo/GO_0005758 |
+;; |        mitochondrial inner membrane | http://purl.obolibrary.org/obo/GO_0005743 |
+;; |                             nucleus | http://purl.obolibrary.org/obo/GO_0005634 |
+;; |                             cytosol | http://purl.obolibrary.org/obo/GO_0005829 |
+;; |                   respiratory chain | http://purl.obolibrary.org/obo/GO_0070469 |
+;; |                             nucleus | http://purl.obolibrary.org/obo/GO_0005634 |
+
+(defn flat [coll]
+  (lazy-seq
+    (when-let [s (seq coll)]
+      (if (list? (first s))
+        (clojure.core/concat (flat (first s)) (flat (rest s)))
+        (cons (first s) (flat (rest s)))))))
+
+(defn where+ [q & more]
+  (assoc q :where {:tag "WHERE" :content (vec (flat more)) :bounds [" { " " } "] :sep " "}))
+
+
+(defn get-location [C N] (list :localization rdfs:subClassOf GO:localization \.
+                         :localization rdfs:subClassOf :of_restriction \.
+                         :of_restriction rdf:type owl:Restriction \. 
+                         :of_restriction owl:onProperty RO:transports_or_maintains_localization_of \.
+                         :localization rdfs:subClassOf :to_restriction  \.
+                         :to_restriction rdf:type owl:Restriction \. 
+                         :to_restriction owl:onProperty RO:has_target_end_location \.
+                         :to_restriction owl:someValuesFrom :location_subclass \.
+                         :location_subclass rdfs:subClassOf C \.
+                         C rdfs:subClassOf* GO:cellular_component \.
+                         C rdfs:label N))
+
+(defquery interactions [bio-id]
+  (select :interaction_label :partner_bio_id)
+  (where  :specificbioentity rdfs:subClassOf bio-id \.
+          :has_participant_r1 owl:someValuesFrom :specificbioentity \.
+          :has_participant_r1 owl:onProperty RO:has_participant \. ;# RO:has_participant
+          :interaction rdfs:subClassOf :has_participant_r1 \.
+
+          ;# confirm has_participant cardinality
+          :interaction rdfs:subClassOf :rcard \.
+          :rcard owl:cardinality 2 \. ;# require 2 participants for a binary interaction
+          :rcard owl:onProperty RO:has_participant \. ;# RO:has_participant
+          
+          :interaction rdfs:subClassOf* MI:interaction_type \. ;# MI:interaction_type
+          :interaction rdfs:label :interaction_label \.
+          
+          :interaction rdfs:subClassOf :has_participant_r2 \.
+          :has_participant_r2 owl:onProperty RO:has_participant \. ;# RO:has_participant
+          :has_participant_r2 owl:someValuesFrom :interacting_partner \.
+          :interacting_partner rdfs:subClassOf :partner_bio_id \.
+          (filter :partner_bio_id != bio-id ) \.
+          :partner_ice_id [:obo :IAO_0000219] :partner_bio_id \.
+          ))
+
+
+(defn get-interactions [bio-id interaction_label partner_bio_id & {:keys [ p n] :or {p :protein_class n :protein_name }}]
+  (list  :specificbioentity rdfs:subClassOf bio-id \.
+          :has_participant_r1 owl:someValuesFrom :specificbioentity \.
+          :has_participant_r1 owl:onProperty RO:has_participant \. ;# RO:has_participant
+          :interaction rdfs:subClassOf :has_participant_r1 \.
+
+          ;# confirm has_participant cardinality
+          :interaction rdfs:subClassOf :rcard \.
+          :rcard owl:cardinality 2 \. ;# require 2 participants for a binary interaction
+          :rcard owl:onProperty RO:has_participant \. ;# RO:has_participant
+          
+          :interaction rdfs:subClassOf* MI:interaction_type \. ;# MI:interaction_type
+          :interaction rdfs:label interaction_label \.
+          
+          :interaction rdfs:subClassOf :has_participant_r2 \.
+          :has_participant_r2 owl:onProperty RO:has_participant \. ;# RO:has_participant
+          :has_participant_r2 owl:someValuesFrom :interacting_partner \.
+          :interacting_partner rdfs:subClassOf partner_bio_id \.
+          (filter partner_bio_id != bio-id ) \.
+          :partner_ice_id [:obo :IAO_0000219] partner_bio_id 
+          ))
+
+
+(defn of-protein [& {:keys [with-name p n] :or {p :protein_class n :protein_name }}]
+  (list :of_restriction owl:someValuesFrom :protein_subclass \.
+        :protein_subclass rdfs:subClassOf p \.
+        p rdfs:subClassOf CHEBI:protein \. 
+        :protein_name iao:denotes p \. 
+        (filter n = with-name)))
+
+
+
+(defquery modular-localize [name]
+  (select :location_class :location_name :protein_class :protein_name)
+  (where+ (get-location :location_class :location_name) \.
+          (of-protein :with-name name)))
+
+(defquery modular-interactions [name]
+  (select :interaction :interaction_name :partner_id )
+  (where+ (get-interactions :protein_class :interaction_name :partner_id) \.
+          (of-protein :with-name name)))
+
+;;;;;;;;;;;;;
+
+;(def result (sparql/query kabob (localize [:uniprot :UNIPROT_P99999_ICE])))
+;(def human-genes (kabob-query (by-taxon Human)))
+;(def locations (kabob-query (localize uniprot:HUMAN_CYC)))
+;(def g (->MOLECULE (URI. (:uri (first (kabob-query (label "glucose")))))))
+
+
+(defquery chebi-xref []
+  (select [(count :x) :count])
+  (where- :x rdfs:subClassOf CHEBI:chemical-entity))
+
+
+(defquery annotation (n synonymType)
+  (select :annotatedTarget)
+  (where :o rdfs:label n \.
+         :s :p :o \.
+         :s rdf:type owl:Axiom \.
+         ;:s oboinowl:hasDbXref :hasDbXref \.
+         :s owl:annotatedTarget :annotatedTarget \.	
+         :s oboinowl:hasSynonymType synonymType))
+
+(defn inchi [n] (annotation n CHEBI:InChI))
+
+(defn ->URI [result]
+  (mapcat (fn [x] (URI. (:uri x))) result))
+
+
+
+(defn localized-to [location thing]
+  (list  ;;## A ## localized to mitochondrion
+   :mito rdfs:subClassOf* location \. ;#mitochondrion
+
+   :to1 rdf:type           owl:Restriction \.
+   :to1  owl:someValuesFrom :mito \.
+   :to1  owl:onProperty     [:kro :results_in_localization_to] \.
+   
+   :loc rdfs:subClassOf :to1 \.
+   :loc rdfs:subClassOf [:obo :GO_0051179] \. ;#localization
+   :loc rdfs:subClassOf :of1 \.
+   
+   :of1 rdf:type           owl:Restriction \.
+   :of1  owl:onProperty     [:kro :results_in_localization_of] \.
+   :of1  owl:someValuesFrom thing  \.))
+
+(defn gene-or-gene-products [thing ggpv-abstraction]
+  (list 
+   ;;## B ## gene specific gene or gene product abstraction :gorgporv
+   thing   rdfs:subClassOf*   ggpv-abstraction \.
+   :gorgporv rdf:type         [:kbio :GeneSpecificGorGPorVClass]  \.))
+
+(defn in-taxon [taxon ggpv-abstraction]
+  (list  ;;## C ## human only
+   :gptaxon          rdfs:subClassOf*   ggpv-abstraction \.
+   :gptaxon          rdfs:subClassOf    :taxonrestriction  \.
+   :taxonrestriction owl:onProperty     RO:in_taxon  \. ;#in_taxon
+   :taxonrestriction owl:someValuesFrom taxon  \.)) 
+
+(defn participates-in [process ggpv-abstraction]
+  (list  ;;## D ## restrict to those that are involved in oxidative phos \.
+   ;;#look at all gene products of the abstraction
+   :gp rdfs:subClassOf* ggpv-abstraction \.
+   
+   ;;#get processes they participate in
+   :rparticipant owl:someValuesFrom :gp  \.
+   :rparticipant owl:onProperty     [:obo :has_participant]  \.
+   :things       rdfs:subClassOf    :rparticipant \.
+   
+   ;;#only look at those thing that are subClassOf ox phos
+   :things rdfs:subClassOf* process  \.  ;#Oxadative phos 
+   ))
+
+(defn drug-that-targets [drug ggpv-abstraction]
+  (list  ;;## E ## find the drugs that are known to target those genes
+   
+   ;;#look at all gene products in the abstraction
+   :gpdrug rdfs:subClassOf* ggpv-abstraction \.
+   
+   ;;#get the processes they participate in
+   :rparticipant2 owl:someValuesFrom :gpdrug \.
+   :rparticipant2 owl:onProperty     [:obo :has_participant]  \. 
+   
+   ;;#look for interactions
+   :interaction rdfs:subClassOf :rparticipant2 \.
+   :interaction rdfs:subClassOf [:obo :MI_0000] \. ;# interaction
+   
+   ;;#get all the other participants
+   :interaction rdfs:subClassOf :rdrugparticipant \.
+   (filter :rparticipant2 != :rdrugparticipant)  \. ;# for effeciency
+   :rdrugparticipant owl:onProperty     [:obo :has_participant]  \. 
+   :rdrugparticipant owl:someValuesFrom drug  \.
+()   
+   ;;#verify other participant is playing a drug role in interaction
+   :interaction rdfs:subClassOf :rx \.
+   :rx owl:onProperty [:obo :realizes]  \. ))
+
+(def GO:oxidative-phosphorylation [:obo :GO_0006119])
