@@ -1,4 +1,4 @@
-(defproject sparqlr "0.1.0-SNAPSHOT"
+(defproject sparqler "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -15,7 +15,7 @@
                  ]
   :plugins [[lein-gorilla "0.3.6"] [lein-localrepo "0.5.3"]]
   :resource-paths ["/Applications/ChemAxon/JChem/lib/"]
-  :main ^:skip-aot sparqlr.core
+  :main ^:skip-aot sparqler.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all} :dev {:dependencies [[org.apache.hadoop/hadoop-core "1.2.1"]]}}
   :jvm-opts ["-Xms768m" "-Xmx768m"])
