@@ -2,18 +2,13 @@
 (in-ns 'sparqler.core)
 
 
-
-(defn group_concat [v sep as]
-  {:tag "(GROUP_CONCAT" :bounds ["(" (str ") AS " (encode as) ")")] :sep "; separator = " :content [v sep]})
-
-
 (defquery kevin []
 
 ;;   select ?eg_ice (group_concat(?term_name; separator = "|") AS ?nbo_term_names) {
   (select :eg_ice (group_concat :term_name "|" :nbo_term_names))
 
   
-  (where-
+  (where+
 
    (values :eg_ice
           [:eg :EG_1636_ICE]
@@ -62,57 +57,12 @@
           [:eg :EG_7466_ICE]
           [:eg :EG_7531_ICE] 
           )
-
-   ;;(raw "# the EG ID denotes a kabob gene\n")
-   
-   ;;   ?eg_ice obo:IAO_0000219 ?gene .
    :eg_ice iao:denotes :gene \.
-
-   ;; "\n# retrieve the taxonomy identifier for the gene just to make sure it is human (9606)\n")
-   ;;   ?gene rdfs:subClassOf ?taxon_r .
-   :gene rdfs:subClassOf :taxon_r \.
-   ;;   ?taxon_r owl:onProperty obo:RO_0002162 .  #RO:in_taxon
-   :taxon_r owl:onProperty RO:in_taxon \.
-   ;;   ?taxon_r owl:someValuesFrom ?taxon .
-   :taxon_r owl:someValuesFrom :taxon \.
-  
-   ;;(raw "\n# retrieve any homologous mouse genes (taxon=10090)\n")
-   ;;   ?gene rdfs:subClassOf ?homologene_r .
-   :gene rdfs:subClassOf :homologene_r \.
-   ;;   ?homologene_r owl:onProperty obo:RO_0002158 . #RO:homologous_to
-   :homologene_r owl:onProperty RO:homologous_to \.
-   ;;   ?homologene_r owl:someValuesFrom ?homologous_mouse_gene .
-   :homologene_r owl:someValuesFrom :homologous_mouse_gene \.
-   ;;   ?homologous_mouse_gene rdfs:subClassOf ?taxon_r2 .
-   :homologous_mouse_gene rdfs:subClassOf :taxon_r2 \.
-   ;;   ?taxon_r2 owl:onProperty obo:RO_0002162 .  #RO:in_taxon
-   :taxon_r2 owl:onProperty RO:in_taxon \.
-   ;;   ?taxon_r2 owl:someValuesFrom obo:NCBITaxon_10090 .
-   :taxon_r2 owl:someValuesFrom [:obo Mouse] \.
-  
-   ;;   # now look for NBO annotation ICE records that link mouse genes to NBO concepts
-   ;;   ?ice obo:IAO_0000219 ?homologous_mouse_gene .
-   :ice iao:denotes :homologous_mouse_gene \.
-   ;;   ?id_field obo:IAO_0000219 ?ice .
-   :id_field iao:denotes :ice \.
-   ;;   ?id_field kiao:hasTemplate iaonbo:NboAnnotationFileRecord_geneIdDataField1 .
-   :id_field kiao:hasTemplate [:iaonbo :NboAnnotationFileRecord_geneIdDataField1] \.
-   ;;   ?record obo:BFO_0000051 ?id_field .
-   :record BFO:hasPart :id_field \.
-   ;;   ?record obo:BFO_0000051 ?term_name_field .
-   :record BFO:hasPart :term_name_field \.
-   ;;   ?term_name_field kiao:hasTemplate iaonbo:NboAnnotationFileRecord_nboTermNameDataField1 .
-   :term_name_field kiao:hasTemplate [:iaonbo :NboAnnotationFileRecord_nboTermNameDataField1] \.
-   ;;   ?term_name_field obo:IAO_0000219 ?term_name .
-   :term_name_field iao:denotes :term_name \.
-   
-;; }
-;; GROUP BY ?eg_ice
-
-
+   (in-taxon Human :gene)
+   (with-homolog :gene :homologous_mouse_gene Mouse)
+   (with-NBO-term :homologous_mouse_gene :term_name)
    )
   (group-by :eg_ice)
- 
   )
   
 

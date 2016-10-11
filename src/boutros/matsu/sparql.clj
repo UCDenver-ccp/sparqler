@@ -57,6 +57,14 @@
 ;; SPARQL query DSL
 ;; ----------------------------------------------------------------------------
 
+
+(defn flat [coll]
+  (lazy-seq
+    (when-let [s (seq coll)]
+      (if (list? (first s))
+        (clojure.core/concat (flat (first s)) (flat (rest s)))
+        (cons (first s) (flat (rest s)))))))
+
 ;; Matsu (i.e non-SPARQL) syntax helpers
 
 (defn raw [string]
@@ -94,12 +102,12 @@
 
 
 (defn where [q & more]
-  (assoc q :where {:tag "WHERE" :content (vec more) :bounds [" { " " } "] :sep " "}))
+  (assoc q :where {:tag "WHERE" :content (vec (flat more)) :bounds [" { " " } "] :sep " "}))
 
 (defn where-
   "Where clause without the optional WHERE keyword"
   [q & more]
-  (assoc q :where {:tag "" :content (vec more) :bounds ["{ " " } "] :sep " "}))
+  (assoc q :where {:tag "" :content (vec (flat more)) :bounds ["{ " " } "] :sep " "}))
 
 (defn optional [& more]
   {:tag "OPTIONAL " :content (vec more) :bounds ["{ " " }"] :sep " "})
@@ -203,10 +211,8 @@
   (let [[expr name] v]
     {:tag "BIND" :content [expr 'AS  name]  :bounds ["(" ")"] :sep " "}))
 
-
 (defn values [v & more]
-  {:tag "VALUES" :content (vec more) :bounds [(str " " (encode v) " { ") " } "] :sep " "})
-
+  {:tag "VALUES" :content (vec (flat more)) :bounds [(str " " (encode v) " { ") " } "] :sep " "})
 ;(defn values)
 
 ;; Functional forms

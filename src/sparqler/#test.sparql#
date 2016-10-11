@@ -1,0 +1,24 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX bio: <http://kabob.ucdenver.edu/bio/>
+PREFIX uniprot: <http://kabob.ucdenver.edu/iao/uniprot/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?location_name ?protein_name
+WHERE {?localization rdfs:subClassOf obo:GO_0051179 . #localization
+       ?localization rdfs:subClassOf ?of_restriction.
+       ?of_restriction rdf:type owl:Restriction . 
+       ?of_restriction owl:onProperty obo:RO_0002313 . #transports_or_maintains_localization_of
+       
+       ?of_restriction owl:someValuesFrom ?protein_subclass .
+       ?protein_subclass rdfs:subClassOf ?protein_class .
+       ?protein_class rdfs:subClassOf obo:CHEBI_36080 . #protein
+       ?protein_name obo:IAO_0000219 ?protein_class . #denotes
+       ?localization rdfs:subClassOf ?to_restriction  .
+       ?to_restriction rdf:type owl:Restriction . 
+       ?to_restriction owl:onProperty obo:RO_0002339 . #has_target_end_location
+       ?to_restriction owl:someValuesFrom ?location_subclass .
+       ?location_subclass rdfs:subClassOf ?location_class .
+       ?location_class rdfs:subClassOf* obo:GO_0005575 . #cellular_component
+       ?location_class rdfs:label ?location_name .
+       FILTER ( ?protein_name = uniprot:UNIPROT_P99999_ICE ) 
+      }
