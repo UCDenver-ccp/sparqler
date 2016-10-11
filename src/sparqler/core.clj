@@ -226,12 +226,12 @@
 ;; |                   respiratory chain | http://purl.obolibrary.org/obo/GO_0070469 |
 ;; |                             nucleus | http://purl.obolibrary.org/obo/GO_0005634 |
 
-(defn flat [coll]
-  (lazy-seq
-    (when-let [s (seq coll)]
-      (if (list? (first s))
-        (clojure.core/concat (flat (first s)) (flat (rest s)))
-        (cons (first s) (flat (rest s)))))))
+;; (defn flat [coll]
+;;   (lazy-seq
+;;     (when-let [s (seq coll)]
+;;       (if (list? (first s))
+;;         (clojure.core/concat (flat (first s)) (flat (rest s)))
+;;         (cons (first s) (flat (rest s)))))))
 
 (defn where+ [q & more]
   (assoc q :where {:tag "WHERE" :content (vec (flat more)) :bounds [" { " " } "] :sep " "}))
