@@ -379,7 +379,7 @@
 
 (defn with-homolog [gene homolog taxon]
   (list
-     :gene rdfs:subClassOf :homologene_r \.
+     gene rdfs:subClassOf :homologene_r \.
    ;;   ?homologene_r owl:onProperty obo:RO_0002158 . #RO:homologous_to
    :homologene_r owl:onProperty RO:homologous_to \.
    ;;   ?homologene_r owl:someValuesFrom ?homologous_mouse_gene .
