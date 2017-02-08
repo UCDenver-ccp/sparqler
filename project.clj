@@ -14,6 +14,6 @@
          {:klipse/external-libs
           "https://github.com/UCDenver-ccp/sparqler/tree/master/src"
           :klipse/require-statement
-          "(ns sparqler.core (:require [sparqler.core :as sparqler :refer [localize]))"}]]}
+          "(ns my.test (:require [sparqler.core :as sparqler :refer [localize abs with-interactions]]))"}]]}
   :target-path "target/%s"
   :jvm-opts ["-Xms1024m" "-Xmx1024m"])
