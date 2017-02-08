@@ -1,19 +1,15 @@
 (defproject sparqler "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :description "SPARQL for Clojure"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [clj-sparql "0.2.0"]
-                 [aysylu/loom "0.6.0"]
-                 [loom-gorilla "0.1.0"]
-	         [ubergraph "0.3.0"]
-		 [incanter-gorilla "0.1.0"]
-       	         [org.clojure/data.xml "0.0.8"]
-		 [cascalog/cascalog-core "3.0.0"]
+                 [clj-time "0.13.0"]
+		 [joda-time "2.3"]
                  ]
-  :plugins [[lein-gorilla "0.3.6"] [lein-localrepo "0.5.3"] [lein-codox "0.10.1"]]
-  :main ^:skip-aot sparqler.core
+  :dev-dependencies [[codox-klipse-theme "0.0.4"]]
+  :plugins [[lein-codox "0.10.3"]]
+  :codox {:metadata {:doc/format :markdown}
+          :source-uri "file:///Users/dcmcshan/Documents/KaBOB/sparqler/{filepath}#L{line}" 
+          :output-path "docs"
+          }
   :target-path "target/%s"
-  ;;:profiles {:uberjar {:aot :all} :dev {:dependencies [[org.apache.hadoop/hadoop-core "1.2.1"]]}}
-  :jvm-opts ["-Xms768m" "-Xmx768m"])
+  :jvm-opts ["-Xms1024m" "-Xmx1024m"])

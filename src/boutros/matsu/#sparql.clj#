@@ -306,7 +306,7 @@
 
 ;; Secret Things!
 
-(defn !# [comment] (raw (str "\n# " comment " .\n")))
+(defn !# [comment] (raw (str "# " comment " .")))
 
 
 (defn subselect [& more]
@@ -318,7 +318,3 @@
 
 (defn prefix [q more]
   (assoc q :prefix {:tag "" :content more :bounds "" :sep ""}))
-
-
-(defn raw [string]
-  {:tag "" :sep "" :bounds "" :content string })

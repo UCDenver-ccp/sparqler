@@ -5,12 +5,11 @@
             [boutros.matsu.util])
   (:use boutros.matsu.sparql)
   (:require [clojure.string :as string])
- 
+  (:require loom.graph)
   (:require [clj-sparql.core :referl :all :as sparql])
   (:use clojure.java.browse)
   (:import java.net.URI
-           [java.net URLEncoder URLDecoder])
-  (:gen-class))
+           [java.net URLEncoder URLDecoder]))
                                      
 
 ; Print
@@ -27,7 +26,7 @@
                       :oboinowl "<http://www.geneontology.org/formats/oboInOwl#>"
                       :oboMeta "<http://www.geneontology.org/formats/oboInOwl#>"
                       :chebi   "<http://purl.obolibrary.org/obo/chebi#>"
-                      :iaouniprot "<http://kabob.ucdenver.edu/iao/uniprot/>"
+                      :uniprot "<http://kabob.ucdenver.edu/iao/uniprot/>"
                       :kro     "<http://kabob.ucdenver.edu/ro/>"
                       :kso     "<http://kabob.ucdenver.edu/so/>"
                       :kbio    "<http://kabob.ucdenver.edu/bio/>"
@@ -35,15 +34,11 @@
                       :xsd     "<http://www.w3.org/2001/XMLSchema#>"
                       :eg      "<http://kabob.ucdenver.edu/iao/eg/>"
                       :iaonbo  "<http://kabob.ucdenver.edu/iao/nbo/>"
-                      :iaohgnc "<http://kabob.ucdenver.edu/iao/hgnc/>"
-                      :iaoreactome "<http://kabob.ucdenver.edu/iao/reactome/>"
-                      :iaodrugbank "<http://kabob.ucdenver.edu/iao/drugbank/>"
                       :franz   "<http://franz.com>"
                       :franzOption_clauseReorderer "<franz:identity>"
                       :franzOption_chunkProcessingAllowed "<franz:yes>"
                       :franzOption_memoryLimit "<franz:60g>"
                       :franzOption_memoryExhaustionWarningPercentage "<franz:90.0>"
-                      :franzOption_queryTimeout "<franz:300>" 
                       })
 
 ;;(doall (map #(URI. (:gene %1)) genes))
@@ -133,7 +128,7 @@
 
 (defn webview-query [q]
   (def url (str "http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev#query/d/"
-                (clojure.string/replace (URLEncoder/encode q "UTF-8") "+" "%20")))
+                (clojure.string/replace (URLEncoder/encode (boutros.matsu.util/pprint q) "UTF-8") "+" "%20")))
   (prn url)
   (browse-url url))
 
@@ -207,7 +202,7 @@
 
 
 (defquery localize [name]
-  (select :protein_name :location_class :location_name)
+  (select :location_class :location_name)
   (where :localization rdfs:subClassOf GO:localization \.
            :localization rdfs:subClassOf :of_restriction \.
            :of_restriction rdf:type owl:Restriction \. 
@@ -403,10 +398,10 @@
    :of1  owl:someValuesFrom thing  \.))
 
 (defn gene-or-gene-products [thing ggpv-abstraction]
-  (subquery [thing ggpv-abstraction]
+  (list 
    ;;## B ## gene specific gene or gene product abstraction :gorgporv
    thing   rdfs:subClassOf*   ggpv-abstraction \.
-   ggpv-abstraction  rdf:type         [:kbio :GeneSpecificGorGPorVClass]  \.))
+   :gorgporv rdf:type         [:kbio :GeneSpecificGorGPorVClass]  \.))
 
 (defn in-taxon [taxon ggpv-abstraction]
   (subquery [ggpv-abstraction]
@@ -447,7 +442,7 @@
    ;;   ?term_name_field obo:IAO_0000219 ?term_name .
    :term_name_field iao:denotes :term_name \.))
 
-(defn participates-in-process [process ggpv-abstraction]
+(defn participates-in [process ggpv-abstraction]
   (list  ;;## D ## restrict to those that are involved in oxidative phos \.
    ;;#look at all gene products of the abstraction
    :gp rdfs:subClassOf* ggpv-abstraction \.
@@ -473,7 +468,7 @@
    
    ;;#look for interactions
    :interaction rdfs:subClassOf :rparticipant2 \.
-   :interaction rdfs:subClassOf [:obo :MI_0407] \. ;# interaction
+   :interaction rdfs:subClassOf [:obo :MI_0000] \. ;# interaction
    
    ;;#get all the other participants
    :interaction rdfs:subClassOf :rdrugparticipant \.
@@ -486,51 +481,3 @@
    :rx owl:onProperty [:obo :realizes]  \. ))
 
 (def GO:oxidative-phosphorylation [:obo :GO_0006119])
-
-
-
-(def oboMeta:hasOBONamespace [:oboMeta :hasOBONamespace])
-(def uniprot:UniProtFileRecord_nameDataField1 [:uniprot :UniProtFileRecord_nameDataField1])
-(def uniprot:UniProtFileRecord_primaryAccessionDataField1 [:uniprot :UniProtFileRecord_primaryAccessionDataField1])
-
-(def GO:angiogenesis [:obo :GO_0001525])
-
-(defn of-biological-process [subclass GO-biological-process]
-  "subclasses of GO biological process in the OBO namespace"
-  (subquery [subclass]
-    (!# (str "subclasses of " GO-biological-process))
-    subclass rdfs:subClassOf* GO-biological-process \. ;; #angiogenesis
-    subclass oboMeta:hasOBONamespace :OBONamespace)) ;; #OBO ns (BPs))
-
-(defn proteins-that-participates-in [protein-class subclass]
-  "protein that participate in a subclass"
-  (subquery [protein-class subclass]
-   (!# "proteins that participate in a subclass")
-   :anonSubclass rdfs:subClassOf subclass \.
-   :anonSubclass rdfs:subClassOf :protRest \.
-
-   :protRest rdf:type owl:Restriction \.
-   :protRest owl:onProperty RO:has_participant \.
-   :protRest owl:someValuesFrom :protSub \.
-
-   :protSub rdfs:subClassOf protein-class \.
-   protein-class rdfs:subClassOf* CHEBI:protein \.))
-
-(defn denotes [ice bio]
-  (list
-   ice iao:denotes bio \.))
-
-(defn swissprot-name [protein-id protein-name]
-  (subquery [protein-id protein-name]
-    (!# "proteins that have swissprot ids and a name")
-    :idField iao:denotes protein-id \.
-    :idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 \.
-    :record BFO:hasPart :idField \.
-    :record BFO:hasPart :nameField \.
-    :nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 \.
-    :nameField iao:denotes protein-name \. ;;# uniprot name
-   ))
-
-(defn -main [& args]
-  (prn (format "args=%s" args))
-  )

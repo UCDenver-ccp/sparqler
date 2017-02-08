@@ -1,0 +1,74 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX oboMeta: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX kiao: <http://kabob.ucdenver.edu/iao/>
+PREFIX iaouniprot: <http://kabob.ucdenver.edu/iao/uniprot/>
+PREFIX franzOption_clauseReorderer: <franz:identity>
+PREFIX franzOption_chunkProcessingAllowed: <franz:yes>
+PREFIX franzOption_memoryLimit: <franz:60g>
+PREFIX franzOption_memoryExhaustionWarningPercentage: <franz:90.0>
+
+# VEGF - angiogenesis GOBP/subclasses, the proteins that participate in those GOBPs, and their protein-protein interactions
+
+select distinct ?angioSubs ?partProtId ?intProtId {
+
+  #select angiogenesis GOBPs and its subclasses that are in the OBO namespace
+  ?angioSubs rdfs:subClassOf* obo:GO_0001525 . #angiogenesis
+  ?angioSubs oboMeta:hasOBONamespace ?OBONamespace . #OBO ns (BPs)
+
+  #restriction - only want human proteins that participate in these GOBPs
+  ?anonSubclass rdfs:subClassOf ?angioSubs .
+  ?anonSubclass rdfs:subClassOf ?protRest .
+
+  ?protRest rdf:type owl:Restriction .
+  ?protRest owl:onProperty obo:RO_0000057 . #has_participant
+  ?protRest owl:someValuesFrom ?protSub .
+
+  ?protSub rdfs:subClassOf ?protClass .
+  ?protClass rdfs:subClassOf* obo:CHEBI_36080 . #protein
+  ?partProtId obo:IAO_0000219 ?protClass .
+
+  ?protClass rdfs:subClassOf ?taxonRest .
+  ?taxonRest owl:onProperty obo:RO_0002162 . #in taxon
+  ?taxonRest owl:someValuesFrom obo:NCBITaxon_9606 . #human
+
+  #swisprot ids – participating proteins
+  ?idField obo:IAO_0000219 ?partProtId .
+  ?idField kiao:hasTemplate iaouniprot:UniProtFileRecord_primaryAccessionDataField1 .
+  ?record obo:BFO_0000051 ?idField .
+  ?record obo:BFO_0000051 ?nameField .
+  ?nameField kiao:hasTemplate iaouniprot:UniProtFileRecord_nameDataField1 .
+  ?nameField obo:IAO_0000219 ?partProtName . # uniprot name
+
+  #protein interactions
+  ?protSub2 rdfs:subClassOf ?protClass .
+  ?r_hasp owl:someValuesFrom ?protSub2 .
+  ?r_hasp rdf:type owl:Restriction .
+  ?r_hasp owl:onProperty obo:RO_0000057 . #has_participant
+
+  ?interaction rdfs:subClassOf ?r_hasp .
+  ?interaction rdfs:subClassOf ?rcard .
+  ?rcard owl:cardinality 2 . # require 2 participants for a binary interaction
+  ?rcard owl:onProperty obo:RO_0000057 . #has_participant
+
+  ?interaction rdfs:subClassOf ?r_hasp2 .
+  ?r_hasp2 rdf:type owl:Restriction .
+  ?r_hasp2 owl:onProperty obo:RO_0000057 . #has_participant
+  ?r_hasp2 owl:someValuesFrom ?protSub3 .
+
+  ?protSub3 rdfs:subClassOf ?protClass3 .
+  ?protClass3 rdfs:subClassOf ?taxonRest .
+  ?protClass3 rdfs:subClassOf* obo:CHEBI_36080 . #protein
+  ?intProtId obo:IAO_0000219 ?protClass3 .
+
+  filter (?protSub3 != ?protSub2) .
+
+  #swisprot ids – participating-protein’s protein interaction partner names
+  ?idField2 obo:IAO_0000219 ?intProtId . #field denotes ice id
+  ?idField2 kiao:hasTemplate iaouniprot:UniProtFileRecord_primaryAccessionDataField1 .
+  ?record2 obo:BFO_0000051 ?idField2 . #record has part id field (column)
+  ?record2 obo:BFO_0000051 ?nameField2 . #record has part name field
+  ?nameField2 kiao:hasTemplate iaouniprot:UniProtFileRecord_nameDataField1 .
+  ?nameField2 obo:IAO_0000219 ?intProtName . # uniprot name
+  }

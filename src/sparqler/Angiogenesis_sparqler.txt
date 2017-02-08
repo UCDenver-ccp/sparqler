@@ -1,0 +1,101 @@
+PREFIX kiao: <http://kabob.ucdenver.edu/iao/>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX oboMeta: <http://www.geneontology.org/formats/oboInOwl#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX uniprot: <http://kabob.ucdenver.edu/iao/uniprot/>
+
+PREFIX franzOption_clauseReorderer: <franz:identity>
+PREFIX franzOption_chunkProcessingAllowed: <franz:yes>
+PREFIX franzOption_memoryLimit: <franz:60g>
+PREFIX franzOption_memoryExhaustionWarningPercentage: <franz:90.0>
+
+SELECT DISTINCT ?angioSubs ?partProtId ?intProtId
+
+WHERE
+{
+   {
+      
+      SELECT ?angioSubs
+      {
+         # subclasses of [:obo :GO_0001525] .
+         ?angioSubs rdfs:subClassOf* obo:GO_0001525 .
+         ?angioSubs oboMeta:hasOBONamespace ?OBONamespace
+      }
+   }
+   {
+      
+      SELECT ?protClass
+      {
+         # Gene or Gene Products in_taxon [:obo :NCBITaxon_9606] .
+         ?protClass rdfs:subClassOf ?taxonrestriction .
+         ?taxonrestriction owl:onProperty obo:RO_0002162 .
+         ?taxonrestriction owl:someValuesFrom obo:NCBITaxon_9606 .
+      }
+   }
+   {
+      
+      SELECT ?protClass ?angioSubs
+      {
+         # proteins that participate in a subclass .
+         ?anonSubclass rdfs:subClassOf ?angioSubs .
+         ?anonSubclass rdfs:subClassOf ?protRest .
+         ?protRest rdf:type owl:Restriction .
+         ?protRest owl:onProperty obo:RO_0000057 .
+         ?protRest owl:someValuesFrom ?protSub .
+         ?protSub rdfs:subClassOf ?protClass .
+         ?protClass rdfs:subClassOf* obo:CHEBI_36080 .
+      }
+   }
+   ?partProtID obo:IAO_0000219 ?protClass .
+   {
+      
+      SELECT ?partProtID ?partProtName
+      {
+         # proteins that have swissprot ids and a name .
+         ?idField obo:IAO_0000219 ?partProtID .
+         ?idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 .
+         ?record obo:BFO_0000051 ?idField .
+         ?record obo:BFO_0000051 ?nameField .
+         ?nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 .
+         ?nameField obo:IAO_0000219 ?partProtName .
+      }
+   }
+   {
+      
+      SELECT ?protClass ?intProtId
+      {
+         ?protSub2 rdfs:subClassOf ?protClass .
+         ?r_hasp owl:someValuesFrom ?protSub2 .
+         ?r_hasp rdf:type owl:Restriction .
+         ?r_hasp owl:onProperty obo:RO_0000057 .
+         ?interaction rdfs:subClassOf ?r_hasp .
+         ?interaction rdfs:subClassOf ?rcard .
+         ?rcard owl:cardinality 2 .
+         ?rcard owl:onProperty obo:RO_0000057 .
+         ?interaction rdfs:subClassOf ?r_hasp2 .
+         ?r_hasp2 rdf:type owl:Restriction .
+         ?r_hasp2 owl:onProperty obo:RO_0000057 .
+         ?r_hasp2 owl:someValuesFrom ?protSub3 .
+         ?protSub3 rdfs:subClassOf ?protClass3 .
+         ?protClass3 rdfs:subClassOf ?taxonRest .
+         ?protClass3 rdfs:subClassOf* obo:CHEBI_36080 .
+         ?intProtId obo:IAO_0000219 ?protClass3 .
+         FILTER(?protSub3 != ?protSub2) .
+      }
+   }
+   {
+      
+      SELECT ?intProtId ?intProtName
+      {
+         # proteins that have swissprot ids and a name .
+         ?idField obo:IAO_0000219 ?intProtId .
+         ?idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 .
+         ?record obo:BFO_0000051 ?idField .
+         ?record obo:BFO_0000051 ?nameField .
+         ?nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 .
+         ?nameField obo:IAO_0000219 ?intProtName .
+      }
+   }
+}

@@ -1,0 +1,90 @@
+;; PREFIX obo: <http://purl.obolibrary.org/obo/>
+;; PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+;; PREFIX owl: <http://www.w3.org/2002/07/owl#>
+;; PREFIX oboMeta: <http://www.geneontology.org/formats/oboInOwl#>
+;; PREFIX kiao: <http://kabob.ucdenver.edu/iao/>
+;; PREFIX iaouniprot: <http://kabob.ucdenver.edu/iao/uniprot/>
+;; PREFIX franzOption_clauseReorderer: <franz:identity>
+;; PREFIX franzOption_chunkProcessingAllowed: <franz:yes>
+;; PREFIX franzOption_memoryLimit: <franz:60g>
+;; PREFIX franzOption_memoryExhaustionWarningPercentage: <franz:90.0>
+
+;; # VEGF - angiogenesis GOBP/subclasses, the proteins that participate in those GOBPs, and their protein-protein interactions
+
+(in-ns 'sparqler.core)
+
+(def oboMeta:hasOBONamespace [:oboMeta :hasOBONamespace])
+(def uniprot:UniProtFileRecord_nameDataField1 [:uniprot :UniProtFileRecord_nameDataField1])
+(def uniprot:UniProtFileRecord_primaryAccessionDataField1 [:uniprot :UniProtFileRecord_primaryAccessionDataField1])
+
+(def GO:angiogenesis [:obo :GO_0001525])
+
+(defn of-biological-process [subclass GO-biological-process]
+  "subclasses of GO biological process in the OBO namespace"
+  (subquery [subclass]
+    (!# (str "subclasses of " GO-biological-process))
+    subclass rdfs:subClassOf* GO-biological-process \. ;; #angiogenesis
+    subclass oboMeta:hasOBONamespace :OBONamespace)) ;; #OBO ns (BPs))
+
+(defn proteins-that-participates-in [protein-class subclass]
+  "protein that participate in a subclass"
+  (subquery [protein-class subclass]
+   (!# "proteins that participate in a subclass")
+   :anonSubclass rdfs:subClassOf subclass \.
+   :anonSubclass rdfs:subClassOf :protRest \.
+
+   :protRest rdf:type owl:Restriction \.
+   :protRest owl:onProperty RO:has_participant \.
+   :protRest owl:someValuesFrom :protSub \.
+
+   :protSub rdfs:subClassOf protein-class \.
+   protein-class rdfs:subClassOf* CHEBI:protein \.))
+
+(defn denotes [ice bio]
+  (list
+   ice iao:denotes bio \.))
+
+(defn swissprot-name [protein-id protein-name]
+  (subquery [protein-id protein-name]
+    (!# "proteins that have swissprot ids and a name")
+    :idField iao:denotes protein-id \.
+    :idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 \.
+    :record BFO:hasPart :idField \.
+    :record BFO:hasPart :nameField \.
+    :nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 \.
+    :nameField iao:denotes protein-name \. ;;# uniprot name
+   ))
+
+(defquery angiogenesis []
+
+  (prefix "PREFIX FranzOption_clauseReorderer: <franz:identity>
+PREFIX FranzOption_chunkProcessingAllowed: <franz:yes>
+PREFIX franzOption_memoryLimit: <franz:60g>
+PREFIX franzOption_memoryExhaustionWarningPercentage: <franz:90.0>
+")
+  
+  (select-distinct :angioSubs :partProtId :intProtId)
+  
+  (where
+   
+   (!# "select angiogenesis GOBPs and its subclasses that are in the OBO namespace")
+   (of-biological-process :angioSubs GO:angiogenesis)
+   
+   (!# "restriction only want human proteins that participate in these GOBPs")
+   (proteins-that-participates-in :protClass :angioSubs)
+   
+   (denotes :partProtId :protClass)
+   
+   (in-taxon obo:human :protClass)
+   
+   (!# "swisprot ids participating proteins")
+   (swissprot-name :partProtId :partProtName)
+
+   (!# "protein interactions")
+   (with-interactions :protClass :intProtId)
+   
+   (!# "swisprot ids – participating-protein’s protein interaction partner names")
+   (swissprot-name :intProtId :intProtName)
+   ))
+
+

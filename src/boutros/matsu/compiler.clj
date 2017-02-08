@@ -34,6 +34,7 @@
   Maps are expaned and compiled according to its contents, tag, bounds and
   separator"
   [x]
+  ;(println x)
   (cond
     (nil? x) ""
     (char? x) x
@@ -46,7 +47,7 @@
     (string? x) (str \" (escape-str x) \")
     (= java.net.URI (type x)) (str "<" x ">")
     (= org.joda.time.DateTime (type x)) (encode [(str x) "xsd:dateTime"])
-    (= java.util.Date (type x)) (encode [(str (from-date x)) "xsd:dateTime"])
+    (= java.util.Date (type x)) (encode [(str (clj-time.coerce/from-date x)) "xsd:dateTime"])
     (vector? x) (let [[a b] x]
                   (cond
                     (vector? a) (if (seq a) (str '_ (first a)) "[]")
@@ -115,7 +116,7 @@
   [q]
   (let [base (:base q) local-prefixes (:local-prefixes q)]
     (->> (conj []
-               (for [part [:query-form :from :from-named :with :delete :insert
+               (for [part [:prefix :query-form :from :from-named :with :delete :insert :select
                            :values :where :order-by :limit :offset :group-by :having]]
                 (compiler q part)))
          (flatten)

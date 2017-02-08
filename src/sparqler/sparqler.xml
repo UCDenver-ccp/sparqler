@@ -1,0 +1,94 @@
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="factory_base" id="i!Aph!_k!OdTf.M(tF{+" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTTOM"></mutation>
+    <field name="NAME">of-biological-process</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTTOM</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="x*J//8r?+,11Tm:iu~Zx">
+        <field name="INPUTNAME">GO-biological-process</field>
+        <field name="ALIGN">LEFT</field>
+        <value name="TYPE">
+          <shadow type="type_null" id="^os5(yjSk[sZ9!-H]yew"></shadow>
+          <block type="type_string" id="s$s[gdx9WJS.^/aiF`g6"></block>
+        </value>
+      </block>
+    </statement>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="7,7z-zxYsK:KW^40sJG~"></shadow>
+      <block type="type_other" id="_R5K;(}v{$;Uc)y]W59K">
+        <field name="TYPE">subclass</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Y@-YW$xJ9V*o[F*}`OcR" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">proteins-that-participate-in</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="KUh)8K)lT)dsQqHsP-tG">
+        <field name="INPUTNAME">proteins</field>
+        <field name="ALIGN">LEFT</field>
+        <value name="TYPE">
+          <shadow type="type_null" id="?C/+O]8SIc?(,@AXWO;D"></shadow>
+        </value>
+        <next>
+          <block type="input_value" id="/)RzH*3Q*[*|Qo+KyZ@~">
+            <field name="INPUTNAME">subclass</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="S]*WCqRDD0--3i/C#oeU"></shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block><block type="factory_base" id="[}HXa^_9vzZF74j@K2rm" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">denotes</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="(4O]?}14ztK{~5YG}#?U">
+        <field name="INPUTNAME">ice</field>
+        <field name="ALIGN">LEFT</field>
+        <value name="TYPE">
+          <shadow type="type_null" id="BMiU~~S0ZZmLH1(g4%)d"></shadow>
+        </value>
+        <next>
+          <block type="input_value" id="1(%z6;YX#Dse~in!Mr]}">
+            <field name="INPUTNAME">bio</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="+AQ4|#3/Jt{3}MBdt)Q/"></shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block><block type="factory_base" id=".SI4*F*dZAlY/V^,Y9Q2" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">in-taxon</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="gldTr+g{-ZxTl;aJKO{@">
+        <field name="INPUTNAME">taxon</field>
+        <field name="ALIGN">LEFT</field>
+        <value name="TYPE">
+          <shadow type="type_null" id="xDNLMZ8kcM^LMKj$4J-*"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="f:eX0!^:?S{i}3:1(GM:"></shadow>
+      <block type="type_other" id="Y`@w[-`LbX](f%Gj5bs!">
+        <field name="TYPE">subclass</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="%KVY2wtw)Z2f)Mv%3z0w"></shadow>
+      <block type="type_other" id="f,V0Qi8-[i;Mz@g`i`x9">
+        <field name="TYPE">subclass</field>
+      </block>
+    </value>
+  </block></xml>
