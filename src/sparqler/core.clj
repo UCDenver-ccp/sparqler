@@ -205,8 +205,14 @@
 
 (def uniprot:HUMAN_CYC [:uniprot :UNIPROT_P99999_ICE])
 
-
 (defquery localize [name]
+  "Where does a protein live?
+
+~~~klipse
+(kabob-query (localize [:uniprot :UNIPROT_P99999_ICE]))
+~~~
+
+"
   (select :protein_name :location_class :location_name)
   (where :localization rdfs:subClassOf GO:localization \.
            :localization rdfs:subClassOf :of_restriction \.
@@ -532,5 +538,6 @@
    ))
 
 (defn -main [& args]
+  "doc string"
   (prn (format "args=%s" args))
   )
