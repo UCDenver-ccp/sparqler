@@ -206,13 +206,7 @@
 (def uniprot:HUMAN_CYC [:uniprot :UNIPROT_P99999_ICE])
 
 (defquery localize [name]
-  "Where does a protein live?
-
-~~~klipse
-(kabob-query (localize [:uniprot :UNIPROT_P99999_ICE]))
-~~~
-
-"
+  "localize doc"
   (select :protein_name :location_class :location_name)
   (where :localization rdfs:subClassOf GO:localization \.
            :localization rdfs:subClassOf :of_restriction \.
@@ -272,7 +266,14 @@
                          C rdfs:subClassOf* GO:cellular_component \.
                          C rdfs:label N))
 
-(defn with-interactions [protein-class interacting-protein-id]
+(defn with-interactions
+  "proteins with interaction
+
+~~~klipse
+  (with-interactions :protein-class :protein-id)
+~~~
+"
+  [protein-class interacting-protein-id]
   (subquery [protein-class interacting-protein-id]
             :protSub2 rdfs:subClassOf protein-class \.
             :r_hasp owl:someValuesFrom :protSub2 \.
@@ -527,6 +528,7 @@
    ice iao:denotes bio \.))
 
 (defn swissprot-name [protein-id protein-name]
+  "proteins that have swissprot ids and a name"
   (subquery [protein-id protein-name]
     (!# "proteins that have swissprot ids and a name")
     :idField iao:denotes protein-id \.
@@ -535,9 +537,25 @@
     :record BFO:hasPart :nameField \.
     :nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 \.
     :nameField iao:denotes protein-name \. ;;# uniprot name
-   ))
+    ))
 
-(defn -main [& args]
-  "doc string"
+(defn square
+  "Squares the supplied number."
+  [x]
+  (* x x))
+
+(defn abs
+  "Absolute value of a number
+~~~klipse
+  (map abs (range -5 5))
+~~~
+"
+[x]
+  (max x (- x)))
+
+
+(defn -main
+  [& args]
+  
   (prn (format "args=%s" args))
   )
