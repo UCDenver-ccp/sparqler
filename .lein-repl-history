@@ -398,3 +398,9 @@
   )"))
 (kabob-query (localize uniprot:HUMAN_CYC))
 (. System exit 0)
+(refer 'sparqler.core)
+(refer sparqler.core)
+(in-ns sparqler.core)
+(in-ns 'sparqler.core)
+kabob
+quit

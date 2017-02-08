@@ -1,4 +1,5 @@
 (ns sparqler.core
+  #?@(:clj [
   (:refer-clojure :exclude [filter concat group-by max min count update])
   (:require [boutros.matsu.compiler :refer [encode]]
             [boutros.matsu.core :refer [register-namespaces]]
@@ -10,7 +11,7 @@
   (:use clojure.java.browse)
   (:import java.net.URI
            [java.net URLEncoder URLDecoder])
-  (:gen-class))
+  (:gen-class)])
                                      
 
 ; Print
