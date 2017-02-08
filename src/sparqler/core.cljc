@@ -1,15 +1,15 @@
 (ns sparqler.core
-  #?@(:clj [
-  (:refer-clojure :exclude [filter concat group-by max min count update])
-  (:require [boutros.matsu.compiler :refer [encode]]
+  #?(:cljs (:require math.seedrandom
+            [cljs.core :as lang]))
+  #?@(:clj [(:refer-clojure :exclude [filter concat group-by max min count update])
+            (:require [boutros.matsu.compiler :refer [encode]]
             [boutros.matsu.core :refer [register-namespaces]]
             [boutros.matsu.util])
-  (:use boutros.matsu.sparql)
-  (:require [clojure.string :as string])
- 
-  (:require [clj-sparql.core :referl :all :as sparql])
-  (:use clojure.java.browse)
-  (:import java.net.URI
+            (:use boutros.matsu.sparql)
+            (:require [clojure.string :as string])
+            (:require [clj-sparql.core :referl :all :as sparql])
+            (:use clojure.java.browse)
+            (:import java.net.URI
            [java.net URLEncoder URLDecoder])
   (:gen-class)])
                                      
