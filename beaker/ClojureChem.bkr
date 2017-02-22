@@ -1,0 +1,971 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        },
+        {
+            "name": "Clojure",
+            "plugin": "Clojure",
+            "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\nchemaxon.struc.Molecule\nchemaxon.calculations.ElementalAnalyser\nchemaxon.formats.MolImporter\nchemaxon.marvin.MolPrinter\nchemaxon.reaction.Reactor\nchemaxon.struc.RxnMolecule\nchemaxon.formats.MolExporter\nchemaxon.sss.search.MCES\nchemaxon.descriptors.ECFP\nchemaxon.descriptors.ECFPGenerator\nchemaxon.descriptors.ECFPParameters\nchemaxon.marvin.modules.AutoMapper",
+            "view": {
+                "cm": {
+                    "mode": "text/x-clojure"
+                }
+            },
+            "classPath": "/Applications/ChemAxon/JChem/lib/jchem.jar\n/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar"
+        },
+        {
+            "name": "Groovy",
+            "plugin": "Groovy",
+            "imports": "graxxia.*\njava.util.concurrent.TimeUnit\ncom.twosigma.beaker.NamespaceClient\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.GradientColor\ncom.twosigma.beaker.chart.legend.*\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.chart.xychart.*\ncom.twosigma.beaker.chart.xychart.plotitem.*\ncom.twosigma.beaker.chart.categoryplot.*\ncom.twosigma.beaker.chart.categoryplot.plotitem.*\ncom.twosigma.beaker.chart.histogram.*\ncom.twosigma.beaker.chart.treemap.*\ncom.twosigma.beaker.chart.treemap.util.*\nnet.sf.jtreemap.swing.*\ncom.twosigma.beaker.chart.heatmap.HeatMap\ncom.twosigma.beaker.chart.KeyboardCodes\ncom.twosigma.beaker.jvm.object.*\ncom.twosigma.beaker.easyform.*\ncom.twosigma.beaker.easyform.formitem.*\ncom.twosigma.beaker.table.*\ncom.twosigma.beaker.table.format.*\ncom.twosigma.beaker.table.renderer.*\ncom.twosigma.beaker.table.highlight.*",
+            "view": {
+                "cm": {
+                    "mode": "groovy"
+                }
+            },
+            "classPath": "/Applications/ChemAxon/JChem/lib/jchem.jar\n/Applications/ChemAxon/MarvinBeans/lib/MarvinBeans.jar"
+        }
+    ],
+    "cells": [
+        {
+            "id": "codesGwS1F",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(import chemaxon.marvin.MolPrinter)",
+                    "(import java.awt.Graphics2D)",
+                    "(import java.awt.image.BufferedImage)",
+                    "(import java.awt.Rectangle)",
+                    "",
+                    "(def n (MolImporter/importMol \"CN1C=NC2=C1C(=O)N(C)C(=O)N2C>>CN1C=NC2=C1C(=O)N(C)C(=O)N2C\"))",
+                    "  ",
+                    "(defn image [n] ",
+                    "  (def im (BufferedImage. 800 200 BufferedImage/TYPE_INT_ARGB))",
+                    "  (def g (.createGraphics im))",
+                    "  (def molPrinter (MolPrinter. n))",
+                    "  (def rect (Rectangle. 20, 20, 360, 200))",
+                    "  (.setScale molPrinter (* 0.8 (.maxScale molPrinter rect)))",
+                    "  (.paint molPrinter g rect)",
+                    "  im)",
+                    "",
+                    "(image n)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 360,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 17,
+            "isError": false
+        },
+        {
+            "id": "codexZBns7",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def reactor (Reactor.))",
+                    "(def rxmol (RxnMolecule.))",
+                    "(def rxmol (MolImporter/importMol \"[F,Cl,Br,I:3][C:1]=O.[H:4][O:2][#6]>>[#6][O:2][C:1]=O.[F,Cl,Br,I:3][H:4]\"))",
+                    "(image rxmol)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 401,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "sectionghEBCP",
+            "type": "section",
+            "title": "KEGG RCLASS",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "markdown4sjISC",
+            "type": "markdown",
+            "body": [
+                "<iframe src=\"http://www.genome.jp/kegg/reaction/\" width = 100% height = 1000></iframe> "
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "markdowntlYOZK",
+            "type": "markdown",
+            "body": [
+                "<iframe src=\"http://www.genome.jp/dbget-bin/www_bget?rc:RC00050\" width = 100% height = 1000></iframe> "
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "sectionYFv6QG",
+            "type": "section",
+            "title": "ChemAxon reactor",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "markdownJRBffk",
+            "type": "markdown",
+            "body": [
+                "KEGG Definition:          C1b-C4a:*-*:O1a+R-O4a+R",
+                "",
+                "Reaction:                      C1b-C4a",
+                "",
+                "Difference:                   *-*",
+                "",
+                "Matched:                      O1a+R-O4a+R"
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codefemFfZ",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    ";(smarts \"C1b-C4a:-:O1a+R-O4a+R\") => \"CO>>C=O\"",
+                    "(def RC00050 (MolImporter/importMol \"CO>>C=O\"))",
+                    "(image RC00050 )"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 386,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        },
+        {
+            "id": "codeRuZbsZ",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def reactor (Reactor.))",
+                    "(.setReaction reactor RC00050)",
+                    "(def ethanol (MolImporter/importMol \"ethanol\" \"name\"))",
+                    "(.setReactants reactor (into-array (list ethanol)))",
+                    "(def products (.react reactor))",
+                    "(image (first products))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 345,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 6,
+            "isError": false
+        },
+        {
+            "id": "codeIyaRJv",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.toFormat (first products) \"name:t\")"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "acetaldehyde",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 3438,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code4oXa3e",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def reactor (Reactor.))",
+                    "(.setReaction reactor RC00050)",
+                    "(def ethanol (MolImporter/importMol \"methanol\" \"name\"))",
+                    "(.setReactants reactor (into-array (list ethanol)))",
+                    "(def products (.react reactor))",
+                    "(image (first products))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 504,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 6,
+            "isError": false
+        },
+        {
+            "id": "codeX122D4",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def furfurol (MolImporter/importMol \"furfurol\" \"name\"))",
+                    "(.setReactants reactor (into-array (list furfurol)))",
+                    "(def products (.react reactor))",
+                    "(into-array (map #(.toFormat %1 \"smiles\") products))",
+                    "(image (first products))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 374,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "codegQZ4KK",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.toFormat (first products) \"name:t\")"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "furfural",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 273,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeK9Y7Vf",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    ";(smarts \"C1b-C4a:-:O1a+R-O4a+R\") => \"CO>>C=O\"",
+                    ";(def RC00050 (MolImporter/importMol \"[R]C=O>>[R]CO\"))",
+                    "(image RC00050 )"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 312,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        },
+        {
+            "id": "markdownavNo5O",
+            "type": "markdown",
+            "body": [
+                "And the reaction can be reversed, which is useful for our future Retrobiosynthesis schemes."
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codexOCv2J",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def furfural (MolImporter/importMol \"furfural\" \"name\"))",
+                    "(.setReaction reactor RC00050)",
+                    "(.setReactants reactor (into-array (list furfural)))",
+                    "(.setReverse reactor true)",
+                    "(def products (.react reactor))",
+                    "(image (first products))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 389,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 6,
+            "isError": false
+        },
+        {
+            "id": "codeqJaaRw",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(import com.twosigma.beaker.jvm.object.OutputContainer)",
+                    "(import com.twosigma.beaker.jvm.object.GridOutputContainerLayoutManager)",
+                    "(def o (OutputContainer.))",
+                    "(.setLayoutManager o (GridOutputContainerLayoutManager. 2))",
+                    "(.addItem o (image furfurol))",
+                    "(.addItem o (image furfural))",
+                    "o"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "OutputContainer",
+                    "labels": [
+                        null,
+                        null
+                    ],
+                    "items": [
+                        {
+                            "type": "ImageIcon",
+                            "imageData": "iVBORw0KGgoAAAANSUhEUgAAAyAAAADICAYAAAAQj4UaAAANOUlEQVR42u3de7BVV30H8A15KFgwgQSENDGO0VRHK61UkcZOqDMS0sQQjONjJi1pbDuNo4QBipo6LRMhGVslqcSYto6PqMFJHLXNVCQi1tg6CSQqlAlGEQRtYswIMTwSeaz+VvciV3Jf53Lv4Z5z7ucz8x3gsve5Z691/jjf2XvtXVUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwEiTUjov8t7IvZFdkYOpcY9ENkRuiEwzmgAAQG/FY1pkfRpaGxQRAADg2eVjfuRAao58BuWdRhkAAMjlY3rkydRcuYRcYLQBAEABuWfQ9WLnzpTWrk1p69aUDh/ubav1RhsAABSQA+mWW1LKf73zzp6rwytekdKZZ3b/+erVKU2eXO97NGPHprRsWUqHDj176wNGGwAAFJB0XAVk8eJ6n8suS+n++1Paty+lLVtSWrKk/vmsWd1KiNEGAAAFZOAF5L77Uho1KqV581I6cqT79jfeWL/eqlUKCAAAMMgCMnt2XUDyGY+e7N9fX5o1YcIxa0KMNgAAKCADLyCTJqU0dWrfC9Mvv7x+ze3bFRAAAKCHAjJmTErjx3fP6NFdBWT37nrbmTP7LiALF9bbrVmjgAAAAD0UkEWLUrrrru45++yuArJnT73tjBl9F5AFC+rt8u15FRAAAKBbAWn0Eqy8vmPKlL4LyNy59Wvu2KGAAAAAgyggc+bU22/a1PP2+Za8efuJE4+5S5bRBgAABWTgBWTjxvouWPksR0+34V2xon69/LpuwwsAAAyqgGRLl3Z/EOHmzfU6kr4fRPjcyHlGHgAARmYBOXBcBSRbvbpeD5L3PZpx41Javrxb+ci/p/zK6yJPRz4UGW8GAABgZBWQe9Jg7dqV0rp1KW3b1vMlWbX15Ve+MbI1/+rIo5E/j4w2EwAAMDIKyPTIk6m5DkYu+I1fe0pkYWR3KSIPRC4wGwAAMDJKyPz/vxSreeXjnb386jMiH48cLkXkjsjZZgQAADq/hEyL3DvE5WNDPsPSwK9/VWR9KSH7I38XGWNWAACg84vIeZG/LWVkVzmD0ahHSum4ocHi8WxXRLaXIrIz8jYzAgAANFO+TW++U9beUkTujbzasAAAAM10VuT2yJGSH0TONSwAAEAz5btjPVnVZ0OeiCyJnGpYAACAZsnPCXlX5H9LEflh5FLDAgAANNNvRVZEnipF5GuRlxsWAACgmV4U+WIpIQcj/xQ53bAAAADNNCuyqRSRxyPXRE4yLAAAQLPkwvHXpYDkIrI58gbDAgAANFO+BOumqr4kKxeR71ceZAgAADTZyyLfKiXkYcMBAAA024tLAfm0oQAAAE5UAVllKAAAAAUEAABQQAAAABQQAABAAQEAAFBAAAAABQQAAFBAAAAAFBAAAEABAQAAUEAAAAAFBAAAUEAAAAAUEAAAQAEBAABQQAAAAAUEAABQQAAAABQQAABAAQEAAFBAAAAABQQAAFBAAAAAFBAAAEABAQAAUEAAAAAFBAAAUEAAAAAUEAAAQAEBAABQQAAAAAUEAABQQBQQAABAAQEAABQQAAAABQQAAFBAAAAAFBAAAGCYCsjHDQUAANBst5YC8mRkiuEAAACaYWLkK6V8HCp/Pha52NAAAABD6cLIT0vp+LfIGZGrInsjRyIrI6caJgAAYDBOjlwfORx5KvLuZ/3/+ZEHSzF5sPwbAABgwF4Y+a9SLh6KvKqX7fKZj5Vlu3xG5CpDBwAADMRbIrtLqfiXyNgG9slrQR4r+9wRGW8YAQCAvowthSOVAvKWAe6f74p1T9n/x5EZhhQAAOhJvsTqoVIe8qVXLzzO1xkVWRr5deRg5H2R0YYXAAA46s5SGPJi87zo/OR+tj+9gdd8TWRbKTTrIlMNMwAAjGz5drprS0nIBWRWA/vky6x+HvnHyCn9bJvXgXyuvP4vIpcYcgAAGJn+OPKzquuSq5c0uN95ke+X/TaWf/fnz6r6yel5n5sjzzH8AAAwMuTLq5ZX9eVWByLvOo7XyAXio6VQ5GLxpw3skwvOA2Wf70V+x1QAAEBnOzfynVICtkReOcjXuzTyeHm9z0bG9bN9fmbIh6v66en7IlebEgAA6ExvjewpZeG2yJghet2zIt8or/ujyB80sM9FVb2OJO/zhcjzTQ8AALSAlNIVke+m3v0wb9PHSzwv8omq69keb27C28y32b2uqm+7mxez/01V3463Ly+ouhbAb4+8zmwDAMDwlo9rU+Ou7+ElpkW2li/5346c0+S3/LpSJlIpFy/oZ/tcUpZUXc8Mua7yzBAAABiW8jEtcjANzPTfeIkFkaeqerH5sshJJ+it58upvlBKSL7Mak4D++TLtn5U9llf1Zd1AQAAJ7CArEwDd2vs+tzI3eXL/K7IHw3TIeQF5nmheV5w/pGqXoDel7yA/fbyvvPC9jf5FAAAwIkrIBu61YudO1NauzalrVtTOny4pwKyueyez0B8KTJhmA8j32r3u6VU5FvwvrSBfa6sup4Z8tFSqAAAgCYXkK7Lr1avTmny5JTyj49m7NiUli1L6dChYxpI2b2VHvSX38vNVdczQ+Y3sE9+uOGGsk9+6OHLfCIAAKC5BaS2eHFdOC67LKX7709p376UtmxJacmS+uezZh1TQlr4kC6J/KKUis9Hxvez/SmRf6i6nhnyFz4VAADQzAJy330pjRqV0rx5KR050v2CqxtvrEvIqlXtUECyKZF1pYRsi7y2gX1mRx4t+9wZOc2nAwAAmlFAZs+uC0g+49GT/fvrS7MmTHhmTUgbHFq+ze77qvq2uznvrfp/ZsjkyJpSQn4S+UOfEAAAGOoCMmlSSlOn9n3fq8svr8+CbN/eLgXkqHz248elVHy9qs+O9CWXlEWRpyOHIh+oPDMEAACGqIDs3l0Xi5kz+y4gCxfW261Z024FJMvrQO4oJeSxyJ80sM+rIw9XXU92t0AdAAAGXUD27KmLxYwZfReQBQvq7fLteduvgBx1VWRvKRU3Vf3fxSs/MyQvTM+XcD3PpwUAAAZbQLK8vmPKlL4LyNy5dQHZsaOdC0iWnxHyYCkh+dkh5/ex7cyy3W0+KQAAMFQFZM6culxs2tRz+ci35D3zzJQmTnzmLlltftj5aekrq/rWu/mMyEW9bPfhUkAu9EkBAIChKiAbN9Z3wcpnOXq6De+KFXVBueWWdrkNb6Mujmypel+Yvr2q14yc5JMCAABDVUCypUu7P4hw8+aUFi1qtwcRDlRvt+bNi9Dzcf6zTwkAAAxdATn4TKtYvbpeD5J/fDTjxqW0fPkx5aPDCkhvVpQCMtunBAAAhq6AbOh2ydWuXSmtW5fStm09X5KV0uYRMDT5Fry/jJziUwIAAENXQFamgbu1w4fllVV99uNTPiEAADC0BWTaMZdhNWZ6hw/L35cCcqlPCAAADH0JuXYA5eP6ETAk+RKzX1X9P6gQAAA4zhJyReSh3lrHE0888Wj88bYRMBT5QYX57McdPhUAAHDi5dvU7ow8Ghk9Ao73/aWAXGHqAQBgeNxUvpS/fgQc6wOR/ZGxph0AAIbH60sBubnDj/PccpxfNOUAADB88qVXj0R2Vb0/ObwTLCoF5B2mHAAAhtfHypfz13bwMf535OnIeNMNAADD6w2lgHyoQ4/vrMiRyN2mGgAAht/Jkccj2zr0+N5dCtZVphoAAFrDJ8qX9N/rwGP7ZuRgZIJpBgCA1nBxKSAf7LDjmhQ5HFlrigEAoHWcGtkTeajDjusvS7H6K1MMAACt5fbyZf3lHXRMX6vqMyCTTS8AALSWuaWAfKBDjuf0ql778Z+mFgAAWs+YyN7I9zrkeOaXQvUeUwsAAK3p7vKl/cIOOJZ/r+rnf/y2aQUAgNa0shSQ/2jz4xgXeSryHVMKAACtKy/W/nVkY5sfx9tLkVpsSgEAoLV9uXx5P6eNj+GucgwvMp0AANDarixf3q9t0/c/NrIv8qCpBACA1ndaVV+G9e02ff9vLgXq/aYSAADaw1er+gF+U9rwvX++FJDzTSMAALSHq8uX+Gt6+f/5Vf3MkOFKb4vknxP5VeR/TCEAALSPMyKHIut6+f9LIt8axnymj/eVi9MyUwgAAO1lXSkhZ7TRe/5kKSC/a/oAAKC9XFO+zF/dJu/35MgvIw+bOgAAaD95AXpeiP7VNnm/byyF6QZTBwAA7eneqr4l72lt8F5vKwVkumkDAID2dG35Un9li7/P0ZGfR3aYMgAAaF/nlALyg8gHWzifKe/zX00ZAAC0t73ly3075BrTBQAA7W1e5KLI77dwXlPKxzjTBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALSg/wPmyELvr+Qa4gAAAABJRU5ErkJggg==",
+                            "width": 800,
+                            "height": 200
+                        },
+                        {
+                            "type": "ImageIcon",
+                            "imageData": "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",
+                            "width": 800,
+                            "height": 200
+                        }
+                    ],
+                    "layout": {
+                        "type": "GridOutputContainerLayoutManager",
+                        "borderDisplayed": false,
+                        "columns": 2,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "paddingRight": 15,
+                        "paddingLeft": 15
+                    }
+                },
+                "selectedType": "OutputContainer",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 364,
+                "height": 235
+            },
+            "evaluatorReader": true,
+            "lineCount": 7,
+            "isError": false
+        },
+        {
+            "id": "codeshcBgn",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def mcs (MCES.))",
+                    "(.setMolecules mcs furfurol furfural)",
+                    "(.search mcs)",
+                    "(image (.getAsMolecule mcs))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 353,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "codeDDdhjT",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(require '[clojure.reflect :as r])",
+                    "(use '[clojure.pprint :only [print-table]])",
+                    "",
+                    "(print-table (:members (r/reflect mcs)))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "|                      :name |                           :type |         :declaring-class |                     :flags |\n|----------------------------+---------------------------------+--------------------------+----------------------------|\n|                      clOut |             java.io.PrintStream | chemaxon.sss.search.MCES |        #{:private :static} |\n|       disableAromatization |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|          getStepCountLimit |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               setMolecules |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              clTargetCount |                             int | chemaxon.sss.search.MCES |        #{:private :static} |\n|   chemaxon.sss.search.MCES |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|          setStepCountLimit |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                  clVerbose |                         boolean | chemaxon.sss.search.MCES |        #{:private :static} |\n|               setTimeLimit |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|            setIsotopeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                 PRG_HEADER |                java.lang.String | chemaxon.sss.search.MCES | #{:private :static :final} |\n|                     clMCES |        chemaxon.sss.search.MCES | chemaxon.sss.search.MCES |        #{:private :static} |\n|     getUnmatchedQueryAtoms |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n| DEFAULT_MIN_COMPONENT_SIZE |                             int | chemaxon.sss.search.MCES |  #{:public :static :final} |\n|        getTerminationCause |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|            setAtomMapMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                     search |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|      setHybridizationMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                  clQueries |             java.util.ArrayList | chemaxon.sss.search.MCES |        #{:private :static} |\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "|    getKeepLargestComponent |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|      getAtomReverseMapping |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               DISPLAY_NONE |                             int | chemaxon.sss.search.MCES | #{:private :static :final} |\n|      setLicenseEnvironment |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               DISPLAY_GRID |                             int | chemaxon.sss.search.MCES | #{:private :static :final} |\n|           setMatchProperty |                                 | chemaxon.sss.search.MCES |        #{:private :static} |\n|          getComponentCount |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                   clLocale |                java.util.Locale | chemaxon.sss.search.MCES |        #{:private :static} |\n|        enableAromatization |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|             getBondMapping |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|      getHybridizationMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              getSearchMode |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|     getAromatizationMethod |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                 USAGE_INFO |                java.lang.String | chemaxon.sss.search.MCES | #{:private :static :final} |\n|                clPairCount |                             int | chemaxon.sss.search.MCES |        #{:private :static} |\n|          getTargetMolecule |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|    getUnmatchedTargetBonds |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               clOutputType |                             int | chemaxon.sss.search.MCES |        #{:private :static} |\n|                  HIT_COLOR |                  java.awt.Color | chemaxon.sss.search.MCES | #{:private :static :final} |\n|       getMatchedQueryBonds |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|             setChargeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "|                 OUTPUT_CSV |                             int | chemaxon.sss.search.MCES | #{:private :static :final} |\n|               getBondCount |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              getAsMolecule |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|           getQueryMolecule |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|      getMatchedTargetBonds |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|           setBondTypeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                  clTargets |             java.util.ArrayList | chemaxon.sss.search.MCES |        #{:private :static} |\n|           getAtomTypeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              clDisplayType |                             int | chemaxon.sss.search.MCES |        #{:private :static} |\n|    setKeepLargestComponent |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                         NL |                java.lang.String | chemaxon.sss.search.MCES | #{:private :static :final} |\n|           setAtomTypeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|       getMatchedQueryAtoms |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                       main |                                 | chemaxon.sss.search.MCES |         #{:public :static} |\n|                 initOutput |                                 | chemaxon.sss.search.MCES |        #{:private :static} |\n|             displayResults |                                 | chemaxon.sss.search.MCES |        #{:private :static} |\n|         licenseEnvironment |                java.lang.String | chemaxon.sss.search.MCES |                #{:private} |\n|        getMinComponentSize |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|             clTargetSmiles |             java.util.ArrayList | chemaxon.sss.search.MCES |        #{:private :static} |\n|                initDisplay |                                 | chemaxon.sss.search.MCES |        #{:private :static} |\n|        setMinComponentSize |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "|             displayResults |                                 | chemaxon.sss.search.MCES |        #{:private :static} |\n|              clQuerySmiles |             java.util.ArrayList | chemaxon.sss.search.MCES |        #{:private :static} |\n|            getIsotopeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|             getChargeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               getTimeLimit |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              OUTPUT_NORMAL |                             int | chemaxon.sss.search.MCES | #{:private :static :final} |\n|               checkLicense |                                 | chemaxon.sss.search.MCES |                #{:private} |\n|    getUnmatchedTargetAtoms |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               NONHIT_COLOR |                  java.awt.Color | chemaxon.sss.search.MCES | #{:private :static :final} |\n|                       mces |    chemaxon.marvin.modules.MCES | chemaxon.sss.search.MCES |                #{:private} |\n|           setQueryMolecule |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              outputResults |                                 | chemaxon.sss.search.MCES |        #{:private :static} |\n|     getUnmatchedQueryBonds |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|          setTargetMolecule |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               clQueryCount |                             int | chemaxon.sss.search.MCES |        #{:private :static} |\n|      getBondReverseMapping |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|              setSearchMode |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|            getAtomMapMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|           getBondTypeMatch |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|             getAtomMapping |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               clResultView | chemaxon.marvin.beans.MViewPane | chemaxon.sss.search.MCES |        #{:private :static} |\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "|               getAtomCount |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|               DISPLAY_VIEW |                             int | chemaxon.sss.search.MCES | #{:private :static :final} |\n|                 isLicensed |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|      getMatchedTargetAtoms |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|        enableAromatization |                                 | chemaxon.sss.search.MCES |                 #{:public} |\n|                   EXAMPLES |                java.lang.String | chemaxon.sss.search.MCES | #{:private :static :final} |\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "elapsedTime": 3550,
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "height": 1459
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "codeR7pUiC",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(println (.getUnmatchedTargetAtoms mcs))",
+                    "(println (.getUnmatchedTargetBonds mcs))",
+                    "(println (.getUnmatchedQueryAtoms mcs))",
+                    "(println (.getUnmatchedQueryBonds mcs))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "#object[[Lchemaxon.struc.MolAtom; 0x2355c2e3 [Lchemaxon.struc.MolAtom;@2355c2e3]\n#object[[Lchemaxon.struc.MolBond; 0x4a45961d [Lchemaxon.struc.MolBond;@4a45961d]\n#object[[Lchemaxon.struc.MolAtom; 0x23427543 [Lchemaxon.struc.MolAtom;@23427543]\n#object[[Lchemaxon.struc.MolBond; 0x126a9d65 [Lchemaxon.struc.MolBond;@126a9d65]\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "elapsedTime": 246,
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "height": 83
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "section3fCGId",
+            "type": "section",
+            "title": "Calculations",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "codeU7I63i",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def elemental (ElementalAnalyser.))",
+                    "(.setMolecule elemental furfural)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "elapsedTime": 316,
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65"
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeGReoWL",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.exactMass elemental);"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": 96.021129372,
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 282,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "coderzN7KV",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.mass elemental);"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": 96.0841,
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 306,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code29xy7N",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.massPrecision elemental);"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": 4,
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 252,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeXpPdPv",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.atomCount elemental 8); // oxygen atom count"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": 2,
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 345,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codemMB765",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.atomCount elemental 8, 0) ; // non-isotope oxygen count"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": 2,
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 260,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code4H7yeV",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.isotopeFormula elemental)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "C5H4O2",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 250,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeo34wma",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.composition elemental 2)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "C (62.5%), H (4.2%), O (33.3%)",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 255,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codemfdlQW",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.isotopeComposition elemental 2)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "C (62.5%), H (4.2%), O (33.3%)",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 442,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codevmj8mU",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(.formula elemental)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "C5H4O2",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 348,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code0rfrbp",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(require '[clojure.reflect :as r])",
+                    "(use '[clojure.pprint :only [print-table]])",
+                    "",
+                    "(print-table (:members (r/reflect ElementalAnalyser)))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "|                                   :name |                    :type |                        :declaring-class |                     :flags |\n|-----------------------------------------+--------------------------+-----------------------------------------+----------------------------|\n|                          formulaPattern |  java.util.regex.Pattern | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                      exactMassPrecision |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                             composition |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                            REGEX_MASSNO |         java.lang.String | chemaxon.calculations.ElementalAnalyser | #{:private :static :final} |\n|                               hasCarbon |                  boolean | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                           ELEMENT_COUNT |                      int | chemaxon.calculations.ElementalAnalyser | #{:private :static :final} |\n|                                  sorted |                  boolean | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                                    mass |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                    elementSymbolPattern |  java.util.regex.Pattern | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                               atomCount |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                             initialized |                  boolean | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                           massNoPattern |  java.util.regex.Pattern | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                                    swap |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|           dotDisconnectedIsotopeFormula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|      generateDotFormulaFromInputFormula |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                            countPattern |  java.util.regex.Pattern | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                                    atno |                    int<> | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                               quickSort |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|           dotDisconnectedIsotopeFormula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "|                             setMolecule |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|           REGEX_POSITIVE_INTEGER_AT_END |         java.lang.String | chemaxon.calculations.ElementalAnalyser | #{:private :static :final} |\n|                    REGEX_ELEMENT_SYMBOL |         java.lang.String | chemaxon.calculations.ElementalAnalyser | #{:private :static :final} |\n|                                 indexOf |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                 initializeRegexPatterns |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                             setMolecule |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                   REGEX_FORMULA_ELEMENT |         java.lang.String | chemaxon.calculations.ElementalAnalyser | #{:private :static :final} |\n|                               atomCount |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                 formula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                  massno |                    int<> | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                                  filter |                boolean<> | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                               exactMass |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                   count |                    int<> | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                      isotopeComposition |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                           massPrecision |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                   initializeFromFormula |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                             setMolecule |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                   round |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                                 compare |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                               storeAtom |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                      isotopeComposition |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "|                          isotopeFormula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                               atomCount |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                    sort |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                              dotFormula |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                          isotopeFormula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                              initialize |                          | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                   formulaElementPattern |  java.util.regex.Pattern | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n| chemaxon.calculations.ElementalAnalyser |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                             setMolecule |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                 formula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                  dotDisconnectedFormula |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                            inputFormula |         java.lang.String | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                           REGEX_FORMULA |         java.lang.String | chemaxon.calculations.ElementalAnalyser | #{:private :static :final} |\n|                                     mol | chemaxon.struc.Smolecule | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n|                            getSmolecule |                          | chemaxon.calculations.ElementalAnalyser |                 #{:public} |\n|                                  length |                      int | chemaxon.calculations.ElementalAnalyser |                #{:private} |\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 1538,
+                "height": 947
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "codepqBeMI",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "furfural"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "Molecule@4900a991[7a,7b]",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 287,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codejyV3E1",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def gen (ECFPGenerator.))",
+                    "(def fp1 (ECFP. (ECFPParameters.)))",
+                    "(.generate gen furfurol fp1)",
+                    "",
+                    "(def fp2 (ECFP. (ECFPParameters.)))",
+                    "(.generate gen furfural fp2)",
+                    "",
+                    "(println \"Dissimilarity:\" (.getDissimilarity fp1 fp2))",
+                    "(println \"Euclidean:\" (.getEuclidean fp1 fp2))",
+                    "(println \"AsymmetricEuclidean:\" (.getAsymmetricEuclidean fp1 fp2))",
+                    "(println \"Tanimoto:\" (.getTanimoto fp1 fp2))",
+                    "(println \"FP1 Binary:\" (.toBinaryString fp1))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "Dissimilarity: 0.6666666\nEuclidean: 4.2426405\nAsymmetricEuclidean: 3.0\nTanimoto: 0.6666666\nFP1 Binary: 00000000|00000000|00000000|00000010|00000000|00000000|00000000|00000000|00000000|00100000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000001|00000100|00000000|00000000|00000000|000\n00000|00000000|00000000|00001000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|01000001|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000010|00000000|00000000|\n00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|10001000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|000000\n00|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|01000000|00000000|01000000|00000010|00000010|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|000\n00001|00000000|00000000|00000000|00000000|00000000|00000001|00000001|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000000|00000010|00000000|00000000|00000000|00000000|00000000|00000000|\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 838,
+                "height": 243
+            },
+            "evaluatorReader": true,
+            "isError": false,
+            "lineCount": 12,
+            "wordWrapDisabled": true
+        },
+        {
+            "id": "markdownP3PeDB",
+            "type": "markdown",
+            "body": [
+                "Marvin does not support multistep reactions (or pathways).  It can only handle single step reactions."
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codedYJaUY",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def mapper (AutoMapper.))",
+                    "(def mol (MolImporter/importMol \"C1CCCCC1=O>>C1COC2(CCCCC2)O1\"))",
+                    "(def rm (RxnMolecule/getReaction RC00050 ));",
+                    "(.map mapper rm )",
+                    "(image rm)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "ImageIcon",
+                    "imageData": "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",
+                    "width": 800,
+                    "height": 200
+                },
+                "selectedType": "Image",
+                "pluginName": "Clojure",
+                "shellId": "383eb868-821e-4f55-adf3-b4903567da65",
+                "elapsedTime": 337,
+                "height": 217
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "code4n2IvS",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Error",
+                    "object": "Evaluation cancelled due to a failure of an earlier cell evaluation"
+                },
+                "selectedType": "BeakerDisplay",
+                "height": 47
+            },
+            "evaluatorReader": true,
+            "isError": true
+        }
+    ],
+    "namespace": {}
+}

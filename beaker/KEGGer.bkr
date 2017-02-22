@@ -1,0 +1,433 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        },
+        {
+            "name": "IPython",
+            "plugin": "IPython",
+            "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n",
+            "view": {
+                "cm": {
+                    "mode": "python"
+                }
+            }
+        }
+    ],
+    "cells": [
+        {
+            "id": "sectionPQgjAO",
+            "type": "section",
+            "title": "KEGGer",
+            "level": 1,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "markdownzGG5Go",
+            "type": "markdown",
+            "body": [
+                "The purpose of this exploration is to create a REPL where KEGG entities are first order objects."
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codevYIeBl",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "from Bio.KEGG import REST",
+                    "from Bio.KEGG import Compound",
+                    "from Bio.KEGG import Enzyme"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 138
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        },
+        {
+            "id": "codeQpHQle",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "print REST.kegg_info(\"compound\").read()"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "compound         KEGG Compound Database\ncpd              Release 81.0+/02-06, Feb 17\n                 Kanehisa Laboratories\n                 17,903 entries\n\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 947,
+                "dataresult": "compound         KEGG Compound Database\ncpd              Release 81.0+/02-06, Feb 17\n                 Kanehisa Laboratories\n                 17,903 entries\n",
+                "height": 99
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codedsgJlC",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "print REST.kegg_info(\"reaction\").read()"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "reaction         KEGG Reaction Database\nrn               Release 81.0+/02-06, Feb 17\n                 Kanehisa Laboratories\n                 10,438 entries\n\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 1989,
+                "height": 99
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codevQKv2R",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "from Bio.KEGG import Enzyme",
+                    "from Bio.KEGG import REST",
+                    "request = REST.kegg_get(\"ec:5.4.2.2\")",
+                    "open(\"ec_5.4.2.2.txt\", 'w').write(request.read())",
+                    "records = Enzyme.parse(open(\"ec_5.4.2.2.txt\"))",
+                    "record = list(records)[0]",
+                    "record.classname",
+                    "record.entry"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>'5.4.2.2'</pre></div>",
+                "selectedType": "Html",
+                "height": 34,
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 2032,
+                "dataresult": "5.4.2.2"
+            },
+            "evaluatorReader": true,
+            "lineCount": 8,
+            "isError": false
+        },
+        {
+            "id": "codeGYCn4u",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "record.classname"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>['Isomerases;',\n 'Intramolecular transferases;',\n 'Phosphotransferases (phosphomutases)']</pre></div>",
+                "selectedType": "Html",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 306,
+                "dataresult": [
+                    "Isomerases;",
+                    "Intramolecular transferases;",
+                    "Phosphotransferases (phosphomutases)"
+                ],
+                "height": 65
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeIiy7UT",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "record.reaction"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>['alpha-D-glucose 1-phosphate = D-glucose 6-phosphate [RN:R08639]']</pre></div>",
+                "selectedType": "Html",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 301,
+                "dataresult": [
+                    "alpha-D-glucose 1-phosphate = D-glucose 6-phosphate [RN:R08639]"
+                ],
+                "height": 34
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codefP5mvM",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "from Bio.KEGG.REST import kegg_get",
+                    "from Bio.KEGG import Compound",
+                    "",
+                    "request = kegg_get(\"C00021\")",
+                    "records = Enzyme.parse(request)",
+                    "C00021 = list(records)[0]",
+                    "C00021.classname",
+                    "C00021.name"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>['S-Adenosyl-L-homocysteine', 'S-Adenosylhomocysteine']</pre></div>",
+                "selectedType": "Html",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 1113,
+                "dataresult": [
+                    "S-Adenosyl-L-homocysteine",
+                    "S-Adenosylhomocysteine"
+                ],
+                "height": 34
+            },
+            "evaluatorReader": true,
+            "lineCount": 8,
+            "isError": false
+        },
+        {
+            "id": "codeqtmwvd",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "C00021.dblinks"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>[('CAS', ['979-92-0']),\n ('PubChem', ['3323']),\n ('ChEBI', ['16680']),\n ('KNApSAcK', ['C00007230']),\n ('PDB-CCD', ['SAH']),\n ('3DMET', ['B01134']),\n ('NIKKAJI', ['J14.397I'])]</pre></div>",
+                "selectedType": "Html",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 345,
+                "dataresult": [
+                    [
+                        "CAS",
+                        [
+                            "979-92-0"
+                        ]
+                    ],
+                    [
+                        "PubChem",
+                        [
+                            "3323"
+                        ]
+                    ],
+                    [
+                        "ChEBI",
+                        [
+                            "16680"
+                        ]
+                    ],
+                    [
+                        "KNApSAcK",
+                        [
+                            "C00007230"
+                        ]
+                    ],
+                    [
+                        "PDB-CCD",
+                        [
+                            "SAH"
+                        ]
+                    ],
+                    [
+                        "3DMET",
+                        [
+                            "B01134"
+                        ]
+                    ],
+                    [
+                        "NIKKAJI",
+                        [
+                            "J14.397I"
+                        ]
+                    ]
+                ],
+                "height": 129
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeeBpzYG",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "print kegg_get(\"R00192\").read()"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "ENTRY       R00192                      Reaction\nNAME        S-Adenosyl-L-homocysteine hydrolase\nDEFINITION  S-Adenosyl-L-homocysteine + H2O <=> Adenosine + L-Homocysteine\nEQUATION    C00021 + C00001 <=> C00212 + C00155\nCOMMENT     multi-step reaction\nRCLASS      RC00069  C00021_C00155\n            RC01161  C00021_C00212\nENZYME      3.3.1.1\nPATHWAY     rn00270  Cysteine and methionine metabolism\n            rn01100  Metabolic pathways\nMODULE      M00035  Methionine degradation\nORTHOLOGY   K01251  adenosylhomocysteinase [EC:3.3.1.1]\n///\n\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 750,
+                "dataresult": "ENTRY       R00192                      Reaction\nNAME        S-Adenosyl-L-homocysteine hydrolase\nDEFINITION  S-Adenosyl-L-homocysteine + H2O <=> Adenosine + L-Homocysteine\nEQUATION    C00021 + C00001 <=> C00212 + C00155\nCOMMENT     multi-step reaction\nRCLASS      RC00069  C00021_C00155\n            RC01161  C00021_C00212\nENZYME      3.3.1.1\nPATHWAY     rn00270  Cysteine and methionine metabolism\n            rn01100  Metabolic pathways\nMODULE      M00035  Methionine degradation\nORTHOLOGY   K01251  adenosylhomocysteinase [EC:3.3.1.1]\n///\n",
+                "height": 243
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeLczval",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "request = kegg_get(\"R00192\")",
+                    "records = Enzyme.parse(request)",
+                    "R00192  = list(records)[0]",
+                    "R00192.classname",
+                    "print R00192"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "ENTRY       EC Reaction\nNAME        S-Adenosyl-L-homocysteine hydrolase\nCOMMENT     multi-step reaction\nPATHWAY     PATH: rn00270  Cysteine and methionine metabolism\n            PATH: rn01100  Metabolic pathways\n///\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "BE2683A202F34C358AAF734D122F96C5",
+                "elapsedTime": 736,
+                "dataresult": [
+                    "S-Adenosyl-L-homocysteine hydrolase"
+                ],
+                "height": 115
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "markdowngrtYGf",
+            "type": "markdown",
+            "body": [
+                "Apparently biopython does not parse REACTION, RCLASS, RPAIR, etc"
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codeqlqSsJ",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    "<iframe src=\"http://biopython.org/DIST/docs/api/Bio.KEGG-module.html\" width = 100% height = 400></iframe>"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Html",
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<iframe src=\"http://biopython.org/DIST/docs/api/Bio.KEGG-module.html\" width=\"100%\" height=\"400\"></iframe>"
+                },
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 0,
+                "height": 423
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeYrT3vM",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {}
+            },
+            "evaluatorReader": true
+        }
+    ],
+    "namespace": {}
+}

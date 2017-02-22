@@ -1,0 +1,617 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015",
+            "scripts": "vendor/d3sparql.js",
+            "libraries": [
+                {
+                    "name": "yasqe",
+                    "latest": "https://cdnjs.cloudflare.com/ajax/libs/yasqe/2.11.7/yasqe.bundled.min.js",
+                    "version": "2.11.7",
+                    "description": "Yet Another SPARQL Query Editor",
+                    "homepage": "http://yasqe.yasgui.org"
+                },
+                {
+                    "name": "yasr",
+                    "latest": "https://cdnjs.cloudflare.com/ajax/libs/yasr/2.10.6/yasr.bundled.min.js",
+                    "version": "2.10.6",
+                    "description": "Yet Another SPARQL Resultset Visualizer",
+                    "homepage": "http://yasr.yasgui.org"
+                },
+                {
+                    "name": "jsdiff",
+                    "latest": "https://cdnjs.cloudflare.com/ajax/libs/jsdiff/3.2.0/diff.min.js",
+                    "version": "3.2.0",
+                    "description": "A javascript text diff implementation.",
+                    "homepage": null
+                }
+            ]
+        },
+        {
+            "name": "SQL",
+            "plugin": "SQL",
+            "imports": "",
+            "view": {
+                "cm": {
+                    "mode": "text/x-sql"
+                }
+            }
+        },
+        {
+            "name": "Clojure",
+            "plugin": "Clojure",
+            "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\norg.joda.time.ReadablePartial\norg.joda.time.ReadableDateTime\norg.joda.time.ReadablePeriod\norg.joda.time.DateTime\norg.joda.time.DateMidnight\norg.joda.time.YearMonth\norg.joda.time.LocalDate\norg.joda.time.LocalTime\norg.joda.time.DateTimeZone\norg.joda.time.Period\norg.joda.time.PeriodType\norg.joda.time.Interval\norg.joda.time.Years\norg.joda.time.LocalDateTime\norg.joda.time.Chronology\norg.joda.time.format.DateTimeFormat\norg.joda.time.format.DateTimeFormatter\norg.joda.time.format.DateTimePrinter\norg.joda.time.format.DateTimeFormatterBuilder\norg.joda.time.format.DateTimeParser\norg.joda.time.format.ISODateTimeFormat\norg.joda.time.tz.FixedDateTimeZone\norg.joda.time.Months\norg.joda.time.Weeks\norg.joda.time.Days\norg.joda.time.Hours\norg.joda.time.Minutes\norg.joda.time.Seconds\norg.joda.time.MutableDateTime\norg.joda.time.DateTimeUtils\ncom.hp.hpl.jena.query.Syntax\ncom.hp.hpl.jena.query.Query\ncom.hp.hpl.jena.query.QueryExecution\ncom.hp.hpl.jena.query.QueryExecutionFactory\ncom.hp.hpl.jena.query.ARQ\ncom.hp.hpl.jena.query.QueryFactory\ncom.hp.hpl.jena.query.QuerySolution\ncom.hp.hpl.jena.query.QuerySolutionMap\ncom.hp.hpl.jena.query.ResultSet\ncom.hp.hpl.jena.query.ResultSetFormatter\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemote\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemoteForm\ncom.hp.hpl.jena.update.UpdateFactory\ncom.hp.hpl.jena.update.UpdateExecutionFactory\ncom.hp.hpl.jena.update.UpdateRequest\ncom.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP\njava.io.ByteArrayOutputStream",
+            "view": {
+                "cm": {
+                    "mode": "text/x-clojure"
+                }
+            },
+            "classPath": "/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+            "requirements": "sparqler.core"
+        }
+    ],
+    "cells": [
+        {
+            "id": "section7uxqCi",
+            "type": "section",
+            "title": "Appendix C, Example 1",
+            "level": 1,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "section2uo124",
+            "type": "section",
+            "title": "Introduction",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codeTCSG4m",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(refer 'sparqler.core)",
+                    "(assert kabob)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e",
+                "elapsedTime": 156,
+                "height": 62
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "sectionyMx625",
+            "type": "section",
+            "title": "Query",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "sectiondKj813",
+            "type": "section",
+            "title": "Manual SPARQL",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "markdownBeQdxq",
+            "type": "markdown",
+            "body": [
+                "The following cell will be stored in the beaker.query1 variable...."
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "query1",
+            "type": "code",
+            "evaluator": "SQL",
+            "input": {
+                "body": [
+                    "PREFIX franzOption_clauseReorderer: <franz:identity>",
+                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+                    "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
+                    "PREFIX obo: <http://purl.obolibrary.org/obo/>",
+                    "PREFIX kbio: <http://kabob.ucdenver.edu/bio/>",
+                    "PREFIX iaohgnc: <http://kabob.ucdenver.edu/iao/hgnc/>",
+                    "",
+                    "",
+                    "SELECT ?participant ",
+                    "WHERE {",
+                    "",
+                    "iaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene  . # SEPT2",
+                    "",
+                    "# gene specific gene or gene product abstraction ?gorgporv",
+                    "?gene rdfs:subClassOf* ?gorgporv .  ",
+                    "?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass .",
+                    "",
+                    "# all gene products",
+                    "?geneproduct rdfs:subClassOf* ?gorgporv.",
+                    "",
+                    "# get interactions they participate in",
+                    "?participant_r owl:someValuesFrom ?geneproduct.",
+                    "?participant_r owl:onProperty obo:RO_0000057 . # RO:has_participant",
+                    "?interaction rdfs:subClassOf ?participant_r .",
+                    "",
+                    "# look at only interactions",
+                    "?interaction rdfs:subClassOf obo:MI_0407 . # interaction",
+                    "",
+                    "# get all the other participants in those interactions",
+                    "FILTER (?participant_r != ?participant_r2) . # insure different",
+                    "?interaction rdfs:subClassOf ?participant_r2.",
+                    "?participant_r2 owl:onProperty obo:RO_0000057 . # RO:has_participant",
+                    "?participant_r2 owl:someValuesFrom ?participant.",
+                    "}"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Error",
+                    "object": [
+                        "com.twosigma.beaker.sqlsh.utils.DBConnectionException: Connection URI:; No suitable driver"
+                    ]
+                },
+                "selectedType": "BeakerDisplay",
+                "pluginName": "SQL",
+                "shellId": "155639de-68f2-493b-8a01-9f5cab953f5b",
+                "elapsedTime": 141,
+                "height": 47
+            },
+            "evaluatorReader": true,
+            "lineCount": 34,
+            "isError": true
+        },
+        {
+            "id": "code5EAfdW",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "beaker.query1 = beaker.getCodeCells('query1')[0].code"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "PREFIX franzOption_clauseReorderer: <franz:identity>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX obo: <http://purl.obolibrary.org/obo/>\nPREFIX kbio: <http://kabob.ucdenver.edu/bio/>\nPREFIX iaohgnc: <http://kabob.ucdenver.edu/iao/hgnc/>\n\n\nSELECT ?participant \nWHERE {\n\niaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene  . # SEPT2\n\n# gene specific gene or gene product abstraction ?gorgporv\n?gene rdfs:subClassOf* ?gorgporv .  \n?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass .\n\n# all gene products\n?geneproduct rdfs:subClassOf* ?gorgporv.\n\n# get interactions they participate in\n?participant_r owl:someValuesFrom ?geneproduct.\n?participant_r owl:onProperty obo:RO_0000057 . # RO:has_participant\n?interaction rdfs:subClassOf ?participant_r .\n\n# look at only interactions\n?interaction rdfs:subClassOf obo:MI_0407 . # interaction\n\n# get all the other participants in those interactions\n?interaction rdfs:subClassOf ?participant_r2.\nFILTER (?participant_r != ?participant_r2) . # insure different\n?participant_r2 owl:onProperty obo:RO_0000057 . # RO:has_participant\n?participant_r2 owl:someValuesFrom ?participant.\n}",
+                "selectedType": "Text",
+                "height": 35,
+                "pluginName": "JavaScript",
+                "elapsedTime": 37,
+                "hidden": true
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "sectionS9J1Gx",
+            "type": "section",
+            "title": "SPARQLer",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "sectionTDCHIh",
+            "type": "section",
+            "title": "Step 1: Convert to clojure and define constants",
+            "level": 4,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codelJ3QGV",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "",
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "sparqler.core",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "41cb84f5-a717-4360-ad40-6bfe06bb6391",
+                "elapsedTime": 198,
+                "height": 35
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codea8pfZD",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(in-ns 'sparqler.core)",
+                    "",
+                    "(defn all-gene-products [geneproduct gorgporv]",
+                    "  (list geneproduct rdfs:subClassOf* gorgporv))",
+                    "",
+                    "(defn interactions-geneproduct-participate-in [participant geneproduct interactions]",
+                    "  (subquery [participant geneproduct interactions]",
+                    "    participant owl:someValuesFrom geneproduct \\.",
+                    "    participant owl:onProperty RO:has_participant \\. ;# RO:has_participant",
+                    "    interactions rdfs:subClassOf participant \\.))",
+                    "            "
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "#'sparqler.core/interactions-geneproduct-participate-in",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e",
+                "elapsedTime": 153,
+                "height": 35
+            },
+            "evaluatorReader": true,
+            "lineCount": 11,
+            "isError": false
+        },
+        {
+            "id": "codeAaaeVB",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(in-ns 'sparqler.core)",
+                    "",
+                    "(def MI:interaction [:obo :MI_0407])",
+                    "",
+                    "(defquery KaBOBC1 []",
+                    "  ",
+                    "  (prefix \"PREFIX franzOption_clauseReorderer: <franz:identity>\\n\")",
+                    "  ",
+                    "  (select :participant)",
+                    "  ",
+                    "  (where ",
+                    "    ;iaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene  .",
+                    "    [:iaohgnc :HGNC_SEPT2_ICE] iao:denotes :gene \\.",
+                    "",
+                    "    (!# \"gene specific gene or gene product abstraction ?gorgporv\")",
+                    "    (gene-or-gene-products :gene :gorgporv)",
+                    "    ",
+                    "    (!# \"all gene products\")",
+                    "    (all-gene-products :geneproduct :gorgporv)",
+                    "",
+                    "    (!# \"get interactions they participate in\")",
+                    "    (interactions-geneproduct-participate-in :participant_r :geneproduct :interaction)",
+                    "",
+                    "    (!# \"look at only interactions\")",
+                    "    :interaction rdfs:subClassOf MI:interaction \\. ;# interaction",
+                    "",
+                    "    (!# \"get all the other participants in those interactions\")",
+                    "    (filter :participant_r != :participant_r2) \\. ;# insure different",
+                    "    (interactions-geneproduct-participate-in :participant_r2 :participant :interaction)",
+                    "    )",
+                    "  )",
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "#'sparqler.core/KaBOBC1",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e",
+                "elapsedTime": 145,
+                "height": 35
+            },
+            "evaluatorReader": true,
+            "lineCount": 32,
+            "isError": false
+        },
+        {
+            "id": "codeMJn1kf",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(#'sparqler.core/KaBOBC1)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "PREFIX franz: <http://franz.com> PREFIX iaohgnc: <http://kabob.ucdenver.edu/iao/hgnc/> PREFIX kbio: <http://kabob.ucdenver.edu/bio/> PREFIX obo: <http://purl.obolibrary.org/obo/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX franzOption_clauseReorderer: <franz:identity>\nSELECT ?participant WHERE { iaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene . \n# gene specific gene or gene product abstraction ?gorgporv .\n { SELECT ?gene ?gorgporv { ?gene rdfs:subClassOf* ?gorgporv . ?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass . } } \n# all gene products .\n ?geneproduct rdfs:subClassOf* ?gorgporv \n# get interactions they participate in .\n { SELECT ?participant_r ?geneproduct ?interaction { ?participant_r owl:someValuesFrom ?geneproduct . ?participant_r owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?participant_r . } } \n# look at only interactions .\n ?interaction rdfs:subClassOf obo:MI_0407 . \n# get all the other participants in those interactions .\n FILTER(?participant_r != ?participant_r2) . { SELECT ?participant_r2 ?participant ?interaction { ?participant_r2 owl:someValuesFrom ?participant . ?participant_r2 owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?participant_r2 . } } }",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e",
+                "elapsedTime": 139,
+                "height": 234
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeJgchaz",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(beaker :set \"query2\" (#'sparqler.core/KaBOBC1))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "elapsedTime": 157,
+                "height": 62,
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e"
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeaM7DUI",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    "<pre id=\"display\"></pre>"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Html",
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<pre id=\"display\"><span style=\"color: grey;\">PREFIX franz</span><span style=\"color: red;\">O</span><span style=\"color: green;\">: &lt;htt</span><span style=\"color: grey;\">p</span><span style=\"color: red;\">t</span><span style=\"color: green;\">://franz.com&gt; PREFIX </span><span style=\"color: grey;\">i</span><span style=\"color: green;\">a</span><span style=\"color: grey;\">o</span><span style=\"color: green;\">hg</span><span style=\"color: grey;\">n</span><span style=\"color: red;\">_</span><span style=\"color: grey;\">c</span><span style=\"color: red;\">l</span><span style=\"color: green;\">: &lt;http://k</span><span style=\"color: grey;\">a</span><span style=\"color: green;\">bob.</span><span style=\"color: grey;\">u</span><span style=\"color: red;\">s</span><span style=\"color: green;\">cd</span><span style=\"color: grey;\">e</span><span style=\"color: red;\">R</span><span style=\"color: green;\">nv</span><span style=\"color: grey;\">e</span><span style=\"color: red;\">o</span><span style=\"color: grey;\">r</span><span style=\"color: green;\">.e</span><span style=\"color: grey;\">d</span><span style=\"color: red;\">erer</span><span style=\"color: green;\">u/iao/hgnc/&gt; PREFIX kbio</span><span style=\"color: grey;\">: &lt;</span><span style=\"color: red;\">fr</span><span style=\"color: green;\">http://k</span><span style=\"color: grey;\">a</span><span style=\"color: red;\">nz:i</span><span style=\"color: green;\">bob.uc</span><span style=\"color: grey;\">den</span><span style=\"color: red;\">t</span><span style=\"color: green;\">ver.edu/b</span><span style=\"color: grey;\">i</span><span style=\"color: red;\">ty</span><span style=\"color: green;\">o/</span><span style=\"color: grey;\">&gt;</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">PREFIX </span><span style=\"color: red;\">rdfs</span><span style=\"color: green;\">obo</span><span style=\"color: grey;\">: &lt;http://</span><span style=\"color: red;\">www</span><span style=\"color: green;\">purl</span><span style=\"color: grey;\">.</span><span style=\"color: red;\">w3</span><span style=\"color: green;\">obolibrary</span><span style=\"color: grey;\">.org/</span><span style=\"color: red;\">2000</span><span style=\"color: green;\">obo</span><span style=\"color: grey;\">/</span><span style=\"color: red;\">01/rdf-schema#</span><span style=\"color: grey;\">&gt;</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">PREFIX </span><span style=\"color: red;\">obo</span><span style=\"color: green;\">rdf</span><span style=\"color: grey;\">: &lt;http://</span><span style=\"color: red;\">purl</span><span style=\"color: green;\">www</span><span style=\"color: grey;\">.</span><span style=\"color: red;\">obolibrary</span><span style=\"color: green;\">w3</span><span style=\"color: grey;\">.org/</span><span style=\"color: red;\">obo</span><span style=\"color: green;\">1999</span><span style=\"color: grey;\">/</span><span style=\"color: green;\">02/22-rdf-syntax-ns#</span><span style=\"color: grey;\">&gt;</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">PREFIX </span><span style=\"color: red;\">kbio</span><span style=\"color: green;\">rdfs</span><span style=\"color: grey;\">: &lt;http://</span><span style=\"color: red;\">kabob</span><span style=\"color: green;\">www</span><span style=\"color: grey;\">.</span><span style=\"color: red;\">ucdenver</span><span style=\"color: green;\">w3</span><span style=\"color: grey;\">.</span><span style=\"color: red;\">edu/bi</span><span style=\"color: grey;\">o</span><span style=\"color: green;\">rg</span><span style=\"color: grey;\">/</span><span style=\"color: green;\">2000/01/rdf-schema#</span><span style=\"color: grey;\">&gt;</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">PREFIX </span><span style=\"color: green;\">franzOpt</span><span style=\"color: grey;\">i</span><span style=\"color: red;\">a</span><span style=\"color: grey;\">o</span><span style=\"color: red;\">hg</span><span style=\"color: grey;\">n</span><span style=\"color: green;\">_</span><span style=\"color: grey;\">c</span><span style=\"color: green;\">lauseReorderer</span><span style=\"color: grey;\">: &lt;</span><span style=\"color: red;\">http</span><span style=\"color: green;\">franz</span><span style=\"color: grey;\">:</span><span style=\"color: red;\">//kabob.uc</span><span style=\"color: green;\">i</span><span style=\"color: grey;\">den</span><span style=\"color: red;\">ver.edu/</span><span style=\"color: green;\">t</span><span style=\"color: grey;\">i</span><span style=\"color: red;\">ao/hgnc/</span><span style=\"color: green;\">ty</span><span style=\"color: grey;\">&gt;\n</span><span style=\"color: red;\">\n\n</span><span style=\"color: grey;\">SELECT ?participant </span><span style=\"color: red;\">\n</span><span style=\"color: grey;\">WHERE {</span><span style=\"color: red;\">\n\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">iaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene </span><span style=\"color: red;\"> </span><span style=\"color: grey;\">. </span><span style=\"color: red;\"># SEPT2</span><span style=\"color: grey;\">\n</span><span style=\"color: red;\">\n</span><span style=\"color: grey;\"># gene specific gene or gene product abstraction ?gorgporv</span><span style=\"color: green;\"> .</span><span style=\"color: grey;\">\n</span><span style=\"color: green;\"> { SELECT </span><span style=\"color: grey;\">?gene </span><span style=\"color: green;\">?go</span><span style=\"color: grey;\">r</span><span style=\"color: green;\">gporv { ?gene r</span><span style=\"color: grey;\">dfs:subClassOf* ?gorgporv . </span><span style=\"color: red;\"> \n</span><span style=\"color: grey;\">?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass .</span><span style=\"color: green;\"> } } </span><span style=\"color: grey;\">\n</span><span style=\"color: red;\">\n</span><span style=\"color: grey;\"># all gene products</span><span style=\"color: green;\"> .</span><span style=\"color: grey;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">?geneproduct rdfs:subClassOf* ?gorgporv</span><span style=\"color: red;\">.</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">\n</span><span style=\"color: red;\">\n</span><span style=\"color: grey;\"># get interactions they participate in</span><span style=\"color: green;\"> .</span><span style=\"color: grey;\">\n</span><span style=\"color: green;\"> { SELECT </span><span style=\"color: grey;\">?participant_r </span><span style=\"color: green;\">?genepr</span><span style=\"color: grey;\">o</span><span style=\"color: green;\">duct ?interaction { ?participant_r o</span><span style=\"color: grey;\">wl:someValuesFrom ?geneproduct</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">.</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">?participant_r owl:onProperty obo:RO_0000057 . </span><span style=\"color: red;\"># RO:has_participant\n</span><span style=\"color: grey;\">?interaction rdfs:subClassOf ?participant_r .</span><span style=\"color: green;\"> } } </span><span style=\"color: grey;\">\n</span><span style=\"color: red;\">\n</span><span style=\"color: grey;\"># look at only interactions</span><span style=\"color: green;\"> .</span><span style=\"color: grey;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">?interaction rdfs:subClassOf obo:MI_0407 . </span><span style=\"color: red;\"># interaction</span><span style=\"color: grey;\">\n</span><span style=\"color: red;\">\n</span><span style=\"color: grey;\"># get all the other participants in those interactions</span><span style=\"color: green;\"> .</span><span style=\"color: grey;\">\n</span><span style=\"color: green;\"> FILTER(</span><span style=\"color: grey;\">?</span><span style=\"color: green;\">part</span><span style=\"color: grey;\">i</span><span style=\"color: green;\">cipa</span><span style=\"color: grey;\">nt</span><span style=\"color: red;\">e</span><span style=\"color: green;\">_</span><span style=\"color: grey;\">r</span><span style=\"color: green;\"> != ?p</span><span style=\"color: grey;\">a</span><span style=\"color: red;\">c</span><span style=\"color: green;\">r</span><span style=\"color: grey;\">ti</span><span style=\"color: red;\">o</span><span style=\"color: green;\">cipa</span><span style=\"color: grey;\">n</span><span style=\"color: green;\">t_r2)</span><span style=\"color: grey;\"> </span><span style=\"color: red;\">rdfs:sub</span><span style=\"color: green;\">. { SELE</span><span style=\"color: grey;\">C</span><span style=\"color: red;\">lassOf</span><span style=\"color: green;\">T</span><span style=\"color: grey;\"> ?participant_r2</span><span style=\"color: red;\">.\nFILTER</span><span style=\"color: grey;\"> </span><span style=\"color: red;\">(</span><span style=\"color: grey;\">?participant</span><span style=\"color: red;\">_</span><span style=\"color: green;\"> ?inte</span><span style=\"color: grey;\">r</span><span style=\"color: green;\">action</span><span style=\"color: grey;\"> </span><span style=\"color: red;\">!=</span><span style=\"color: green;\">{</span><span style=\"color: grey;\"> ?participant_r2</span><span style=\"color: red;\">)</span><span style=\"color: grey;\"> </span><span style=\"color: red;\">. # in</span><span style=\"color: green;\">owl:</span><span style=\"color: grey;\">s</span><span style=\"color: green;\">omeVal</span><span style=\"color: grey;\">u</span><span style=\"color: green;\">esF</span><span style=\"color: grey;\">r</span><span style=\"color: red;\">e</span><span style=\"color: green;\">om</span><span style=\"color: grey;\"> </span><span style=\"color: red;\">d</span><span style=\"color: green;\">?part</span><span style=\"color: grey;\">i</span><span style=\"color: red;\">ffere</span><span style=\"color: green;\">cipa</span><span style=\"color: grey;\">nt</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> . </span><span style=\"color: grey;\">?participant_r2 owl:onProperty obo:RO_0000057 . </span><span style=\"color: red;\"># RO:has_part</span><span style=\"color: green;\">?</span><span style=\"color: grey;\">i</span><span style=\"color: red;\">cipa</span><span style=\"color: grey;\">nt</span><span style=\"color: red;\">\n?p</span><span style=\"color: green;\">er</span><span style=\"color: grey;\">a</span><span style=\"color: red;\">r</span><span style=\"color: green;\">c</span><span style=\"color: grey;\">ti</span><span style=\"color: red;\">cipa</span><span style=\"color: green;\">o</span><span style=\"color: grey;\">n</span><span style=\"color: red;\">t_</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">r</span><span style=\"color: red;\">2 owl</span><span style=\"color: green;\">dfs</span><span style=\"color: grey;\">:s</span><span style=\"color: red;\">omeV</span><span style=\"color: green;\">ubCl</span><span style=\"color: grey;\">a</span><span style=\"color: red;\">lue</span><span style=\"color: grey;\">s</span><span style=\"color: red;\">From</span><span style=\"color: green;\">sOf</span><span style=\"color: grey;\"> ?participant</span><span style=\"color: green;\">_r2 </span><span style=\"color: grey;\">.</span><span style=\"color: red;\">\n</span><span style=\"color: green;\"> </span><span style=\"color: grey;\">}</span><span style=\"color: green;\"> } }</span></pre>"
+                },
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 0,
+                "height": 538
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeUdRek0",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "document.getElementById(\"display\").innerHTML = \"\";",
+                    "",
+                    "var one = beaker.query1,",
+                    "    other = beaker.query2,",
+                    "    color = 'blue',",
+                    "    span = null;",
+                    "",
+                    "var diff = JsDiff.diffChars(one, other, {ignoreWhitespace:true, newlineIsToken: true}),",
+                    "    display = document.getElementById('display'),",
+                    "    fragment = document.createDocumentFragment();",
+                    "",
+                    "diff.forEach(function(part){",
+                    "  // green for additions, red for deletions",
+                    "  // grey for common parts",
+                    "  color = part.added ? 'green' :",
+                    "    part.removed ? 'red' : 'grey';",
+                    "  span = document.createElement('span');",
+                    "  span.style.color = color;",
+                    "  span.appendChild(document",
+                    "    .createTextNode(part.value));",
+                    "  fragment.appendChild(span);",
+                    "});",
+                    "",
+                    "display.appendChild(fragment);"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "ERROR: circular objects are not supported",
+                "selectedType": "Text",
+                "pluginName": "JavaScript",
+                "elapsedTime": 4387,
+                "height": 35
+            },
+            "evaluatorReader": true,
+            "lineCount": 24,
+            "isError": false
+        },
+        {
+            "id": "codeeaDIJC",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def q (#'sparqler.core/KaBOBC1))",
+                    "q"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "PREFIX franz: <http://franz.com> PREFIX iaohgnc: <http://kabob.ucdenver.edu/iao/hgnc/> PREFIX kbio: <http://kabob.ucdenver.edu/bio/> PREFIX obo: <http://purl.obolibrary.org/obo/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX franzOption_clauseReorderer: <franz:identity>\nSELECT ?participant WHERE { iaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene . \n# gene specific gene or gene product abstraction ?gorgporv .\n { SELECT ?gene ?gorgporv { ?gene rdfs:subClassOf* ?gorgporv . ?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass . } } \n# all gene products .\n ?geneproduct rdfs:subClassOf* ?gorgporv \n# get interactions they participate in .\n { SELECT ?participant_r ?geneproduct ?interaction { ?participant_r owl:someValuesFrom ?geneproduct . ?participant_r owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?participant_r . } } \n# look at only interactions .\n ?interaction rdfs:subClassOf obo:MI_0407 . \n# get all the other participants in those interactions .\n FILTER(?participant_r != ?participant_r2) . { SELECT ?participant_r2 ?participant ?interaction { ?participant_r2 owl:someValuesFrom ?participant . ?participant_r2 owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?participant_r2 . } } }",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e",
+                "elapsedTime": 154,
+                "height": 234
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeIgVsGw",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def r (kabob-query q))",
+                    "(clojure.set/rename r {:participant \"participant\"})"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Error",
+                    "object": "Interrupted, saved while running.",
+                    "status": "RUNNING"
+                },
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "5717b40b-cc18-4ce3-ba93-318d5434fc8e",
+                "elapsedTime": 197,
+                "height": 36
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeX1zV4v",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(webview-query q)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "\"http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev#query/d/PREFIX%20franz%3A%20%3Chttp%3A%2F%2Ffranz.com%3E%0APREFIX%20iaohgnc%3A%20%3Chttp%3A%2F%2Fkabob.ucdenver.edu%2Fiao%2Fhgnc%2F%3E%0APREFIX%20kbio%3A%20%3Chttp%3A%2F%2Fkabob.u\ncdenver.edu%2Fbio%2F%3E%0APREFIX%20obo%3A%20%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2F%3E%0APREFIX%20owl%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns\n%23%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20franzOption_clauseReorderer%3A%20%3Cfranz%3Aidentity%3E%0A%0ASELECT%20%3Fparticipant%0A%0AWHERE%0A%7B%0A%20%20%20iaohgnc%3AHGNC_SEPT2_ICE%20obo\n%3AIAO_0000219%20%3Fgene%20.%0A%20%20%20%23%20gene%20specific%20gene%20or%20gene%20product%20abstraction%20%3Fgorgporv%20.%0A%20%20%20%7B%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20SELECT%20%3Fgene%20%3Fgorgporv%0A%20%20%20%20%20%20%7B%0A%20%\n20%20%20%20%20%20%20%20%3Fgene%20rdfs%3AsubClassOf*%20%3Fgorgporv%20.%0A%20%20%20%20%20%20%20%20%20%3Fgorgporv%20rdf%3Atype%20kbio%3AGeneSpecificGorGPorVClass%20.%0A%20%20%20%20%20%20%7D%0A%20%20%20%7D%0A%20%20%20%23%20all%20gene%20products\n%20.%0A%20%20%20%3Fgeneproduct%20rdfs%3AsubClassOf*%20%3Fgorgporv%20%23%20get%20interactions%20they%20participate%20in%20.%0A%20%20%20%7B%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20SELECT%20%3Fparticipant_r%20%3Fgeneproduct%20%3Finteraction%0\nA%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%3Fparticipant_r%20owl%3AsomeValuesFrom%20%3Fgeneproduct%20.%0A%20%20%20%20%20%20%20%20%20%3Fparticipant_r%20owl%3AonProperty%20obo%3ARO_0000057%20.%0A%20%20%20%20%20%20%20%20%20%3Finterac\ntion%20rdfs%3AsubClassOf%20%3Fparticipant_r%20.%0A%20%20%20%20%20%20%7D%0A%20%20%20%7D%0A%20%20%20%23%20look%20at%20only%20interactions%20.%0A%20%20%20%3Finteraction%20rdfs%3AsubClassOf%20obo%3AMI_0407%20.%0A%20%20%20%23%20get%20all%20the%2\n0other%20participants%20in%20those%20interactions%20.%0A%20%20%20FILTER%28%3Fparticipant_r%20%21%3D%20%3Fparticipant_r2%29%20.%0A%20%20%20%7B%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20SELECT%20%3Fparticipant_r2%20%3Fparticipant%20%3Finteract\nion%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%3Fparticipant_r2%20owl%3AsomeValuesFrom%20%3Fparticipant%20.%0A%20%20%20%20%20%20%20%20%20%3Fparticipant_r2%20owl%3AonProperty%20obo%3ARO_0000057%20.%0A%20%20%20%20%20%20%20%20%20%3F\ninteraction%20rdfs%3AsubClassOf%20%3Fparticipant_r2%20.%0A%20%20%20%20%20%20%7D%0A%20%20%20%7D%0A%7D\"\n"
+                        }
+                    ],
+                    "payload": true
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "ec597104-4d57-4a54-85f0-6e01fc6e4f28",
+                "elapsedTime": 164,
+                "height": 359
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codecU0Wd8",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {}
+            },
+            "evaluatorReader": true
+        }
+    ],
+    "namespace": {
+        "query": "PREFIX franz: <http://franz.com> PREFIX kiao: <http://kabob.ucdenver.edu/iao/> PREFIX obo: <http://purl.obolibrary.org/obo/> PREFIX oboMeta: <http://www.geneontology.org/formats/oboInOwl#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX uniprot: <http://kabob.ucdenver.edu/iao/uniprot/> PREFIX franzOption_clauseReorderer: <franz:identity> PREFIX FranzOption_chunkProcessingAllowed: <franz:yes> PREFIX franzOption_memoryLimit: <franz:60g> PREFIX franzOption_memoryExhaustionWarningPercentage: <franz:90.0>SELECT DISTINCT ?angioSubs ?partProtId ?intProtId WHERE { \n# select angiogenesis GOBPs and its subclasses that are in the OBO namespace .\n { SELECT ?angioSubs { \n# subclasses of [:obo :GO_0001525] .\n ?angioSubs rdfs:subClassOf* obo:GO_0001525 . ?angioSubs oboMeta:hasOBONamespace ?OBONamespace } } \n# restriction only want human proteins that participate in these GOBPs .\n { SELECT ?protClass ?angioSubs { \n# proteins that participate in a subclass .\n ?anonSubclass rdfs:subClassOf ?angioSubs . ?anonSubclass rdfs:subClassOf ?protRest . ?protRest rdf:type owl:Restriction . ?protRest owl:onProperty obo:RO_0000057 . ?protRest owl:someValuesFrom ?protSub . ?protSub rdfs:subClassOf ?protClass . ?protClass rdfs:subClassOf* obo:CHEBI_36080 . } } ?partProtID obo:IAO_0000219 ?protClass . { SELECT ?protClass { \n# Gene or Gene Products in_taxon [:obo :NCBITaxon_9606] .\n ?protClass rdfs:subClassOf ?taxonrestriction . ?taxonrestriction owl:onProperty obo:RO_0002162 . ?taxonrestriction owl:someValuesFrom obo:NCBITaxon_9606 . } } \n# swisprot ids participating proteins .\n { SELECT ?partProtId ?partProtName { \n# proteins that have swissprot ids and a name .\n ?idField obo:IAO_0000219 ?partProtId . ?idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 . ?record obo:BFO_0000051 ?idField . ?record obo:BFO_0000051 ?nameField . ?nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 . ?nameField obo:IAO_0000219 ?partProtName . } } \n# protein interactions .\n { SELECT ?protClass ?intProtId { ?protSub2 rdfs:subClassOf ?protClass . ?r_hasp owl:someValuesFrom ?protSub2 . ?r_hasp rdf:type owl:Restriction . ?r_hasp owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?r_hasp . ?interaction rdfs:subClassOf ?rcard . ?rcard owl:cardinality 2 . ?rcard owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?r_hasp2 . ?r_hasp2 rdf:type owl:Restriction . ?r_hasp2 owl:onProperty obo:RO_0000057 . ?r_hasp2 owl:someValuesFrom ?protSub3 . ?protSub3 rdfs:subClassOf ?protClass3 . ?protClass3 rdfs:subClassOf ?taxonRest . ?protClass3 rdfs:subClassOf* obo:CHEBI_36080 . ?intProtId obo:IAO_0000219 ?protClass3 . FILTER(?protSub3 != ?protSub2) . } } \n# swisprot ids ? participating-protein?s protein interaction partner names .\n { SELECT ?intProtId ?intProtName { \n# proteins that have swissprot ids and a name .\n ?idField obo:IAO_0000219 ?intProtId . ?idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 . ?record obo:BFO_0000051 ?idField . ?record obo:BFO_0000051 ?nameField . ?nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 . ?nameField obo:IAO_0000219 ?intProtName . } } }",
+        "result": "{\n  \"head\": {\n    \"vars\": [ \"O\" , \"P\" , \"S\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecordSchema1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_WcWgclLLs762j0luZCfL7dRS-eA\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/FieldValue\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord_geneNameDataField1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"literal\" , \"xml:lang\": \"en\" , \"value\": \"aldehyde dehydrogenase 2, mitochondrial\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/IAO_0000219\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneId_Z4oFVmGP0rKdu_dGBYOjxNnL_qQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermName_-UcYugeQS-4851Q02dVbzEMB8Zc\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_Vf6lmKZ5igdnQV-5f3hBe3EjpdQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermId_6eegFKonFaEWcLP9VMoLU8Ni0L0\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneSymbol_PAF3AKoD5w8e_EaIjBSb_ZxAhIw\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      }\n    ]\n  }\n}\n",
+        "resultmap": {
+            "update_id": "bf193654-78fb-4f90-8620-e39d62d51deb",
+            "hasDoubleClickAction": false,
+            "doubleClickTag": null,
+            "contextMenuItems": [],
+            "contextMenuTags": {},
+            "type": "TableDisplay",
+            "columnNames": [
+                "participant"
+            ],
+            "types": [
+                "string"
+            ],
+            "subtype": "ListOfMaps",
+            "stringFormatForTimes": null,
+            "stringFormatForType": {},
+            "stringFormatForColumn": {},
+            "rendererForType": {},
+            "rendererForColumn": {},
+            "alignmentForType": {},
+            "alignmentForColumn": {},
+            "columnsFrozen": {},
+            "columnsFrozenRight": {},
+            "columnsVisible": {},
+            "columnOrder": [],
+            "cellHighlighters": [],
+            "tooltips": [],
+            "dataFontSize": null,
+            "headerFontSize": null,
+            "fontColor": [],
+            "headersVertical": false,
+            "values": [
+                [
+                    "http://kabob.ucdenver.edu/bio/P_Rru1sXtEhwWupBtNiG663cpbKAE"
+                ],
+                [
+                    "http://kabob.ucdenver.edu/bio/P_-cjfnozt8PG4usAm-p_O-H3NN3A"
+                ],
+                [
+                    "http://kabob.ucdenver.edu/bio/P_6IJkKuq0IkmmTa74TmxlqH_sBBY"
+                ],
+                [
+                    "http://kabob.ucdenver.edu/bio/P_oBm16xLy57iESCSs4ND-uEnVvnY"
+                ],
+                [
+                    "http://kabob.ucdenver.edu/bio/P_TbtHEXeE4BkVeCUesAfVMC2auKE"
+                ],
+                [
+                    "http://kabob.ucdenver.edu/bio/P_dsGuZz4t2bh6j2pWeZmgK7sY8Wk"
+                ],
+                [
+                    "http://kabob.ucdenver.edu/bio/P_Mc14Uebf7a3Yj8xIhYb2dLFby0E"
+                ]
+            ]
+        },
+        "resultjson": "{\n  \"head\": {\n    \"vars\": [ \"O\" , \"P\" , \"S\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecordSchema1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_WcWgclLLs762j0luZCfL7dRS-eA\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/FieldValue\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord_geneNameDataField1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"literal\" , \"xml:lang\": \"en\" , \"value\": \"aldehyde dehydrogenase 2, mitochondrial\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/IAO_0000219\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneId_Z4oFVmGP0rKdu_dGBYOjxNnL_qQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermName_-UcYugeQS-4851Q02dVbzEMB8Zc\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_Vf6lmKZ5igdnQV-5f3hBe3EjpdQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermId_6eegFKonFaEWcLP9VMoLU8Ni0L0\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneSymbol_PAF3AKoD5w8e_EaIjBSb_ZxAhIw\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      }\n    ]\n  }\n}\n",
+        "query1": "PREFIX franzOption_clauseReorderer: <franz:identity>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX obo: <http://purl.obolibrary.org/obo/>\nPREFIX kbio: <http://kabob.ucdenver.edu/bio/>\nPREFIX iaohgnc: <http://kabob.ucdenver.edu/iao/hgnc/>\n\n\nSELECT ?participant \nWHERE {\n\niaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene  . # SEPT2\n\n# gene specific gene or gene product abstraction ?gorgporv\n?gene rdfs:subClassOf* ?gorgporv .  \n?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass .\n\n# all gene products\n?geneproduct rdfs:subClassOf* ?gorgporv.\n\n# get interactions they participate in\n?participant_r owl:someValuesFrom ?geneproduct.\n?participant_r owl:onProperty obo:RO_0000057 . # RO:has_participant\n?interaction rdfs:subClassOf ?participant_r .\n\n# look at only interactions\n?interaction rdfs:subClassOf obo:MI_0407 . # interaction\n\n# get all the other participants in those interactions\n?interaction rdfs:subClassOf ?participant_r2.\nFILTER (?participant_r != ?participant_r2) . # insure different\n?participant_r2 owl:onProperty obo:RO_0000057 . # RO:has_participant\n?participant_r2 owl:someValuesFrom ?participant.\n}",
+        "query2": "PREFIX franz: <http://franz.com> PREFIX iaohgnc: <http://kabob.ucdenver.edu/iao/hgnc/> PREFIX kbio: <http://kabob.ucdenver.edu/bio/> PREFIX obo: <http://purl.obolibrary.org/obo/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX franzOption_clauseReorderer: <franz:identity>\nSELECT ?participant WHERE { iaohgnc:HGNC_SEPT2_ICE obo:IAO_0000219 ?gene . \n# gene specific gene or gene product abstraction ?gorgporv .\n { SELECT ?gene ?gorgporv { ?gene rdfs:subClassOf* ?gorgporv . ?gorgporv rdf:type kbio:GeneSpecificGorGPorVClass . } } \n# all gene products .\n ?geneproduct rdfs:subClassOf* ?gorgporv \n# get interactions they participate in .\n { SELECT ?participant_r ?geneproduct ?interaction { ?participant_r owl:someValuesFrom ?geneproduct . ?participant_r owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?participant_r . } } \n# look at only interactions .\n ?interaction rdfs:subClassOf obo:MI_0407 . \n# get all the other participants in those interactions .\n FILTER(?participant_r != ?participant_r2) . { SELECT ?participant_r2 ?participant ?interaction { ?participant_r2 owl:someValuesFrom ?participant . ?participant_r2 owl:onProperty obo:RO_0000057 . ?interaction rdfs:subClassOf ?participant_r2 . } } }"
+    }
+}

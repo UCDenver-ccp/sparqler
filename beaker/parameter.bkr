@@ -1,0 +1,73 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        }
+    ],
+    "cells": [
+        {
+            "id": "codeZMce5b",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "function getUrlVars() {",
+                    "var vars = {};",
+                    "var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {",
+                    "vars[key] = value;",
+                    "});",
+                    "return vars;",
+                    "}",
+                    "",
+                    "getUrlVars()[\"molecule\"]"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Text",
+                "pluginName": "JavaScript",
+                "elapsedTime": 35,
+                "height": 35,
+                "result": "Morphine"
+            },
+            "evaluatorReader": true,
+            "lineCount": 9,
+            "isError": false,
+            "initialization": true,
+            "locked": true
+        },
+        {
+            "id": "codei7c2YU",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {}
+            },
+            "evaluatorReader": true
+        }
+    ],
+    "namespace": {}
+}

@@ -404,3 +404,10 @@
 (in-ns 'sparqler.core)
 kabob
 quit
+sparqler.core/kabob
+exit
+(:use 'sparqler.core)
+(in-ns 'sparqler.core)
+(exit)
+(use 'sparqler.core)
+(exit)

@@ -1,0 +1,137 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        },
+        {
+            "name": "Clojure",
+            "plugin": "Clojure",
+            "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient",
+            "view": {
+                "cm": {
+                    "mode": "text/x-clojure"
+                }
+            },
+            "classPath": "/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+            "requirements": "sparqler.core"
+        },
+        {
+            "name": "Java",
+            "plugin": "Java",
+            "imports": "java.util.concurrent.TimeUnit\ncom.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.GradientColor\ncom.twosigma.beaker.chart.legend.*\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.chart.xychart.*\ncom.twosigma.beaker.chart.xychart.plotitem.*\ncom.twosigma.beaker.chart.categoryplot.*\ncom.twosigma.beaker.chart.categoryplot.plotitem.*\ncom.twosigma.beaker.chart.histogram.*\ncom.twosigma.beaker.chart.treemap.*\ncom.twosigma.beaker.chart.treemap.util.*\nnet.sf.jtreemap.swing.*\ncom.twosigma.beaker.NamespaceClient\ncom.twosigma.beaker.chart.heatmap.HeatMap\ncom.twosigma.beaker.jvm.object.*\ncom.twosigma.beaker.easyform.*\ncom.twosigma.beaker.easyform.formitem.*\ncom.twosigma.beaker.table.*\ncom.twosigma.beaker.table.format.*\ncom.twosigma.beaker.table.renderer.*\ncom.twosigma.beaker.table.highlight.*",
+            "view": {
+                "cm": {
+                    "mode": "text/x-java"
+                }
+            }
+        }
+    ],
+    "cells": [
+        {
+            "id": "codeEWpCIB",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(#object[java.net.URL 0x2fa48ed7 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/clojure.jar] #object[java.net.URL 0x4d7d0a5d file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/cl\nojure/lib/jvm.jar] #object[java.net.URL 0x1be5f38f file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/clojure-1.7.0.jar] #object[java.net.URL 0x7aaba7de file:/Applications/Beaker.app/Contents/Resources/dis\nt/config/plugins/eval/clojure/lib/jetty-servlet-8.1.13.v20130916.jar] #object[java.net.URL 0x71f24c6a file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/guava-18.0.jar] #object[java.net.URL 0x54f89feb file\n:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jersey-servlet-1.17.1.jar] #object[java.net.URL 0x60357770 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jersey-server\n-1.17.1.jar] #object[java.net.URL 0x4787b9ff file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jersey-core-1.17.1.jar] #object[java.net.URL 0x24753c79 file:/Applications/Beaker.app/Contents/Resources/dist\n/config/plugins/eval/clojure/lib/fluent-hc-4.5.1.jar] #object[java.net.URL 0x3462f8db file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/shared.jar] #object[java.net.URL 0x7f2787d0 file:/Applications/Beake\nr.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/slf4j-simple-1.7.6.jar] #object[java.net.URL 0x515918a file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-security-8.1.13.v20130916.jar] \n#object[java.net.URL 0x80ee3a5 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/asm-3.1.jar] #object[java.net.URL 0x2b89665f file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/cloj\nure/lib/httpclient-4.5.1.jar] #object[java.net.URL 0x68537df9 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/commons-logging-1.2.jar] #object[java.net.URL 0x41e338b8 file:/Applications/Beaker.app/Conte\nnts/Resources/dist/config/plugins/eval/clojure/lib/cometd-java-annotations-2.7.0.jar] #object[java.net.URL 0x3e8ff8ea file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jackson-jaxrs-1.9.13.jar] #object[ja\nva.net.URL 0x5e54cafa file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/cxf-bundle-jaxrs-2.7.7.jar] #object[java.net.URL 0x2d9bd87c file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eva\nl/clojure/lib/commons-lang3-3.3.jar] #object[java.net.URL 0x7565138f file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jersey-guice-1.17.1.jar] #object[java.net.URL 0x34ecfd61 file:/Applications/Beaker.ap\np/Contents/Resources/dist/config/plugins/eval/clojure/lib/cometd-websocket-jetty-2.7.0.jar] #object[java.net.URL 0x4c97f21c file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/slf4j-api-1.7.6.jar] #object[j\nava.net.URL 0x3fbc8bca file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-server-8.1.13.v20130916.jar] #object[java.net.URL 0x62180ed9 file:/Applications/Beaker.app/Contents/Resources/dist/config/plu\ngins/eval/clojure/lib/httpcore-4.4.3.jar] #object[java.net.URL 0x31cce00e file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/commons-codec-1.9.jar] #object[java.net.URL 0x42b8f339 file:/Applications/Beaker\n.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/javax.inject-1.jar] #object[java.net.URL 0x1901c27f file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jsr250-api-1.0.jar] #object[java.net.URL \n0x3b4d6940 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/bayeux-api-2.7.0.jar] #object[java.net.URL 0x6dd732b7 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/com\netd-java-server-2.7.0.jar] #object[java.net.URL 0x6873250f file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jackson-core-asl-1.9.13.jar] #object[java.net.URL 0x7f761044 file:/Applications/Beaker.app/Cont\nents/Resources/dist/config/plugins/eval/clojure/lib/jackson-mapper-asl-1.9.13.jar] #object[java.net.URL 0x2f216183 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/woodstox-core-asl-4.2.0.jar] #object[ja\nva.net.URL 0x7bb7bc5a file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/stax2-api-3.1.1.jar] #object[java.net.URL 0xa9db57e file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojur\ne/lib/xmlschema-core-2.0.3.jar] #object[java.net.URL 0x45267059 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/geronimo-javamail_1.4_spec-1.7.1.jar] #object[java.net.URL 0x61af2c07 file:/Applications/B\neaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/wsdl4j-1.6.3.jar] #object[java.net.URL 0x273c0904 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jaxb-impl-2.1.13.jar] #object[java.net\n.URL 0x40ed7ed8 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/geronimo-servlet_3.0_spec-1.0.jar] #object[java.net.URL 0x363f7a24 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/ev\nal/clojure/lib/javax.ws.rs-api-2.0-m10.jar] #object[java.net.URL 0x2e68b7f0 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/guice-3.0.jar] #object[java.net.URL 0x69dbef10 file:/Applications/Beaker.app/C\nontents/Resources/dist/config/plugins/eval/clojure/lib/guice-servlet-3.0.jar] #object[java.net.URL 0x426b574d file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/cometd-java-client-2.7.0.jar] #object[java.n\net.URL 0xfc8eb7e file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-websocket-7.6.13.v20130916.jar] #object[java.net.URL 0x64740a40 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugin\ns/eval/clojure/lib/cometd-java-common-2.7.0.jar] #object[java.net.URL 0x52e1cab1 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-jmx-7.6.13.v20130916.jar] #object[java.net.URL 0x4a282e9f file:/App\nlications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/aopalliance-1.0.jar] #object[java.net.URL 0x2f3afbf file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/cglib-2.2.1-v20090111.jar\n] #object[java.net.URL 0x461183ab file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-client-7.6.13.v20130916.jar] #object[java.net.URL 0x1af96d9a file:/Applications/Beaker.app/Contents/Resources/dist\n/config/plugins/eval/clojure/lib/javax.servlet-3.0.0.v201112011016.jar] #object[java.net.URL 0x11aef48c file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-continuation-8.1.13.v20130916.jar] #object[j\nava.net.URL 0xebf3f51 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-http-8.1.13.v20130916.jar] #object[java.net.URL 0x44f9e9f6 file:/Applications/Beaker.app/Contents/Resources/dist/config/plugin\ns/eval/clojure/lib/jetty-io-8.1.13.v20130916.jar] #object[java.net.URL 0x153dc94e file:/Applications/Beaker.app/Contents/Resources/dist/config/plugins/eval/clojure/lib/jetty-util-8.1.13.v20130916.jar])\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "73657aed-e84a-4735-8456-0fab577d6445",
+                "elapsedTime": 637,
+                "height": 1043
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false,
+            "wordWrapDisabled": true
+        },
+        {
+            "id": "codedmcO3w",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Error",
+                    "object": [
+                        "java.lang.ClassNotFoundException: sparqler.core",
+                        "\tat java.net.URLClassLoader.findClass(URLClassLoader.java:381)",
+                        "\tat clojure.lang.DynamicClassLoader.findClass(DynamicClassLoader.java:69)",
+                        "\tat java.lang.ClassLoader.loadClass(ClassLoader.java:424)",
+                        "\tat clojure.lang.DynamicClassLoader.loadClass(DynamicClassLoader.java:77)",
+                        "\tat java.lang.ClassLoader.loadClass(ClassLoader.java:357)",
+                        "\tat java.lang.Class.forName0(Native Method)",
+                        "\tat java.lang.Class.forName(Class.java:348)",
+                        "\tat clojure.lang.RT.classForName(RT.java:2154)",
+                        "\tat clojure.lang.RT.classForName(RT.java:2163)",
+                        "\tat clojure.lang.Compiler$HostExpr.maybeClass(Compiler.java:1017)",
+                        "\tat clojure.lang.Compiler$HostExpr.access$600(Compiler.java:795)",
+                        "\tat clojure.lang.Compiler.analyzeSymbol(Compiler.java:6911)",
+                        "\tat clojure.lang.Compiler.analyze(Compiler.java:6506)",
+                        "\tat clojure.lang.Compiler.analyze(Compiler.java:6485)",
+                        "\tat clojure.lang.Compiler.eval(Compiler.java:6786)",
+                        "\tat clojure.lang.Compiler.load(Compiler.java:7227)",
+                        "\tat clojure.lang.Compiler.load(Compiler.java:7174)",
+                        "\tat clojure.core$load_reader.invoke(core.clj:3933)",
+                        "\tat clojure.core$load_string.invoke(core.clj:3943)",
+                        "\tat beaker_clojure_shell_73657aed_e84a_4735_8456_0fab577d6445$run_str_73657aed_e84a_4735_8456_0fab577d6445.invoke(Unknown Source)",
+                        "\tat clojure.lang.Var.invoke(Var.java:379)",
+                        "\tat com.twosigma.beaker.clojure.util.ClojureEvaluator$workerThread$MyRunnable.run(ClojureEvaluator.java:239)",
+                        "\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)",
+                        "\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)",
+                        "\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)",
+                        "\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)",
+                        "\tat java.lang.Thread.run(Thread.java:745)",
+                        ""
+                    ]
+                },
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "73657aed-e84a-4735-8456-0fab577d6445",
+                "elapsedTime": 82,
+                "height": 52
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": true
+        }
+    ],
+    "namespace": {}
+}

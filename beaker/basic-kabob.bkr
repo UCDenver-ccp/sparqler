@@ -1,0 +1,487 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        },
+        {
+            "name": "Clojure",
+            "plugin": "Clojure",
+            "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\norg.joda.time.ReadablePartial\norg.joda.time.ReadableDateTime\norg.joda.time.ReadablePeriod\norg.joda.time.DateTime\norg.joda.time.DateMidnight\norg.joda.time.YearMonth\norg.joda.time.LocalDate\norg.joda.time.LocalTime\norg.joda.time.DateTimeZone\norg.joda.time.Period\norg.joda.time.PeriodType\norg.joda.time.Interval\norg.joda.time.Years\norg.joda.time.LocalDateTime\norg.joda.time.Chronology\norg.joda.time.format.DateTimeFormat\norg.joda.time.format.DateTimeFormatter\norg.joda.time.format.DateTimePrinter\norg.joda.time.format.DateTimeFormatterBuilder\norg.joda.time.format.DateTimeParser\norg.joda.time.format.ISODateTimeFormat\norg.joda.time.tz.FixedDateTimeZone\norg.joda.time.Months\norg.joda.time.Weeks\norg.joda.time.Days\norg.joda.time.Hours\norg.joda.time.Minutes\norg.joda.time.Seconds\norg.joda.time.MutableDateTime\norg.joda.time.DateTimeUtils\ncom.hp.hpl.jena.query.Syntax\ncom.hp.hpl.jena.query.Query\ncom.hp.hpl.jena.query.QueryExecution\ncom.hp.hpl.jena.query.QueryExecutionFactory\ncom.hp.hpl.jena.query.ARQ\ncom.hp.hpl.jena.query.QueryFactory\ncom.hp.hpl.jena.query.QuerySolution\ncom.hp.hpl.jena.query.QuerySolutionMap\ncom.hp.hpl.jena.query.ResultSet\ncom.hp.hpl.jena.query.ResultSetFormatter\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemote\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemoteForm\ncom.hp.hpl.jena.update.UpdateFactory\ncom.hp.hpl.jena.update.UpdateExecutionFactory\ncom.hp.hpl.jena.update.UpdateRequest\ncom.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP\njava.io.ByteArrayOutputStream",
+            "view": {
+                "cm": {
+                    "mode": "text/x-clojure"
+                }
+            },
+            "classPath": "/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+            "requirements": "sparqler.core"
+        }
+    ],
+    "cells": [
+        {
+            "id": "codedRrucG",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "JavaScript",
+                "elapsedTime": 94
+            },
+            "evaluatorReader": true,
+            "isError": false
+        },
+        {
+            "id": "code3ksqul",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(refer 'sparqler.core)",
+                    "kabob"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "Key",
+                            "Value"
+                        ],
+                        "actualtype": [
+                            0,
+                            0
+                        ],
+                        "actualalign": [
+                            "L",
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1,
+                            2
+                        ],
+                        "getCellSho": [
+                            true,
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": []
+                    }
+                },
+                "result": {
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "Key",
+                        "Value"
+                    ],
+                    "values": [
+                        [
+                            ":endpoint",
+                            "http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev"
+                        ],
+                        [
+                            ":user",
+                            "secret"
+                        ],
+                        [
+                            ":pass",
+                            "secret"
+                        ]
+                    ],
+                    "subtype": "Dictionary"
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 904,
+                "height": 128
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeMqejvQ",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def q (localize uniprot:HUMAN_CYC))",
+                    "q"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "PREFIX obo: <http://purl.obolibrary.org/obo/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX uniprot: <http://kabob.ucdenver.edu/iao/uniprot/> SELECT ?location_class ?location_name WHERE { ?localization rdfs:subClassOf obo:GO_0051179 . ?localization rdfs:subClassOf ?of_restriction . ?of_restriction rdf:type owl:Restriction . ?of_restriction owl:onProperty obo:RO_0002313 . ?of_restriction owl:someValuesFrom ?protein_subclass . ?protein_subclass rdfs:subClassOf ?protein_class . ?protein_class rdfs:subClassOf obo:CHEBI_36080 . ?protein_name obo:IAO_0000219 ?protein_class . ?localization rdfs:subClassOf ?to_restriction . ?to_restriction rdf:type owl:Restriction . ?to_restriction owl:onProperty obo:RO_0002339 . ?to_restriction owl:someValuesFrom ?location_subclass . ?location_subclass rdfs:subClassOf ?location_class . ?location_class rdfs:subClassOf* obo:GO_0005575 . ?location_class rdfs:label ?location_name . FILTER(?protein_name = uniprot:UNIPROT_P99999_ICE) }",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 1176,
+                "height": 95
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeh9kpLC",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def result (kabob-query q))",
+                    "(use '[clojure.pprint :only [print-table]])",
+                    "(print-table result)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "|                           :location_class |                      :location_name |\n|-------------------------------------------+-------------------------------------|\n| http://purl.obolibrary.org/obo/GO_0005739 |                       mitochondrion |\n| http://purl.obolibrary.org/obo/GO_0000159 | protein phosphatase type 2A complex |\n| http://purl.obolibrary.org/obo/GO_0005758 |   mitochondrial intermembrane space |\n| http://purl.obolibrary.org/obo/GO_0005743 |        mitochondrial inner membrane |\n| http://purl.obolibrary.org/obo/GO_0005634 |                             nucleus |\n| http://purl.obolibrary.org/obo/GO_0005829 |                             cytosol |\n| http://purl.obolibrary.org/obo/GO_0070469 |                   respiratory chain |\n| http://purl.obolibrary.org/obo/GO_0005634 |                             nucleus |\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 7902,
+                "height": 207
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        },
+        {
+            "id": "codeVeG9u2",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(clojure.set/rename result {:location_class \"location_class\", :location_name \"location_name\"}) "
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "location_class",
+                            "location_name"
+                        ],
+                        "actualtype": [
+                            0,
+                            0
+                        ],
+                        "actualalign": [
+                            "L",
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1,
+                            2
+                        ],
+                        "getCellSho": [
+                            true,
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": [],
+                        "headerFontSize": null,
+                        "dataFontSize": null,
+                        "fontColor": [],
+                        "headersVertical": false
+                    }
+                },
+                "result": {
+                    "hasDoubleClickAction": false,
+                    "doubleClickTag": null,
+                    "contextMenuItems": [],
+                    "contextMenuTags": {},
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "location_class",
+                        "location_name"
+                    ],
+                    "types": [
+                        "string",
+                        "string"
+                    ],
+                    "subtype": "ListOfMaps",
+                    "stringFormatForTimes": null,
+                    "stringFormatForType": {},
+                    "stringFormatForColumn": {},
+                    "rendererForType": {},
+                    "rendererForColumn": {},
+                    "alignmentForType": {},
+                    "alignmentForColumn": {},
+                    "columnsFrozen": {},
+                    "columnsFrozenRight": {},
+                    "columnsVisible": {},
+                    "columnOrder": [],
+                    "cellHighlighters": [],
+                    "tooltips": [],
+                    "dataFontSize": null,
+                    "headerFontSize": null,
+                    "fontColor": [],
+                    "headersVertical": false,
+                    "values": [
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005758",
+                            "mitochondrial intermembrane space"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005829",
+                            "cytosol"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005634",
+                            "nucleus"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005739",
+                            "mitochondrion"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0000159",
+                            "protein phosphatase type 2A complex"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005743",
+                            "mitochondrial inner membrane"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0070469",
+                            "respiratory chain"
+                        ]
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 1146,
+                "height": 252
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codekNMUzo",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def qu (QueryFactory/create q))",
+                    "(QueryExecutionFactory/sparqlService (get kabob :endpoint) q) "
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "GET http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev?query=PREFIX++rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX++owl%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX++rdf%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX++obo%3A++%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2F%3E%0APREFIX++uniprot%3A+%3Chttp%3A%2F%2Fkabob.ucdenver.edu%2Fiao%2Funiprot%2F%3E%0A%0ASELECT++%3Flocation_class+%3Flocation_name%0AWHERE%0A++%7B+%3Flocalization+rdfs%3AsubClassOf+obo%3AGO_0051179+.%0A++++%3Flocalization+rdfs%3AsubClassOf+%3Fof_restriction+.%0A++++%3Fof_restriction+rdf%3Atype+owl%3ARestriction+.%0A++++%3Fof_restriction+owl%3AonProperty+obo%3ARO_0002313+.%0A++++%3Fof_restriction+owl%3AsomeValuesFrom+%3Fprotein_subclass+.%0A++++%3Fprotein_subclass+rdfs%3AsubClassOf+%3Fprotein_class+.%0A++++%3Fprotein_class+rdfs%3AsubClassOf+obo%3ACHEBI_36080+.%0A++++%3Fprotein_name+obo%3AIAO_0000219+%3Fprotein_class+.%0A++++%3Flocalization+rdfs%3AsubClassOf+%3Fto_restriction+.%0A++++%3Fto_restriction+rdf%3Atype+owl%3ARestriction+.%0A++++%3Fto_restriction+owl%3AonProperty+obo%3ARO_0002339+.%0A++++%3Fto_restriction+owl%3AsomeValuesFrom+%3Flocation_subclass+.%0A++++%3Flocation_subclass+rdfs%3AsubClassOf+%3Flocation_class+.%0A++++%3Flocation_class+%28rdfs%3AsubClassOf%29*+obo%3AGO_0005575+.%0A++++%3Flocation_class+rdfs%3Alabel+%3Flocation_name%0A++++FILTER+%28+%3Fprotein_name+%3D+uniprot%3AUNIPROT_P99999_ICE+%29%0A++%7D%0A",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 1574,
+                "height": 132
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codexLw8Ka",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def qexec (doto (QueryExecutionFactory/sparqlService (get kabob :endpoint) q) (.setBasicAuthentication (get kabob :user) (char-array (get kabob :pass)))))",
+                    "(def results(.execSelect qexec))",
+                    "results"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "com.hp.hpl.jena.sparql.resultset.XMLInputStAX$ResultSetStAX@7ab8fa7b",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 1000,
+                "height": 39
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        },
+        {
+            "id": "codegI8ULk",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def outputStream (ByteArrayOutputStream.))",
+                    "(ResultSetFormatter/outputAsJSON outputStream results)",
+                    "(def json (String. (.toByteArray outputStream)))",
+                    "(beaker :set \"result\" json)",
+                    "(println json)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "{\n  \"head\": {\n    \"vars\": [ \"location_class\" , \"location_name\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005739\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"mitochondrion\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0000159\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"protein phosphatase type 2A complex\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005758\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"mitochondrial intermembrane space\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005743\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"mitochondrial inner membrane\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005634\" } ,\n        \"location_name\": { \"type\": \"literal\" , \"xml:lang\": \"en\" , \"value\": \"nucleus\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005829\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"cytosol\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0070469\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"respiratory chain\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005634\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"nucleus\" }\n      }\n    ]\n  }\n}\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "d86b89ba-4600-4960-a06c-8aae494b67a6",
+                "elapsedTime": 3496,
+                "height": 785
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "codemx0oUl",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "function loadCSS(filename){ ",
+                    "",
+                    "       var file = document.createElement(\"link\");",
+                    "       file.setAttribute(\"rel\", \"stylesheet\");",
+                    "       file.setAttribute(\"type\", \"text/css\");",
+                    "       file.setAttribute(\"href\", filename);",
+                    "       document.head.appendChild(file);",
+                    "",
+                    "}",
+                    "",
+                    "//just call a function to load a new CSS:",
+                    "loadCSS(\"http://cdn.jsdelivr.net/yasqe/2.11.6/yasqe.min.css\");",
+                    "loadCSS(\"http://yasr.yasgui.org/dist/yasr.min.css\");",
+                    "loadCSS(\"http://yasr.yasgui.org/doc/doc.min.css\");"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "JavaScript",
+                "elapsedTime": 8896
+            },
+            "evaluatorReader": true,
+            "lineCount": 14,
+            "isError": false
+        },
+        {
+            "id": "codeKzsFuo",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    "<div id=\"yasr\" style=\"width: auto\"></div>"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Html",
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<div id=\"yasr\" style=\"width: auto\"><div class=\"yasr\"><div class=\"yasr_header\"><button class=\"yasr_btn btn_fullscreen btn_icon\"><div class=\"svgImg\"><svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"5 -10 74.074074 100\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\" version=\"0.48.4 r9939\" docname=\"noun_2186_cc.svg\"><metadata><rdf:RDF><cc:Work about=\"\"><dc:format>image/svg+xml</dc:format><dc:type resource=\"http://purl.org/dc/dcmitype/StillImage\"></dc:type></cc:Work></rdf:RDF></metadata><defs></defs><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" pageopacity=\"0\" pageshadow=\"2\" window-width=\"640\" window-height=\"480\" showgrid=\"false\" fit-margin-top=\"0\" fit-margin-left=\"0\" fit-margin-right=\"0\" fit-margin-bottom=\"0\" zoom=\"2.36\" cx=\"44.101509\" cy=\"31.481481\" window-x=\"65\" window-y=\"24\" window-maximized=\"0\" current-layer=\"Layer_1\"></sodipodi:namedview><path d=\"m -7.962963,-10 v 38.889 l 16.667,-16.667 16.667,16.667 5.555,-5.555 -16.667,-16.667 16.667,-16.667 h -38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 92.037037,-10 v 38.889 l -16.667,-16.667 -16.666,16.667 -5.556,-5.555 16.666,-16.667 -16.666,-16.667 h 38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"M -7.962963,90 V 51.111 l 16.667,16.666 16.667,-16.666 5.555,5.556 -16.667,16.666 16.667,16.667 h -38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"M 92.037037,90 V 51.111 l -16.667,16.666 -16.666,-16.666 -5.556,5.556 16.666,16.666 -16.666,16.667 h 38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path></svg></div></button><button class=\"yasr_btn btn_smallscreen btn_icon\"><div class=\"svgImg\"><svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"5 -10 74.074074 100\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\" version=\"0.48.4 r9939\" docname=\"noun_2186_cc.svg\"><metadata><rdf:RDF><cc:Work about=\"\"><dc:format>image/svg+xml</dc:format><dc:type resource=\"http://purl.org/dc/dcmitype/StillImage\"></dc:type></cc:Work></rdf:RDF></metadata><defs></defs><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" pageopacity=\"0\" pageshadow=\"2\" window-width=\"1855\" window-height=\"1056\" showgrid=\"false\" fit-margin-top=\"0\" fit-margin-left=\"0\" fit-margin-right=\"0\" fit-margin-bottom=\"0\" zoom=\"2.36\" cx=\"44.101509\" cy=\"31.481481\" window-x=\"65\" window-y=\"24\" window-maximized=\"1\" current-layer=\"Layer_1\"></sodipodi:namedview><path d=\"m 30.926037,28.889 0,-38.889 -16.667,16.667 -16.667,-16.667 -5.555,5.555 16.667,16.667 -16.667,16.667 38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 53.148037,28.889 0,-38.889 16.667,16.667 16.666,-16.667 5.556,5.555 -16.666,16.667 16.666,16.667 -38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 30.926037,51.111 0,38.889 -16.667,-16.666 -16.667,16.666 -5.555,-5.556 16.667,-16.666 -16.667,-16.667 38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 53.148037,51.111 0,38.889 16.667,-16.666 16.666,16.666 5.556,-5.556 -16.666,-16.666 16.666,-16.667 -38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path></svg></div></button><div class=\"yasr_btnGroup\"><button class=\"yasr_btn select_table selected\">Table</button><button class=\"yasr_btn select_rawResponse\">Raw Response</button><button class=\"yasr_btn select_pivot\">Pivot Table</button><button class=\"yasr_btn select_gchart\">Google Chart</button><button class=\"yasr_btn select_leaflet disabled\" title=\"Query for geo variables in WKT format to plot them on a map\">Geo</button></div><button class=\"yasr_btn yasr_downloadIcon btn_icon\" title=\"Download as CSV\"><div class=\"svgImg\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" baseProfile=\"tiny\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" xml:space=\"preserve\"><g id=\"Captions\"></g><g id=\"Your_Icon\">\t<path fill-rule=\"evenodd\" fill=\"#000000\" d=\"M88,84v-2c0-2.961-0.859-4-4-4H16c-2.961,0-4,0.98-4,4v2c0,3.102,1.039,4,4,4h68   C87.02,88,88,87.039,88,84z M58,12H42c-5,0-6,0.941-6,6v22H16l34,34l34-34H64V18C64,12.941,62.939,12,58,12z\" style=\"fill: black;\"></path></g></svg></div></button><button class=\"yasr_btn yasr_embedBtn\" title=\"Get HTML snippet to embed results on a web page\" style=\"display: none;\">&lt;/&gt;</button></div><div class=\"yasr_results\"><div id=\"DataTables_Table_3_wrapper\" class=\"dataTables_wrapper no-footer\"><div class=\"dtTopHeader\"><div class=\"dataTables_info\" id=\"DataTables_Table_3_info\" role=\"status\" aria-live=\"polite\">Showing 1 to 8 of 8 entries</div><div class=\"dataTables_length\" id=\"DataTables_Table_3_length\"><label>Show <select name=\"DataTables_Table_3_length\" aria-controls=\"DataTables_Table_3\" class=\"\"><option value=\"10\">10</option><option value=\"50\">50</option><option value=\"100\">100</option><option value=\"1000\">1000</option><option value=\"-1\">All</option></select> entries</label></div><div id=\"DataTables_Table_3_filter\" class=\"dataTables_filter\"><label>Search:<input type=\"search\" class=\"\" placeholder=\"\" aria-controls=\"DataTables_Table_3\"></label></div></div><div class=\"JCLRgrips\" style=\"width: 2660px;\"><div class=\"JCLRgrip\" style=\"left: 34px; height: 327px;\"><div class=\"JColResizer\" style=\"cursor:e-resize\"></div></div><div class=\"JCLRgrip\" style=\"left: 1347px; height: 327px;\"><div class=\"JColResizer\" style=\"cursor:e-resize\"></div></div><div class=\"JCLRLastGrip\" style=\"left: 2660.166664123535px; height: 327px;\"></div></div><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"resultsTable dataTable no-footer JColResizer\" id=\"DataTables_Table_3\" aria-describedby=\"DataTables_Table_3_info\" role=\"grid\"><thead><tr role=\"row\"><th class=\"sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"\" style=\"width: 31.666666626930237px;\"></th><th class=\"sorting\" tabindex=\"0\" aria-controls=\"DataTables_Table_3\" rowspan=\"1\" colspan=\"1\" aria-label=\"location_class: activate to sort column ascending\" style=\"width: 1311.6666666269302px;\"><span>location_class</span><div class=\"sortIcons\"><div class=\"svgImg\"><svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 54.552711 113.78478\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\"><g id=\"g5\" transform=\"matrix(-0.70522156,-0.70898699,-0.70898699,0.70522156,97.988199,55.081205)\"><path style=\"fill:#000000\" connector-curvature=\"0\" id=\"path7\" d=\"M 57.911,66.915 45.808,55.063 42.904,52.238 31.661,41.25 31.435,41.083 31.131,40.775 30.794,40.523 30.486,40.3 30.069,40.05 29.815,39.911 29.285,39.659 29.089,39.576 28.474,39.326 28.363,39.297 H 28.336 L 27.665,39.128 27.526,39.1 26.94,38.99 26.714,38.961 26.212,38.934 h -0.31 -0.444 l -0.339,0.027 c -1.45,0.139 -2.876,0.671 -4.11,1.564 l -0.223,0.141 -0.279,0.25 -0.335,0.308 -0.054,0.029 -0.171,0.194 -0.334,0.364 -0.224,0.279 -0.25,0.336 -0.225,0.362 -0.192,0.308 -0.197,0.421 -0.142,0.279 -0.193,0.477 -0.084,0.222 -12.441,38.414 c -0.814,2.458 -0.313,5.029 1.115,6.988 v 0.026 l 0.418,0.532 0.17,0.165 0.251,0.281 0.084,0.079 0.283,0.281 0.25,0.194 0.474,0.367 0.083,0.053 c 2.015,1.371 4.641,1.874 7.131,1.094 L 55.228,80.776 c 4.303,-1.342 6.679,-5.814 5.308,-10.006 -0.387,-1.259 -1.086,-2.35 -1.979,-3.215 l -0.368,-0.337 -0.278,-0.303 z m -6.318,5.896 0.079,0.114 -37.369,11.57 11.854,-36.538 10.565,10.317 2.876,2.825 11.995,11.712 z\"></path></g><path style=\"fill:#000000\" connector-curvature=\"0\" id=\"path7-9\" d=\"m 8.8748339,52.571766 16.9382111,-0.222584 4.050851,-0.06665 15.719154,-0.222166 0.27778,-0.04246 0.43276,0.0017 0.41632,-0.06121 0.37532,-0.0611 0.47132,-0.119342 0.27767,-0.08206 0.55244,-0.198047 0.19707,-0.08043 0.61095,-0.259721 0.0988,-0.05825 0.019,-0.01914 0.59303,-0.356548 0.11787,-0.0788 0.49125,-0.337892 0.17994,-0.139779 0.37317,-0.336871 0.21862,-0.219786 0.31311,-0.31479 0.21993,-0.259387 c 0.92402,-1.126057 1.55249,-2.512251 1.78961,-4.016904 l 0.0573,-0.25754 0.0195,-0.374113 0.0179,-0.454719 0.0175,-0.05874 -0.0169,-0.258049 -0.0225,-0.493503 -0.0398,-0.355569 -0.0619,-0.414201 -0.098,-0.414812 -0.083,-0.353334 L 53.23955,41.1484 53.14185,40.850967 52.93977,40.377742 52.84157,40.161628 34.38021,4.2507375 C 33.211567,1.9401875 31.035446,0.48226552 28.639484,0.11316952 l -0.01843,-0.01834 -0.671963,-0.07882 -0.236871,0.0042 L 27.335984,-4.7826577e-7 27.220736,0.00379952 l -0.398804,0.0025 -0.313848,0.04043 -0.594474,0.07724 -0.09611,0.02147 C 23.424549,0.60716252 21.216017,2.1142355 20.013025,4.4296865 L 0.93967491,40.894479 c -2.08310801,3.997178 -0.588125,8.835482 3.35080799,10.819749 1.165535,0.613495 2.43199,0.88731 3.675026,0.864202 l 0.49845,-0.02325 0.410875,0.01658 z M 9.1502369,43.934401 9.0136999,43.910011 27.164145,9.2564625 44.70942,43.42818 l -14.765289,0.214677 -4.031106,0.0468 -16.7627881,0.244744 z\"></path></svg></div></div></th><th class=\"sorting\" tabindex=\"0\" aria-controls=\"DataTables_Table_3\" rowspan=\"1\" colspan=\"1\" aria-label=\"location_name: activate to sort column ascending\" style=\"width: 1313px;\"><span>location_name</span><div class=\"sortIcons\"><div class=\"svgImg\"><svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 54.552711 113.78478\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\"><g id=\"g5\" transform=\"matrix(-0.70522156,-0.70898699,-0.70898699,0.70522156,97.988199,55.081205)\"><path style=\"fill:#000000\" connector-curvature=\"0\" id=\"path7\" d=\"M 57.911,66.915 45.808,55.063 42.904,52.238 31.661,41.25 31.435,41.083 31.131,40.775 30.794,40.523 30.486,40.3 30.069,40.05 29.815,39.911 29.285,39.659 29.089,39.576 28.474,39.326 28.363,39.297 H 28.336 L 27.665,39.128 27.526,39.1 26.94,38.99 26.714,38.961 26.212,38.934 h -0.31 -0.444 l -0.339,0.027 c -1.45,0.139 -2.876,0.671 -4.11,1.564 l -0.223,0.141 -0.279,0.25 -0.335,0.308 -0.054,0.029 -0.171,0.194 -0.334,0.364 -0.224,0.279 -0.25,0.336 -0.225,0.362 -0.192,0.308 -0.197,0.421 -0.142,0.279 -0.193,0.477 -0.084,0.222 -12.441,38.414 c -0.814,2.458 -0.313,5.029 1.115,6.988 v 0.026 l 0.418,0.532 0.17,0.165 0.251,0.281 0.084,0.079 0.283,0.281 0.25,0.194 0.474,0.367 0.083,0.053 c 2.015,1.371 4.641,1.874 7.131,1.094 L 55.228,80.776 c 4.303,-1.342 6.679,-5.814 5.308,-10.006 -0.387,-1.259 -1.086,-2.35 -1.979,-3.215 l -0.368,-0.337 -0.278,-0.303 z m -6.318,5.896 0.079,0.114 -37.369,11.57 11.854,-36.538 10.565,10.317 2.876,2.825 11.995,11.712 z\"></path></g><path style=\"fill:#000000\" connector-curvature=\"0\" id=\"path7-9\" d=\"m 8.8748339,52.571766 16.9382111,-0.222584 4.050851,-0.06665 15.719154,-0.222166 0.27778,-0.04246 0.43276,0.0017 0.41632,-0.06121 0.37532,-0.0611 0.47132,-0.119342 0.27767,-0.08206 0.55244,-0.198047 0.19707,-0.08043 0.61095,-0.259721 0.0988,-0.05825 0.019,-0.01914 0.59303,-0.356548 0.11787,-0.0788 0.49125,-0.337892 0.17994,-0.139779 0.37317,-0.336871 0.21862,-0.219786 0.31311,-0.31479 0.21993,-0.259387 c 0.92402,-1.126057 1.55249,-2.512251 1.78961,-4.016904 l 0.0573,-0.25754 0.0195,-0.374113 0.0179,-0.454719 0.0175,-0.05874 -0.0169,-0.258049 -0.0225,-0.493503 -0.0398,-0.355569 -0.0619,-0.414201 -0.098,-0.414812 -0.083,-0.353334 L 53.23955,41.1484 53.14185,40.850967 52.93977,40.377742 52.84157,40.161628 34.38021,4.2507375 C 33.211567,1.9401875 31.035446,0.48226552 28.639484,0.11316952 l -0.01843,-0.01834 -0.671963,-0.07882 -0.236871,0.0042 L 27.335984,-4.7826577e-7 27.220736,0.00379952 l -0.398804,0.0025 -0.313848,0.04043 -0.594474,0.07724 -0.09611,0.02147 C 23.424549,0.60716252 21.216017,2.1142355 20.013025,4.4296865 L 0.93967491,40.894479 c -2.08310801,3.997178 -0.588125,8.835482 3.35080799,10.819749 1.165535,0.613495 2.43199,0.88731 3.675026,0.864202 l 0.49845,-0.02325 0.410875,0.01658 z M 9.1502369,43.934401 9.0136999,43.910011 27.164145,9.2564625 44.70942,43.42818 l -14.765289,0.214677 -4.031106,0.0468 -16.7627881,0.244744 z\"></path></svg></div></div></th></tr></thead><tbody><tr role=\"row\" class=\"odd\"><td>1</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0005739\">http://purl.obolibrary.org/obo/GO_0005739</a></div></td><td><div><span class=\"nonUri\">\"mitochondrion\"<sup>^^xsd:string</sup></span></div></td></tr><tr role=\"row\" class=\"even\"><td>2</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0000159\">http://purl.obolibrary.org/obo/GO_0000159</a></div></td><td><div><span class=\"nonUri\">\"protein phosphatase type 2A complex\"<sup>^^xsd:string</sup></span></div></td></tr><tr role=\"row\" class=\"odd\"><td>3</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0005758\">http://purl.obolibrary.org/obo/GO_0005758</a></div></td><td><div><span class=\"nonUri\">\"mitochondrial intermembrane space\"<sup>^^xsd:string</sup></span></div></td></tr><tr role=\"row\" class=\"even\"><td>4</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0005743\">http://purl.obolibrary.org/obo/GO_0005743</a></div></td><td><div><span class=\"nonUri\">\"mitochondrial inner membrane\"<sup>^^xsd:string</sup></span></div></td></tr><tr role=\"row\" class=\"odd\"><td>5</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0005634\">http://purl.obolibrary.org/obo/GO_0005634</a></div></td><td><div><span class=\"nonUri\">\"nucleus\"<sup>@en</sup></span></div></td></tr><tr role=\"row\" class=\"even\"><td>6</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0005829\">http://purl.obolibrary.org/obo/GO_0005829</a></div></td><td><div><span class=\"nonUri\">\"cytosol\"<sup>^^xsd:string</sup></span></div></td></tr><tr role=\"row\" class=\"odd\"><td>7</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0070469\">http://purl.obolibrary.org/obo/GO_0070469</a></div></td><td><div><span class=\"nonUri\">\"respiratory chain\"<sup>^^xsd:string</sup></span></div></td></tr><tr role=\"row\" class=\"even\"><td>8</td><td><div><a class=\"uri\" target=\"_blank\" href=\"http://purl.obolibrary.org/obo/GO_0005634\">http://purl.obolibrary.org/obo/GO_0005634</a></div></td><td><div><span class=\"nonUri\">\"nucleus\"<sup>^^xsd:string</sup></span></div></td></tr></tbody></table><div class=\"dataTables_info\">Showing 1 to 8 of 8 entries</div><div class=\"dataTables_paginate paging_full_numbers\" id=\"DataTables_Table_3_paginate\" style=\"display: none;\"><a class=\"paginate_button first disabled\" aria-controls=\"DataTables_Table_3\" data-dt-idx=\"0\" tabindex=\"0\" id=\"DataTables_Table_3_first\">First</a><a class=\"paginate_button previous disabled\" aria-controls=\"DataTables_Table_3\" data-dt-idx=\"1\" tabindex=\"0\" id=\"DataTables_Table_3_previous\">Previous</a><span><a class=\"paginate_button current\" aria-controls=\"DataTables_Table_3\" data-dt-idx=\"2\" tabindex=\"0\">1</a></span><a class=\"paginate_button next disabled\" aria-controls=\"DataTables_Table_3\" data-dt-idx=\"3\" tabindex=\"0\" id=\"DataTables_Table_3_next\">Next</a><a class=\"paginate_button last disabled\" aria-controls=\"DataTables_Table_3\" data-dt-idx=\"4\" tabindex=\"0\" id=\"DataTables_Table_3_last\">Last</a></div></div></div></div></div>"
+                },
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 11,
+                "height": 448
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeqlFXDm",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "var yasr = YASR(document.getElementById(\"yasr\"));",
+                    "",
+                    "yasr.setResponse(beaker.result);"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 1512,
+                "pluginName": "JavaScript"
+            },
+            "evaluatorReader": true,
+            "lineCount": 3,
+            "isError": false
+        }
+    ],
+    "namespace": {
+        "result": "{\n  \"head\": {\n    \"vars\": [ \"location_class\" , \"location_name\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005739\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"mitochondrion\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0000159\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"protein phosphatase type 2A complex\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005758\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"mitochondrial intermembrane space\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005743\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"mitochondrial inner membrane\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005634\" } ,\n        \"location_name\": { \"type\": \"literal\" , \"xml:lang\": \"en\" , \"value\": \"nucleus\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005829\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"cytosol\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0070469\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"respiratory chain\" }\n      } ,\n      {\n        \"location_class\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/GO_0005634\" } ,\n        \"location_name\": { \"datatype\": \"http://www.w3.org/2001/XMLSchema#string\" , \"type\": \"typed-literal\" , \"value\": \"nucleus\" }\n      }\n    ]\n  }\n}\n"
+    }
+}

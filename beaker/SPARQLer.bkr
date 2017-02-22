@@ -1,0 +1,1770 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            },
+            "shellID": null
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015",
+            "scripts": "vendor/d3sparql.js",
+            "shellID": null
+        },
+        {
+            "name": "SQL",
+            "plugin": "SQL",
+            "imports": "",
+            "view": {
+                "cm": {
+                    "mode": "text/x-sql"
+                }
+            },
+            "shellID": "ba92c9ca-592c-48ef-a4b1-6409d692d63d"
+        },
+        {
+            "name": "Clojure",
+            "plugin": "Clojure",
+            "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\norg.joda.time.ReadablePartial\norg.joda.time.ReadableDateTime\norg.joda.time.ReadablePeriod\norg.joda.time.DateTime\norg.joda.time.DateMidnight\norg.joda.time.YearMonth\norg.joda.time.LocalDate\norg.joda.time.LocalTime\norg.joda.time.DateTimeZone\norg.joda.time.Period\norg.joda.time.PeriodType\norg.joda.time.Interval\norg.joda.time.Years\norg.joda.time.LocalDateTime\norg.joda.time.Chronology\norg.joda.time.format.DateTimeFormat\norg.joda.time.format.DateTimeFormatter\norg.joda.time.format.DateTimePrinter\norg.joda.time.format.DateTimeFormatterBuilder\norg.joda.time.format.DateTimeParser\norg.joda.time.format.ISODateTimeFormat\norg.joda.time.tz.FixedDateTimeZone\norg.joda.time.Months\norg.joda.time.Weeks\norg.joda.time.Days\norg.joda.time.Hours\norg.joda.time.Minutes\norg.joda.time.Seconds\norg.joda.time.MutableDateTime\norg.joda.time.DateTimeUtils\ncom.hp.hpl.jena.query.Syntax\ncom.hp.hpl.jena.query.Query\ncom.hp.hpl.jena.query.QueryExecution\ncom.hp.hpl.jena.query.QueryExecutionFactory\ncom.hp.hpl.jena.query.ARQ\ncom.hp.hpl.jena.query.QueryFactory\ncom.hp.hpl.jena.query.QuerySolution\ncom.hp.hpl.jena.query.QuerySolutionMap\ncom.hp.hpl.jena.query.ResultSet\ncom.hp.hpl.jena.query.ResultSetFormatter\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemote\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemoteForm\ncom.hp.hpl.jena.update.UpdateFactory\ncom.hp.hpl.jena.update.UpdateExecutionFactory\ncom.hp.hpl.jena.update.UpdateRequest\ncom.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP\njava.io.ByteArrayOutputStream",
+            "view": {
+                "cm": {
+                    "mode": "text/x-clojure"
+                }
+            },
+            "classPath": "/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+            "shellID": "20edb70d-1879-4858-b6fd-b6522c232b9b"
+        }
+    ],
+    "cells": [
+        {
+            "id": "section7uxqCi",
+            "type": "section",
+            "title": "SPARQLer",
+            "level": 1,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "section2uo124",
+            "type": "section",
+            "title": "Introduction",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codeTCSG4m",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(refer 'sparqler.core)",
+                    "(import java.net.URI",
+                    "           [java.net URLEncoder URLDecoder])",
+                    "kabob"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "getCellSho": []
+                    }
+                },
+                "result": {
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "Key",
+                        "Value"
+                    ],
+                    "values": [
+                        [
+                            ":endpoint",
+                            "http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev"
+                        ],
+                        [
+                            ":user",
+                            "secret"
+                        ],
+                        [
+                            ":pass",
+                            "secret"
+                        ]
+                    ],
+                    "subtype": "Dictionary"
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "97df11af-65af-4f12-aa81-e0b153545f58",
+                "elapsedTime": 270,
+                "height": 121,
+                "evaluationSequenceNumber": 1
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "sectionyMx625",
+            "type": "section",
+            "title": "Query",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": true
+        },
+        {
+            "id": "markdownBeQdxq",
+            "type": "markdown",
+            "body": [
+                "The following cell will be stored in the beaker.query variable...."
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "query",
+            "type": "code",
+            "evaluator": "SQL",
+            "input": {
+                "body": [
+                    "SELECT * WHERE {?S ?P ?O}",
+                    "LIMIT 10"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Error",
+                    "object": [
+                        "com.twosigma.beaker.sqlsh.utils.DBConnectionException: Connection URI:; No suitable driver"
+                    ]
+                },
+                "selectedType": "BeakerDisplay",
+                "pluginName": "SQL",
+                "shellId": "7892a29b-3a06-434e-a50d-65d7b4fe89eb",
+                "elapsedTime": 258,
+                "height": 47
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": true
+        },
+        {
+            "id": "codeJgchaz",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "beaker.query = beaker.getCodeCells('query')[0].code;;"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "SELECT * WHERE {?S ?P ?O}\nLIMIT 10",
+                "selectedType": "Text",
+                "pluginName": "JavaScript",
+                "elapsedTime": 38,
+                "hidden": true,
+                "height": 36,
+                "evaluationSequenceNumber": 2
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeOdm0Iy",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def q (beaker :get \"query\"))",
+                    "q"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "SELECT * WHERE {?S ?P ?O}\nLIMIT 10",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "97df11af-65af-4f12-aa81-e0b153545f58",
+                "elapsedTime": 913,
+                "height": 52,
+                "evaluationSequenceNumber": 3
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "sectionF7a7Qc",
+            "type": "section",
+            "title": "Execution",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "sectionSbgWEL",
+            "type": "section",
+            "title": "As hashmap",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codeQgssHW",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def r (kabob-query q))",
+                    "(beaker :set \"resultmap\" (clojure.set/rename r {:S \"s\", :P \"p\", :O \"o\"}))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 2793,
+                "height": 37
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeHz8Okr",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "beaker.resultmap"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "s",
+                            "p",
+                            "o"
+                        ],
+                        "actualtype": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "actualalign": [
+                            "L",
+                            "L",
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ],
+                        "getCellSho": [
+                            true,
+                            true,
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": []
+                    }
+                },
+                "result": {
+                    "type": "TableDisplay",
+                    "subtype": "ListOfMaps",
+                    "columnNames": [
+                        "s",
+                        "p",
+                        "o"
+                    ],
+                    "values": [
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI",
+                            "http://purl.obolibrary.org/obo/BFO_0000051",
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneSymbol_PAF3AKoD5w8e_EaIjBSb_ZxAhIw"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI",
+                            "http://purl.obolibrary.org/obo/BFO_0000051",
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneId_Z4oFVmGP0rKdu_dGBYOjxNnL_qQ"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI",
+                            "http://purl.obolibrary.org/obo/BFO_0000051",
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_Vf6lmKZ5igdnQV-5f3hBe3EjpdQ"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI",
+                            "http://purl.obolibrary.org/obo/BFO_0000051",
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermName_-UcYugeQS-4851Q02dVbzEMB8Zc"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk",
+                            "http://purl.obolibrary.org/obo/IAO_0000219",
+                            "aldehyde dehydrogenase 2, mitochondrial"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_WcWgclLLs762j0luZCfL7dRS-eA",
+                            "http://kabob.ucdenver.edu/iao/hasTemplate",
+                            "http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecordSchema1"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk",
+                            "http://kabob.ucdenver.edu/iao/hasTemplate",
+                            "http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord_geneNameDataField1"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI",
+                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                            "http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI",
+                            "http://purl.obolibrary.org/obo/BFO_0000051",
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermId_6eegFKonFaEWcLP9VMoLU8Ni0L0"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk",
+                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                            "http://kabob.ucdenver.edu/iao/FieldValue"
+                        ]
+                    ],
+                    "types": [
+                        "string",
+                        "string",
+                        "string"
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "JavaScript",
+                "elapsedTime": 22,
+                "height": 285
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "section4sSJKw",
+            "type": "section",
+            "title": "Return as JSON",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codeXBlKQh",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def qexec (doto (QueryExecutionFactory/sparqlService (get kabob :endpoint) q) (.setBasicAuthentication (get kabob :user) (char-array (get kabob :pass)))))",
+                    "qexec"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "GET http://amc-tantor.ucdenver.pvt:10035/repositories/kabob-dev?query=SELECT++*%0AWHERE%0A++%7B+%3FS+%3FP+%3FO+%7D%0ALIMIT+++10%0A",
+                "selectedType": "Text",
+                "pluginName": "Clojure",
+                "shellId": "97df11af-65af-4f12-aa81-e0b153545f58",
+                "elapsedTime": 1594,
+                "height": 36,
+                "evaluationSequenceNumber": 4
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeSCiXYv",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def results (.execSelect qexec))",
+                    "(def outputStream (ByteArrayOutputStream.))",
+                    "(ResultSetFormatter/outputAsJSON outputStream results)",
+                    "(def json (String. (.toByteArray outputStream)))",
+                    "(beaker :set \"resultjson\" json)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "b210befc-02e9-4b0a-b3a9-95be44f3db1b",
+                "elapsedTime": 2958
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "sectionYZliz3",
+            "type": "section",
+            "title": "View with d3sparql",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "code4G6Git",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    "<div id=\"result\" style=\"width: auto\"></div>"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Html",
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<div id=\"result\" style=\"width: auto\"><div class=\"d3sparql htmltable\"><table class=\"table table-bordered\" style=\"margin: 10px;\"><thead><tr><th style=\"background-color: rgb(238, 238, 238); text-transform: capitalize; background-position: initial initial; background-repeat: initial initial;\">O</th><th style=\"background-color: rgb(238, 238, 238); text-transform: capitalize; background-position: initial initial; background-repeat: initial initial;\">P</th><th style=\"background-color: rgb(238, 238, 238); text-transform: capitalize; background-position: initial initial; background-repeat: initial initial;\">S</th></tr></thead><tbody><tr><td>http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecordSchema1</td><td>http://kabob.ucdenver.edu/iao/hasTemplate</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_WcWgclLLs762j0luZCfL7dRS-eA</td></tr><tr><td>http://kabob.ucdenver.edu/iao/FieldValue</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</td><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord_geneNameDataField1</td><td>http://kabob.ucdenver.edu/iao/hasTemplate</td><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk</td></tr><tr><td>aldehyde dehydrogenase 2, mitochondrial</td><td>http://purl.obolibrary.org/obo/IAO_0000219</td><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneId_Z4oFVmGP0rKdu_dGBYOjxNnL_qQ</td><td>http://purl.obolibrary.org/obo/BFO_0000051</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermName_-UcYugeQS-4851Q02dVbzEMB8Zc</td><td>http://purl.obolibrary.org/obo/BFO_0000051</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_Vf6lmKZ5igdnQV-5f3hBe3EjpdQ</td><td>http://purl.obolibrary.org/obo/BFO_0000051</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermId_6eegFKonFaEWcLP9VMoLU8Ni0L0</td><td>http://purl.obolibrary.org/obo/BFO_0000051</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI</td></tr><tr><td>http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneSymbol_PAF3AKoD5w8e_EaIjBSb_ZxAhIw</td><td>http://purl.obolibrary.org/obo/BFO_0000051</td><td>http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI</td></tr></tbody></table></div></div>"
+                },
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 0,
+                "height": 478
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code9aDYQA",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "var config = {",
+                    "        \"selector\": \"#result\"",
+                    "}",
+                    "d3sparql.htmltable(JSON.parse(beaker.resultjson), config)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "JavaScript",
+                "elapsedTime": 89
+            },
+            "evaluatorReader": true,
+            "lineCount": 4,
+            "isError": false
+        },
+        {
+            "id": "sectionnDysyT",
+            "type": "section",
+            "title": "SPARQLer Phrases",
+            "level": 2,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codeEYXQcI",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(use 'clojure.repl)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 136
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeycRjJk",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(clojure.repl/dir sparqler.core)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "->ENZYME\n->GENE\n->GO\n->MOLECULE\n->PROTEIN\n->REACTION\n->URI\n-main\nBFO:hasPart\nCHEBI:InChI\nCHEBI:chemical-entity\nCHEBI:ltb4\nCHEBI:protein\nGO:angiogenesis\nGO:cellular_component\nGO:localization\nGO:mitochondria\nGO:oxidative-phosphorylation\nHuman\nMI:interaction_type\nMouse\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "RO:has_participant\nRO:has_role\nRO:has_target_end_location\nRO:homologous_to\nRO:in_taxon\nRO:transports_or_maintains_localization_of\nannotation\nby-taxon\ncellular-components\nchebi-xref\ndefine\ndenotes\ndrug-that-targets\ngene\ngene-or-gene-products\nget-interactions\nget-location\ngo:?\ngroup_concat\nhasRole\niao:defines\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "iao:denotes\niao:preferred_term\nin-taxon\ninchi\ninteractions\nkabob\nkabob-define\nkabob-label\nkabob-po\nkabob-query\nkabob-synonym\nkabob-xref\nkiao:hasTemplate\nlabel\nlabelOf\nlabell\nlocal\nlocal-query\nlocalize\nlocalized-to\nmap->ENZYME\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "map->GENE\nmap->GO\nmap->MOLECULE\nmap->PROTEIN\nmap->REACTION\nmodular-interactions\nmodular-localize\nobo:human\noboMeta:hasOBONamespace\noboinowl:hasDbXref\noboinowl:hasRelatedSynonym\noboinowl:hasSynonymType\nof-biological-process\nof-protein\nowl:Axiom\nowl:Restriction\nowl:annotatedTarget\nowl:cardinality\nowl:onProperty\nowl:someValuesFrom\nparticipants\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "participates-in-process\npo\npredicate\nproteins-that-participates-in\nrdf:type\nrdfs:label\nrdfs:subClassOf\nrdfs:subClassOf*\nsp\nswissprot-name\nsynonym\nuniprot:HUMAN_CYC\nuniprot:UniProtFileRecord_nameDataField1\nuniprot:UniProtFileRecord_primaryAccessionDataField1\nurl\nwebchebi\nwebview\nwebview-key\nwebview-query\nwhere+\nwith-NBO-term\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "with-homolog\nwith-interactions\nxref\n"
+                        }
+                    ]
+                },
+                "evaluationSequenceNumber": 11,
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "20edb70d-1879-4858-b6fd-b6522c232b9b",
+                "elapsedTime": 4052
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "section4MxHFO",
+            "type": "section",
+            "title": "localize",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codehxN2pv",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source localize)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defquery localize [name]\n  (select :protein_name :location_class :location_name)\n  (where :localization rdfs:subClassOf GO:localization \\.\n           :localization rdfs:subClassOf :of_restriction \\.\n           :of_restriction rdf:type owl:Restriction \\. \n           :of_restriction owl:onProperty RO:transports_or_maintains_localization_of  \\.\n           :of_restriction owl:someValuesFrom :protein_subclass \\.\n           :protein_subclass rdfs:subClassOf :protein_class \\.\n           :protein_class rdfs:subClassOf CHEBI:protein \\. \n           :protein_name iao:denotes :protein_class \\. \n           :localization rdfs:subClassOf :to_restriction  \\.\n           :to_restriction rdf:type owl:Restriction \\. \n           :to_restriction owl:onProperty RO:has_target_end_location \\.\n           :to_restriction owl:someValuesFrom :location_subclass \\.\n           :location_subclass rdfs:subClassOf :location_class \\.\n           :location_class rdfs:subClassOf* GO:cellular_component \\.\n           :location_class rdfs:label :location_name \\.\n           (filter :protein_name = name)))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 174,
+                "height": 307
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codecsHulV",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def r (kabob-query (localize [:uniprot :UNIPROT_P99999_ICE])))",
+                    "(clojure.set/rename r {:location_class \"location_class\", :location_name \"location_name\", :protein_name \"protein_name\"})"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "location_class",
+                            "location_name",
+                            "protein_name"
+                        ],
+                        "actualtype": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "actualalign": [
+                            "L",
+                            "L",
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ],
+                        "getCellSho": [
+                            true,
+                            true,
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": [],
+                        "headerFontSize": null,
+                        "dataFontSize": null,
+                        "fontColor": [],
+                        "headersVertical": false
+                    }
+                },
+                "result": {
+                    "hasDoubleClickAction": false,
+                    "doubleClickTag": null,
+                    "contextMenuItems": [],
+                    "contextMenuTags": {},
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "location_class",
+                        "location_name",
+                        "protein_name"
+                    ],
+                    "types": [
+                        "string",
+                        "string",
+                        "string"
+                    ],
+                    "subtype": "ListOfMaps",
+                    "stringFormatForTimes": null,
+                    "stringFormatForType": {},
+                    "stringFormatForColumn": {},
+                    "rendererForType": {},
+                    "rendererForColumn": {},
+                    "alignmentForType": {},
+                    "alignmentForColumn": {},
+                    "columnsFrozen": {},
+                    "columnsFrozenRight": {},
+                    "columnsVisible": {},
+                    "columnOrder": [],
+                    "cellHighlighters": [],
+                    "tooltips": [],
+                    "dataFontSize": null,
+                    "headerFontSize": null,
+                    "fontColor": [],
+                    "headersVertical": false,
+                    "values": [
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005743",
+                            "mitochondrial inner membrane",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005829",
+                            "cytosol",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005739",
+                            "mitochondrion",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005758",
+                            "mitochondrial intermembrane space",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0070469",
+                            "respiratory chain",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005634",
+                            "nucleus",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0000159",
+                            "protein phosphatase type 2A complex",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ]
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "25546525-861e-4cd5-9ba5-759a72dfe327",
+                "elapsedTime": 512,
+                "height": 209
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "sectionIVrNQ9",
+            "type": "section",
+            "title": "by-taxon",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codeNvH3CZ",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source by-taxon)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defquery by-taxon [taxon]\n  (select :gene)\n  (where :taxon_r owl:onProperty RO:in_taxon \\.\n         :taxon_r owl:someValuesFrom [:obo taxon] \\.\n         :gene rdfs:subClassOf :taxon_r \\.\n         :gene rdfs:subClassOf gene)\n  (limit 10))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 209,
+                "height": 131
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeuU4MGW",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def r (kabob-query (by-taxon Human)))",
+                    "(clojure.set/rename r {:gene \"gene\"})"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "gene"
+                        ],
+                        "actualtype": [
+                            0
+                        ],
+                        "actualalign": [
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1
+                        ],
+                        "getCellSho": [
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": [],
+                        "headerFontSize": null,
+                        "dataFontSize": null,
+                        "fontColor": [],
+                        "headersVertical": false
+                    }
+                },
+                "result": {
+                    "hasDoubleClickAction": false,
+                    "doubleClickTag": null,
+                    "contextMenuItems": [],
+                    "contextMenuTags": {},
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "gene"
+                    ],
+                    "types": [
+                        "string"
+                    ],
+                    "subtype": "ListOfMaps",
+                    "stringFormatForTimes": null,
+                    "stringFormatForType": {},
+                    "stringFormatForColumn": {},
+                    "rendererForType": {},
+                    "rendererForColumn": {},
+                    "alignmentForType": {},
+                    "alignmentForColumn": {},
+                    "columnsFrozen": {},
+                    "columnsFrozenRight": {},
+                    "columnsVisible": {},
+                    "columnOrder": [],
+                    "cellHighlighters": [],
+                    "tooltips": [],
+                    "dataFontSize": null,
+                    "headerFontSize": null,
+                    "fontColor": [],
+                    "headersVertical": false,
+                    "values": [
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_7d83a338faf3beb5f5a5a7127b5d891a"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_4dae9fe6159bf1b20bc2aebf45fa2c06"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_17b6ffbb33c7a105e9020e2df721a836"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_f4d100736a14733d205b1c68f9ee6f9b"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_f7feb659886a7bb894c2ca78c283eac3"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_4a698290713fa53420c0c62d694af93e"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_2dcb6751318b32ef72604b7aad917da5"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_a09dec935ded88f605c2538f4f5c97ed"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_5e553f61143214a038289604965848a"
+                        ],
+                        [
+                            "http://kabob.ucdenver.edu/bio/BIO_bd1a2dd509958bdc4eb3a27942f8694e"
+                        ]
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "25546525-861e-4cd5-9ba5-759a72dfe327",
+                "elapsedTime": 1636,
+                "height": 275
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "sectionp1UjiS",
+            "type": "section",
+            "title": "participants",
+            "level": 3,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "codebofg4b",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source participants)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defquery participants [process-id]\n  (select process-id :process_id)\n  (where- :specificbp rdfs:subClassOf process-id \\.\n          :specificbp rdfs:subClassOf :has_participant_r \\.\n          :has_participant_r owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          :has_participant_r owl:someValuesFrom :specificbioentity \\.\n          :specificbioentity rdfs:subClassOf :participant_bio_entity \\.\n          :ice iao:denotes :participant_bio_entity)\n  (group :participant_bio_entity))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 143,
+                "height": 163
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "coder8mZFn",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source cellular-components)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defquery cellular-components [src-id bio-id]\n  (select [(raw src-id) :source-id] :cc :label)\n  (where- :specificbioentity rdfs:subClassOf bio-id \\.\n          :localizes_r owl:onProperty RO:transports_or_maintains_localization_of \\.\n          :localizes_r owl:someValuesFrom :specificbioentity \\.\n          :localization rdfs:subClassOf :localizes_r \\.\n          :localization rdfs:subClassOf GO:localization \\.\n          :localization rdfs:subClassOf :location_r \\.\n          :location_r owl:onProperty RO:has_target_end_location \\.\n          :location_r owl:someValuesFrom :specificcc \\.\n          :specificcc rdfs:subClassOf :cc \\.\n          :cc rdfs:subClassOf* GO:cellular_component \\. \n          :cc rdfs:label :label))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 277,
+                "height": 227
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code7ekcgP",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source get-location)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn get-location [C N] (list :localization rdfs:subClassOf GO:localization \\.\n                         :localization rdfs:subClassOf :of_restriction \\.\n                         :of_restriction rdf:type owl:Restriction \\. \n                         :of_restriction owl:onProperty RO:transports_or_maintains_localization_of \\.\n                         :localization rdfs:subClassOf :to_restriction  \\.\n                         :to_restriction rdf:type owl:Restriction \\. \n                         :to_restriction owl:onProperty RO:has_target_end_location \\.\n                         :to_restriction owl:someValuesFrom :location_subclass \\.\n                         :location_subclass rdfs:subClassOf C \\.\n                         C rdfs:subClassOf* GO:cellular_component \\.\n                         C rdfs:label N))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 473,
+                "height": 195
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeDG4wkc",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(in-ns 'sparqler.core) ; need to better expose defquery from the included library",
+                    "(defquery localize-sparqler [name]",
+                    "  (select :location_class :location_name :protein_class :protein_name)",
+                    "  (where+ (get-location :location_class :location_name) \\.",
+                    "          (of-protein :with-name name)))",
+                    "",
+                    "(def r (kabob-query (localize-sparqler [:uniprot :UNIPROT_P99999_ICE])))",
+                    "",
+                    "(clojure.set/rename r {:location_class \"location_class\", :location_name \"location_name\", :protein_class \"protein_class\", :protein_name \"protein_name\"})"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "location_class",
+                            "location_name",
+                            "protein_class",
+                            "protein_name"
+                        ],
+                        "actualtype": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "actualalign": [
+                            "L",
+                            "L",
+                            "L",
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4
+                        ],
+                        "getCellSho": [
+                            true,
+                            true,
+                            true,
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": [],
+                        "headerFontSize": null,
+                        "dataFontSize": null,
+                        "fontColor": [],
+                        "headersVertical": false
+                    }
+                },
+                "result": {
+                    "hasDoubleClickAction": false,
+                    "doubleClickTag": null,
+                    "contextMenuItems": [],
+                    "contextMenuTags": {},
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "location_class",
+                        "location_name",
+                        "protein_class",
+                        "protein_name"
+                    ],
+                    "types": [
+                        "string",
+                        "string",
+                        "string",
+                        "string"
+                    ],
+                    "subtype": "ListOfMaps",
+                    "stringFormatForTimes": null,
+                    "stringFormatForType": {},
+                    "stringFormatForColumn": {},
+                    "rendererForType": {},
+                    "rendererForColumn": {},
+                    "alignmentForType": {},
+                    "alignmentForColumn": {},
+                    "columnsFrozen": {},
+                    "columnsFrozenRight": {},
+                    "columnsVisible": {},
+                    "columnOrder": [],
+                    "cellHighlighters": [],
+                    "tooltips": [],
+                    "dataFontSize": null,
+                    "headerFontSize": null,
+                    "fontColor": [],
+                    "headersVertical": false,
+                    "values": [
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005829",
+                            "cytosol",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0000159",
+                            "protein phosphatase type 2A complex",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005758",
+                            "mitochondrial intermembrane space",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0070469",
+                            "respiratory chain",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005743",
+                            "mitochondrial inner membrane",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005739",
+                            "mitochondrion",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/GO_0005634",
+                            "nucleus",
+                            "http://kabob.ucdenver.edu/bio/BIO_35ec3221743014ce6704f927f9f2212b",
+                            "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                        ]
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "25546525-861e-4cd5-9ba5-759a72dfe327",
+                "elapsedTime": 617,
+                "height": 246
+            },
+            "evaluatorReader": true,
+            "lineCount": 9,
+            "isError": false
+        },
+        {
+            "id": "codefH5hJ8",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source with-interactions)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn with-interactions [protein-class interacting-protein-id]\n  (subquery [protein-class interacting-protein-id]\n            :protSub2 rdfs:subClassOf protein-class \\.\n            :r_hasp owl:someValuesFrom :protSub2 \\.\n            :r_hasp rdf:type owl:Restriction \\.\n            :r_hasp owl:onProperty RO:has_participant \\.\n\n            :interaction rdfs:subClassOf :r_hasp \\.\n            :interaction rdfs:subClassOf :rcard \\.\n            :rcard owl:cardinality 2 \\. ;;# require 2 participants for a binary interaction\n            :rcard owl:onProperty RO:has_participant \\. ;#has_participant\n\n            :interaction rdfs:subClassOf :r_hasp2 \\.\n            :r_hasp2 rdf:type owl:Restriction \\.\n            :r_hasp2 owl:onProperty RO:has_participant \\. ;#has_participant\n            :r_hasp2 owl:someValuesFrom :protSub3 \\.\n            \n            :protSub3 rdfs:subClassOf :protClass3 \\.\n            :protClass3 rdfs:subClassOf :taxonRest \\.\n            :protClass3 rdfs:subClassOf* CHEBI:protein \\.\n            interacting-protein-id iao:denotes :protClass3 \\.\n            \n            (filter :protSub3 != :protSub2) \\.\n            ))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 285,
+                "height": 403
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeNyxqL5",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source interactions)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defquery interactions [bio-id]\n  (select :interaction_label :partner_bio_id)\n  (where  :specificbioentity rdfs:subClassOf bio-id \\.\n          :has_participant_r1 owl:someValuesFrom :specificbioentity \\.\n          :has_participant_r1 owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          :interaction rdfs:subClassOf :has_participant_r1 \\.\n\n          ;# confirm has_participant cardinality\n          :interaction rdfs:subClassOf :rcard \\.\n          :rcard owl:cardinality 2 \\. ;# require 2 participants for a binary interaction\n          :rcard owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          \n          :interaction rdfs:subClassOf* MI:interaction_type \\. ;# MI:interaction_type\n          :interaction rdfs:label :interaction_label \\.\n          \n          :interaction rdfs:subClassOf :has_participant_r2 \\.\n          :has_participant_r2 owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          :has_participant_r2 owl:someValuesFrom :interacting_partner \\.\n          :interacting_partner rdfs:subClassOf :partner_bio_id \\.\n          (filter :partner_bio_id != bio-id ) \\.\n          :partner_ice_id [:obo :IAO_0000219] :partner_bio_id \\.\n          ))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 226,
+                "height": 371
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeXLwSHq",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source get-interactions)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn get-interactions [bio-id interaction_label partner_bio_id & {:keys [ p n] :or {p :protein_class n :protein_name }}]\n  (list  :specificbioentity rdfs:subClassOf bio-id \\.\n          :has_participant_r1 owl:someValuesFrom :specificbioentity \\.\n          :has_participant_r1 owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          :interaction rdfs:subClassOf :has_participant_r1 \\.\n\n          ;# confirm has_participant cardinality\n          :interaction rdfs:subClassOf :rcard \\.\n          :rcard owl:cardinality 2 \\. ;# require 2 participants for a binary interaction\n          :rcard owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          \n          :interaction rdfs:subClassOf* MI:interaction_type \\. ;# MI:interaction_type\n          :interaction rdfs:label interaction_label \\.\n          \n          :interaction rdfs:subClassOf :has_participant_r2 \\.\n          :has_participant_r2 owl:onProperty RO:has_participant \\. ;# RO:has_participant\n          :has_participant_r2 owl:someValuesFrom :interacting_partner \\.\n          :interacting_partner rdfs:subClassOf partner_bio_id \\.\n          (filter partner_bio_id != bio-id ) \\.\n          :partner_ice_id [:obo :IAO_0000219] partner_bio_id \n          ))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 396,
+                "height": 355
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codejnvKDt",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source of-protein)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn of-protein [& {:keys [with-name p n] :or {p :protein_class n :protein_name }}]\n  (list :of_restriction owl:someValuesFrom :protein_subclass \\.\n        :protein_subclass rdfs:subClassOf p \\.\n        p rdfs:subClassOf CHEBI:protein \\. \n        :protein_name iao:denotes p \\. \n        (filter n = with-name)))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 835,
+                "height": 115
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code8tFQeR",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source localized-to)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn localized-to [location thing]\n  (list  ;;## A ## localized to mitochondrion\n   :mito rdfs:subClassOf* location \\. ;#mitochondrion\n\n   :to1 rdf:type           owl:Restriction \\.\n   :to1  owl:someValuesFrom :mito \\.\n   :to1  owl:onProperty     [:kro :results_in_localization_to] \\.\n   \n   :loc rdfs:subClassOf :to1 \\.\n   :loc rdfs:subClassOf [:obo :GO_0051179] \\. ;#localization\n   :loc rdfs:subClassOf :of1 \\.\n   \n   :of1 rdf:type           owl:Restriction \\.\n   :of1  owl:onProperty     [:kro :results_in_localization_of] \\.\n   :of1  owl:someValuesFrom thing  \\.))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 181,
+                "height": 259
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codegoLPE9",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source gene-or-gene-products)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn gene-or-gene-products [thing ggpv-abstraction]\n  (list \n   ;;## B ## gene specific gene or gene product abstraction :gorgporv\n   thing   rdfs:subClassOf*   ggpv-abstraction \\.\n   :gorgporv rdf:type         [:kbio :GeneSpecificGorGPorVClass]  \\.))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 222,
+                "height": 99
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code2hFCSk",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source with-homolog)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn with-homolog [gene homolog taxon]\n  (list\n     gene rdfs:subClassOf :homologene_r \\.\n   ;;   ?homologene_r owl:onProperty obo:RO_0002158 . #RO:homologous_to\n   :homologene_r owl:onProperty RO:homologous_to \\.\n   ;;   ?homologene_r owl:someValuesFrom ?homologous_mouse_gene .\n   :homologene_r owl:someValuesFrom homolog \\.\n   ;;   ?homologous_mouse_gene rdfs:subClassOf ?taxon_r2 .\n   homolog rdfs:subClassOf :taxon_r2 \\.\n   ;;   ?taxon_r2 owl:onProperty obo:RO_0002162 .  #RO:in_taxon\n   :taxon_r2 owl:onProperty RO:in_taxon \\.\n   ;;   ?taxon_r2 owl:someValuesFrom obo:NCBITaxon_10090 .\n  :taxon_r2 owl:someValuesFrom [:obo taxon] \\.))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 206,
+                "height": 227
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codel4t7bk",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source with-NBO-term)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn with-NBO-term [gene term_name]\n  (list\n     :ice iao:denotes gene \\.\n   ;;   ?id_field obo:IAO_0000219 ?ice .\n   :id_field iao:denotes :ice \\.\n   ;;   ?id_field kiao:hasTemplate iaonbo:NboAnnotationFileRecord_geneIdDataField1 .\n   :id_field kiao:hasTemplate [:iaonbo :NboAnnotationFileRecord_geneIdDataField1] \\.\n   ;;   ?record obo:BFO_0000051 ?id_field .\n   :record BFO:hasPart :id_field \\.\n   ;;   ?record obo:BFO_0000051 ?term_name_field .\n   :record BFO:hasPart :term_name_field \\.\n   ;;   ?term_name_field kiao:hasTemplate iaonbo:NboAnnotationFileRecord_nboTermNameDataField1 .\n   :term_name_field kiao:hasTemplate [:iaonbo :NboAnnotationFileRecord_nboTermNameDataField1] \\.\n   ;;   ?term_name_field obo:IAO_0000219 ?term_name .\n   :term_name_field iao:denotes :term_name \\.))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 242,
+                "height": 259
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeTaQM4C",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source participates-in)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn participates-in [process ggpv-abstraction]\n  (list  ;;## D ## restrict to those that are involved in oxidative phos \\.\n   ;;#look at all gene products of the abstraction\n   :gp rdfs:subClassOf* ggpv-abstraction \\.\n   \n   ;;#get processes they participate in\n   :rparticipant owl:someValuesFrom :gp  \\.\n   :rparticipant owl:onProperty     [:obo :has_participant]  \\.\n   :things       rdfs:subClassOf    :rparticipant \\.\n   \n   ;;#only look at those thing that are subClassOf ox phos\n   :things rdfs:subClassOf* process  \\.  ;#Oxadative phos \n   ))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 207,
+                "height": 227
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codecmffIs",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source drug-that-targets)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn drug-that-targets [drug ggpv-abstraction]\n  (list  ;;## E ## find the drugs that are known to target those genes\n   \n   ;;#look at all gene products in the abstraction\n   :gpdrug rdfs:subClassOf* ggpv-abstraction \\.\n   \n   ;;#get the processes they participate in\n   :rparticipant2 owl:someValuesFrom :gpdrug \\.\n   :rparticipant2 owl:onProperty     [:obo :has_participant]  \\. \n   \n   ;;#look for interactions\n   :interaction rdfs:subClassOf :rparticipant2 \\.\n   :interaction rdfs:subClassOf [:obo :MI_0000] \\. ;# interaction\n   \n   ;;#get all the other participants\n   :interaction rdfs:subClassOf :rdrugparticipant \\.\n   (filter :rparticipant2 != :rdrugparticipant)  \\. ;# for effeciency\n   :rdrugparticipant owl:onProperty     [:obo :has_participant]  \\. \n   :rdrugparticipant owl:someValuesFrom drug  \\.\n()   \n   ;;#verify other participant is playing a drug role in interaction\n   :interaction rdfs:subClassOf :rx \\.\n   :rx owl:onProperty [:obo :realizes]  \\. ))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 238,
+                "height": 387
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeYPA5RT",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source of-biological-process)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn of-biological-process [subclass GO-biological-process]\n  \"subclasses of GO biological process in the OBO namespace\"\n  (subquery [subclass]\n    (!# (str \"subclasses of \" GO-biological-process))\n    subclass rdfs:subClassOf* GO-biological-process \\. ;; #angiogenesis\n    subclass oboMeta:hasOBONamespace :OBONamespace))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 193,
+                "height": 115
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeKxGbFW",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source proteins-that-participates-in)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn proteins-that-participates-in [protein-class subclass]\n  \"protein that participate in a subclass\"\n  (subquery [protein-class subclass]\n   (!# \"proteins that participate in a subclass\")\n   :anonSubclass rdfs:subClassOf subclass \\.\n   :anonSubclass rdfs:subClassOf :protRest \\.\n\n   :protRest rdf:type owl:Restriction \\.\n   :protRest owl:onProperty RO:has_participant \\.\n   :protRest owl:someValuesFrom :protSub \\.\n\n   :protSub rdfs:subClassOf protein-class \\.\n   protein-class rdfs:subClassOf* CHEBI:protein \\.))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 200,
+                "height": 227
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codePCt7A6",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source denotes)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn denotes [ice bio]\n  (list\n   ice iao:denotes bio \\.))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 201,
+                "height": 67
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeTVhKGP",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(source swissprot-name)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(defn swissprot-name [protein-id protein-name]\n  (subquery [protein-id protein-name]\n    (!# \"proteins that have swissprot ids and a name\")\n    :idField iao:denotes protein-id \\.\n    :idField kiao:hasTemplate uniprot:UniProtFileRecord_primaryAccessionDataField1 \\.\n    :record BFO:hasPart :idField \\.\n    :record BFO:hasPart :nameField \\.\n    :nameField kiao:hasTemplate uniprot:UniProtFileRecord_nameDataField1 \\.\n    :nameField iao:denotes protein-name \\. ;;# uniprot name\n   ))\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "Clojure",
+                "shellId": "a131bf2a-6394-4a1c-a91e-10e66129627c",
+                "elapsedTime": 224,
+                "height": 179
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "code72fsIo",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {}
+            },
+            "evaluatorReader": true
+        }
+    ],
+    "namespace": {
+        "query": "SELECT * WHERE {?S ?P ?O}\nLIMIT 10",
+        "result": "{\n  \"head\": {\n    \"vars\": [ \"O\" , \"P\" , \"S\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecordSchema1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_WcWgclLLs762j0luZCfL7dRS-eA\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/FieldValue\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord_geneNameDataField1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"literal\" , \"xml:lang\": \"en\" , \"value\": \"aldehyde dehydrogenase 2, mitochondrial\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/IAO_0000219\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneId_Z4oFVmGP0rKdu_dGBYOjxNnL_qQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermName_-UcYugeQS-4851Q02dVbzEMB8Zc\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_Vf6lmKZ5igdnQV-5f3hBe3EjpdQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermId_6eegFKonFaEWcLP9VMoLU8Ni0L0\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneSymbol_PAF3AKoD5w8e_EaIjBSb_ZxAhIw\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      }\n    ]\n  }\n}\n",
+        "resultmap": {
+            "update_id": "8415d397-d5d2-43ea-a393-cc21b85e056a",
+            "hasDoubleClickAction": false,
+            "doubleClickTag": null,
+            "contextMenuItems": [],
+            "contextMenuTags": {},
+            "type": "TableDisplay",
+            "columnNames": [
+                ":location_class",
+                "location_name",
+                "protein_name"
+            ],
+            "types": [
+                "string",
+                "string",
+                "string"
+            ],
+            "subtype": "ListOfMaps",
+            "stringFormatForTimes": null,
+            "stringFormatForType": {},
+            "stringFormatForColumn": {},
+            "rendererForType": {},
+            "rendererForColumn": {},
+            "alignmentForType": {},
+            "alignmentForColumn": {},
+            "columnsFrozen": {},
+            "columnsFrozenRight": {},
+            "columnsVisible": {},
+            "columnOrder": [],
+            "cellHighlighters": [],
+            "tooltips": [],
+            "dataFontSize": null,
+            "headerFontSize": null,
+            "fontColor": [],
+            "headersVertical": false,
+            "values": [
+                [
+                    null,
+                    "cytosol",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ],
+                [
+                    null,
+                    "respiratory chain",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ],
+                [
+                    null,
+                    "mitochondrion",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ],
+                [
+                    null,
+                    "mitochondrial inner membrane",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ],
+                [
+                    null,
+                    "nucleus",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ],
+                [
+                    null,
+                    "protein phosphatase type 2A complex",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ],
+                [
+                    null,
+                    "mitochondrial intermembrane space",
+                    "http://kabob.ucdenver.edu/iao/uniprot/UNIPROT_P99999_ICE"
+                ]
+            ]
+        },
+        "resultjson": "{\n  \"head\": {\n    \"vars\": [ \"O\" , \"P\" , \"S\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecordSchema1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_WcWgclLLs762j0luZCfL7dRS-eA\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/FieldValue\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord_geneNameDataField1\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/hasTemplate\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"literal\" , \"xml:lang\": \"en\" , \"value\": \"aldehyde dehydrogenase 2, mitochondrial\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/IAO_0000219\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_hg5bjIXctYnHvOqSq0ZKQjus8Uk\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/NboAnnotationFileRecord\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneId_Z4oFVmGP0rKdu_dGBYOjxNnL_qQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermName_-UcYugeQS-4851Q02dVbzEMB8Zc\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneName_Vf6lmKZ5igdnQV-5f3hBe3EjpdQ\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_nboTermId_6eegFKonFaEWcLP9VMoLU8Ni0L0\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      } ,\n      {\n        \"O\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/F_NboAnnotationFileRecord_geneSymbol_PAF3AKoD5w8e_EaIjBSb_ZxAhIw\" } ,\n        \"P\": { \"type\": \"uri\" , \"value\": \"http://purl.obolibrary.org/obo/BFO_0000051\" } ,\n        \"S\": { \"type\": \"uri\" , \"value\": \"http://kabob.ucdenver.edu/iao/nbo/R_NboAnnotationFileRecord_SREUgQjVSDkCsIlf_SC7-zAaPGI\" }\n      }\n    ]\n  }\n}\n",
+        "prefs": {
+            "useOutputPanel": false,
+            "outputLineLimit": 1000,
+            "outputColumnLimit": 50,
+            "theme": {
+                "name": "default",
+                "plotColors": [
+                    "#FF1F77B4",
+                    "#FFFF7F0E",
+                    "#FF2CA02C",
+                    "#FFD62728",
+                    "#FF9467BD",
+                    "#FF8C564B",
+                    "#FFE377C2",
+                    "#FF7F7F7F",
+                    "#FFBCBD22",
+                    "#FF17BECF",
+                    "#FFAEC7E8",
+                    "#FFFFBB78",
+                    "#FF98DF8A",
+                    "#FFFF9896",
+                    "#FFC5B0D5",
+                    "#FFC49C94",
+                    "#FFF7B6D2",
+                    "#FFC7C7C7",
+                    "#FFDBDB8D",
+                    "#FF9EDAE5"
+                ]
+            }
+        },
+        "client": {
+            "type": "TableDisplay",
+            "values": [
+                [
+                    "mac",
+                    true
+                ],
+                [
+                    "windows",
+                    false
+                ],
+                [
+                    "linux",
+                    false
+                ]
+            ],
+            "subtype": "Dictionary",
+            "columnNames": [
+                "Key",
+                "Value"
+            ]
+        },
+        "language": {
+            "JavaScript": {
+                "scripts": "vendor/d3sparql.js"
+            },
+            "SQL": {
+                "defaultDatasource": "",
+                "datasources": "",
+                "classPath": ""
+            },
+            "Clojure": {
+                "classPath": "/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+                "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\norg.joda.time.ReadablePartial\norg.joda.time.ReadableDateTime\norg.joda.time.ReadablePeriod\norg.joda.time.DateTime\norg.joda.time.DateMidnight\norg.joda.time.YearMonth\norg.joda.time.LocalDate\norg.joda.time.LocalTime\norg.joda.time.DateTimeZone\norg.joda.time.Period\norg.joda.time.PeriodType\norg.joda.time.Interval\norg.joda.time.Years\norg.joda.time.LocalDateTime\norg.joda.time.Chronology\norg.joda.time.format.DateTimeFormat\norg.joda.time.format.DateTimeFormatter\norg.joda.time.format.DateTimePrinter\norg.joda.time.format.DateTimeFormatterBuilder\norg.joda.time.format.DateTimeParser\norg.joda.time.format.ISODateTimeFormat\norg.joda.time.tz.FixedDateTimeZone\norg.joda.time.Months\norg.joda.time.Weeks\norg.joda.time.Days\norg.joda.time.Hours\norg.joda.time.Minutes\norg.joda.time.Seconds\norg.joda.time.MutableDateTime\norg.joda.time.DateTimeUtils\ncom.hp.hpl.jena.query.Syntax\ncom.hp.hpl.jena.query.Query\ncom.hp.hpl.jena.query.QueryExecution\ncom.hp.hpl.jena.query.QueryExecutionFactory\ncom.hp.hpl.jena.query.ARQ\ncom.hp.hpl.jena.query.QueryFactory\ncom.hp.hpl.jena.query.QuerySolution\ncom.hp.hpl.jena.query.QuerySolutionMap\ncom.hp.hpl.jena.query.ResultSet\ncom.hp.hpl.jena.query.ResultSetFormatter\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemote\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemoteForm\ncom.hp.hpl.jena.update.UpdateFactory\ncom.hp.hpl.jena.update.UpdateExecutionFactory\ncom.hp.hpl.jena.update.UpdateRequest\ncom.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP\njava.io.ByteArrayOutputStream",
+                "outdir": "",
+                "requirements": ""
+            }
+        }
+    },
+    "evaluationSequenceNumber": 11
+}

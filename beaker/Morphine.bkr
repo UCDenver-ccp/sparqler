@@ -1,0 +1,2150 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "smartHTMLMode"
+                }
+            },
+            "shellID": null
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015",
+            "libraries": [
+                {
+                    "name": "yasqe",
+                    "latest": "https://cdnjs.cloudflare.com/ajax/libs/yasqe/2.11.7/yasqe.bundled.min.js",
+                    "version": "2.11.7",
+                    "description": "Yet Another SPARQL Query Editor",
+                    "homepage": "http://yasqe.yasgui.org"
+                }
+            ],
+            "shellID": null
+        },
+        {
+            "name": "Clojure",
+            "plugin": "Clojure",
+            "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\norg.joda.time.ReadablePartial\norg.joda.time.ReadableDateTime\norg.joda.time.ReadablePeriod\norg.joda.time.DateTime\norg.joda.time.DateMidnight\norg.joda.time.YearMonth\norg.joda.time.LocalDate\norg.joda.time.LocalTime\norg.joda.time.DateTimeZone\norg.joda.time.Period\norg.joda.time.PeriodType\norg.joda.time.Interval\norg.joda.time.Years\norg.joda.time.LocalDateTime\norg.joda.time.Chronology\norg.joda.time.format.DateTimeFormat\norg.joda.time.format.DateTimeFormatter\norg.joda.time.format.DateTimePrinter\norg.joda.time.format.DateTimeFormatterBuilder\norg.joda.time.format.DateTimeParser\norg.joda.time.format.ISODateTimeFormat\norg.joda.time.tz.FixedDateTimeZone\norg.joda.time.Months\norg.joda.time.Weeks\norg.joda.time.Days\norg.joda.time.Hours\norg.joda.time.Minutes\norg.joda.time.Seconds\norg.joda.time.MutableDateTime\norg.joda.time.DateTimeUtils\ncom.hp.hpl.jena.query.Syntax\ncom.hp.hpl.jena.query.Query\ncom.hp.hpl.jena.query.QueryExecution\ncom.hp.hpl.jena.query.QueryExecutionFactory\ncom.hp.hpl.jena.query.ARQ\ncom.hp.hpl.jena.query.QueryFactory\ncom.hp.hpl.jena.query.QuerySolution\ncom.hp.hpl.jena.query.QuerySolutionMap\ncom.hp.hpl.jena.query.ResultSet\ncom.hp.hpl.jena.query.ResultSetFormatter\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemote\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemoteForm\ncom.hp.hpl.jena.update.UpdateFactory\ncom.hp.hpl.jena.update.UpdateExecutionFactory\ncom.hp.hpl.jena.update.UpdateRequest\ncom.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP",
+            "view": {
+                "cm": {
+                    "mode": "text/x-clojure"
+                }
+            },
+            "classPath": "/Users/dcmcshan/Documents/KaBOB/beakertest/target/beakertest-0.1.0-SNAPSHOT-standalone.jar\n/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+            "requirements": "beakertest.core\nsparqler.core",
+            "shellID": "98c2e5da-181b-48ea-affb-653c9436a9c6"
+        },
+        {
+            "name": "IPython",
+            "plugin": "IPython",
+            "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n",
+            "view": {
+                "cm": {
+                    "mode": "python"
+                }
+            },
+            "shellID": "416233824D7A42C3BD5DA870C293783D"
+        }
+    ],
+    "cells": [
+        {
+            "id": "codeVpFUfn",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(refer 'sparqler.core)",
+                    "(assert kabob)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "Clojure",
+                "shellId": "98c2e5da-181b-48ea-affb-653c9436a9c6",
+                "elapsedTime": 231,
+                "height": 150,
+                "evaluationSequenceNumber": 7
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "markdownyhwgqV",
+            "type": "markdown",
+            "body": [
+                "This notebook will elucidate knowledge about Morphine, as represented in KaBOB and KEGG."
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "sectionZzyaWm",
+            "type": "section",
+            "title": "Morphine",
+            "level": 1,
+            "evaluatorReader": false,
+            "collapsed": false,
+            "isError": false
+        },
+        {
+            "id": "markdownOV0fUm",
+            "type": "markdown",
+            "body": [
+                "Morphine is an alkaloid from the plant extracts of opium poppy. Although morphine is highly effective for the treatment of pain, it is also known to be intensely addictive. We now know that the most important brain-reward circuit involves dopamine (DA) -containing neurons in the ventral tegmental area (VTA) of the midbrain and their target areas in the limbic forebrain, in particular, the nucleus accumbens (NAc) and frontal regions of cerebral cortex. Morphine can cause indirect excitation of VTA dopamine neurons by reducing inhibitory synaptic transmission mediated by GABAergic neurons. The chronic use of morphine is characterized by adaptive changes in neurons and neuronal communication; such adaptations (e.g., 'superactivation' of adenylyl cyclase) must underlie altered behaviour associated with morphine dependence and withdrawal syndrome, as well as drug-induced craving and relapse to drug use.",
+                "",
+                "In this example, we want to illustrate three different processes in the same graph:",
+                "1) Morphine biosynthesis in Papaver somniferum",
+                "2) Morphine degradation in Human and Mouse",
+                "3) Morphine neurophysiological pathways",
+                ""
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codewPSlgE",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def dataset '{\"nodes\" [{\"name\" \"C01516 Morphine\", \"group\" 0}",
+                    "                                  {\"name\" \"C01735 Morphinone\", \"group\" 0} ;1",
+                    "                                  {\"name\" \"R03591\", \"group\" 1} ;2",
+                    "                                  {\"name\" \"R03592\", \"group\" 1} ;3",
+                    "                                  {\"name\" \"Akr1c13\", \"group\" 4} ;4",
+                    "                                  {\"name\" \"NAD+\", \"group\" 0} ;5",
+                    "                                  {\"name\" \"NADP+\", \"group\" 0} ;6",
+                    "                                  {\"name\" \"Thing1\", \"group\" 2} ;7",
+                    "                                  {\"name\" \"Thing2\", \"group\" 2} ;8",
+                    "                                  {\"name\" \"MMU\", \"group\" 3} ;9",
+                    "                                  {\"name\" \"MOR\", \"group\" 4} ; 10",
+                    "                                  {\"name\" \"D00842 Morphine Sulfate\", \"group\", 5} ; 11",
+                    "                                  {\"name\" \"Gi\", \"group\" 4}; 12",
+                    "                                  {\"name\" \"GIRK\", \"group\" 4}; 13",
+                    "                                  {\"name\" \"VGCC\", \"group\" 4}; 14",
+                    "                                  {\"name\" \"AC\", \"group\" 4}; 15",
+                    "                                  {\"name\" \"TAX:3469\", \"group\" 3}; 16",
+                    "                                  {\"name\" \"D08233 Morphine\", \"group\" 5} ; 17",
+                    "                                  {\"name\" \"Codeine\", \"group\" 0} ; 18",
+                    "                                  {\"name\" \"CYP2D6\", \"group\" 4} ; 19",
+                    "                                  {\"name\" \"HSA\", \"group\" 3} ; 20",
+                    "                                 ], ",
+                    "                          \"edges\" [{\"name\" \"reacts\",   \"source\" 2, \"target\" 0}",
+                    "                                   {\"name\" \"produces\", \"source\" 2, \"target\" 1}",
+                    "                                   {\"name\" \"catalyzes\",\"source\" 4, \"target\" 2}",
+                    "                                   {\"name\" \"in genome\",\"source\" 4, \"target\" 9}",
+                    "                                   {\"name\" \"reacts\",   \"source\" 3, \"target\" 0}",
+                    "                                   {\"name\" \"produces\", \"source\" 3, \"target\" 1}",
+                    "                                   {\"name\" \"reacts\",   \"source\" 2, \"target\" 5}",
+                    "                                   {\"name\" \"reacts\",   \"source\" 3, \"target\" 6}",
+                    "                                   {\"name\" \"catalyzes\",\"source\" 4, \"target\" 3}",
+                    "                                   {\"name\" \"targets\",  \"source\" 11, \"target\" 10}",
+                    "                                   {\"name\" \"signals\",  \"source\" 10, \"target\" 12}",
+                    "                                   {\"name\" \"signals\",  \"source\" 12, \"target\" 13}",
+                    "                                   {\"name\" \"signals\",  \"source\" 12, \"target\" 14}",
+                    "                                   {\"name\" \"inhibits\", \"source\" 12, \"target\" 15}",
+                    "                                   {\"name\" \"same as\",  \"source\" 17, \"target\" 0}",
+                    "                                  ]",
+                    "                         })",
+                    "",
+                    "(beaker :set \"dataset\" dataset)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "Clojure",
+                "shellId": "73dca023-6f2c-43a9-b90d-56befcb6e6ee",
+                "elapsedTime": 1870,
+                "height": 36,
+                "evaluationSequenceNumber": 2
+            },
+            "evaluatorReader": true,
+            "lineCount": 41,
+            "isError": false
+        },
+        {
+            "id": "codeMno3vo",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "beaker.dataset.nodes"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "getCellSho": []
+                    }
+                },
+                "result": {
+                    "type": "TableDisplay",
+                    "subtype": "ListOfMaps",
+                    "columnNames": [
+                        "name",
+                        "group"
+                    ],
+                    "values": [
+                        [
+                            "C01516 Morphine",
+                            0
+                        ],
+                        [
+                            "C01735 Morphinone",
+                            0
+                        ],
+                        [
+                            "R03591",
+                            1
+                        ],
+                        [
+                            "R03592",
+                            1
+                        ],
+                        [
+                            "Akr1c13",
+                            4
+                        ],
+                        [
+                            "NAD+",
+                            0
+                        ],
+                        [
+                            "NADP+",
+                            0
+                        ],
+                        [
+                            "Thing1",
+                            2
+                        ],
+                        [
+                            "Thing2",
+                            2
+                        ],
+                        [
+                            "MMU",
+                            3
+                        ],
+                        [
+                            "MOR",
+                            4
+                        ],
+                        [
+                            "D00842 Morphine Sulfate",
+                            5
+                        ],
+                        [
+                            "Gi",
+                            4
+                        ],
+                        [
+                            "GIRK",
+                            4
+                        ],
+                        [
+                            "VGCC",
+                            4
+                        ],
+                        [
+                            "AC",
+                            4
+                        ],
+                        [
+                            "TAX:3469",
+                            3
+                        ],
+                        [
+                            "D08233 Morphine",
+                            5
+                        ],
+                        [
+                            "Codeine",
+                            0
+                        ],
+                        [
+                            "CYP2D6",
+                            4
+                        ],
+                        [
+                            "HSA",
+                            3
+                        ]
+                    ],
+                    "types": [
+                        "string",
+                        "double"
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "JavaScript",
+                "elapsedTime": 1070,
+                "height": 537,
+                "evaluationSequenceNumber": 3
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codecDDGkG",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "beaker.dataset.edges"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "getCellSho": []
+                    }
+                },
+                "result": {
+                    "type": "TableDisplay",
+                    "subtype": "ListOfMaps",
+                    "columnNames": [
+                        "name",
+                        "source",
+                        "target"
+                    ],
+                    "values": [
+                        [
+                            "reacts",
+                            2,
+                            0
+                        ],
+                        [
+                            "produces",
+                            2,
+                            1
+                        ],
+                        [
+                            "catalyzes",
+                            4,
+                            2
+                        ],
+                        [
+                            "in genome",
+                            4,
+                            9
+                        ],
+                        [
+                            "reacts",
+                            3,
+                            0
+                        ],
+                        [
+                            "produces",
+                            3,
+                            1
+                        ],
+                        [
+                            "reacts",
+                            2,
+                            5
+                        ],
+                        [
+                            "reacts",
+                            3,
+                            6
+                        ],
+                        [
+                            "catalyzes",
+                            4,
+                            3
+                        ],
+                        [
+                            "targets",
+                            11,
+                            10
+                        ],
+                        [
+                            "signals",
+                            10,
+                            12
+                        ],
+                        [
+                            "signals",
+                            12,
+                            13
+                        ],
+                        [
+                            "signals",
+                            12,
+                            14
+                        ],
+                        [
+                            "inhibits",
+                            12,
+                            15
+                        ],
+                        [
+                            "same as",
+                            17,
+                            0
+                        ]
+                    ],
+                    "types": [
+                        "string",
+                        "double",
+                        "double"
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "JavaScript",
+                "elapsedTime": 63,
+                "height": 399,
+                "evaluationSequenceNumber": 4
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeHEMiGP",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    "<div id=\"example\"></div>"
+                ]
+            },
+            "output": {
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Html",
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<div id=\"example\"></div>"
+                },
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 1,
+                "state": {},
+                "height": 742,
+                "evaluationSequenceNumber": 5
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codeGBPDgG",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "document.getElementById(\"example\").innerHTML = \"\";",
+                    "console.log(\"0\");",
+                    "var w = 1280;",
+                    "var h = 720;",
+                    "    var linkDistance=150;",
+                    "",
+                    "    var colors = d3.scale.category10();",
+                    "",
+                    "var dataset = {nodes: [], edges: []};",
+                    "console.log(\"Loading Nodes\");",
+                    "dataset.nodes = beaker.dataset.nodes;",
+                    "console.log(\"Loading Edges\");",
+                    "dataset.edges = beaker.dataset.edges;",
+                    "",
+                    "    var svg = d3.select(\"#example\")",
+                    "        .append(\"svg\").attr({\"width\":w,\"height\":h});",
+                    "",
+                    "console.log(\"1\");",
+                    "    var force = d3.layout.force()",
+                    "        .nodes(dataset.nodes)",
+                    "        .links(dataset.edges)",
+                    "        .size([w,h])",
+                    "        .linkDistance([linkDistance])",
+                    "        .charge([-500])",
+                    "        .theta(0.1)",
+                    "        .gravity(0.05)",
+                    "        .start();",
+                    "",
+                    "console.log(\"2\");",
+                    "    var edges = svg.selectAll(\"line\")",
+                    "      .data(dataset.edges)",
+                    "      .enter()",
+                    "      .append(\"line\")",
+                    "      .attr(\"id\",function(d,i) {return 'edge'+i})",
+                    "      .attr('marker-end','url(#arrowhead)')",
+                    "      .style(\"stroke\",\"#ccc\")",
+                    "      .style(\"pointer-events\", \"none\");",
+                    "    ",
+                    "console.log(\"3\");",
+                    "    var nodes = svg.selectAll(\"circle\")",
+                    "      .data(dataset.nodes)",
+                    "      .enter()",
+                    "      .append(\"a\")",
+                    "      .attr(\"xlink:href\", function(d){return \"http://en.wikipedia.org/wiki/\" + d.name;})",
+                    "      .append(\"circle\")",
+                    "      .attr({\"r\":15})",
+                    "      .style(\"fill\",function(d,i){return colors(d.group);})",
+                    "      .call(force.drag)",
+                    "",
+                    "",
+                    "    var nodelabels = svg.selectAll(\".nodelabel\") ",
+                    "       .data(dataset.nodes)",
+                    "       .enter()",
+                    "      .append(\"a\")",
+                    "      .attr(\"xlink:href\", function(d){return \"http://en.wikipedia.org/wiki/\" + d.name;})",
+                    "       .append(\"text\")",
+                    "       .attr({\"x\":function(d){return d.x;},",
+                    "              \"y\":function(d){return d.y;},",
+                    "              \"class\":\"nodelabel\",",
+                    "              \"stroke\":\"black\"})",
+                    "       .text(function(d){return d.name;});",
+                    "",
+                    "    var edgepaths = svg.selectAll(\".edgepath\")",
+                    "        .data(dataset.edges)",
+                    "        .enter()",
+                    "      .append(\"a\")",
+                    "      .attr(\"xlink:href\", function(d){return \"http://en.wikipedia.org/wiki/\" + d.name;})",
+                    "        .append('path')",
+                    "        .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},",
+                    "               'class':'edgepath',",
+                    "               'fill-opacity':0,",
+                    "               'stroke-opacity':0,",
+                    "               'fill':'blue',",
+                    "               'stroke':'red',",
+                    "               'id':function(d,i) {return 'edgepath'+i}})",
+                    "        .style(\"pointer-events\", \"none\");",
+                    "",
+                    "    var edgelabels = svg.selectAll(\".edgelabel\")",
+                    "        .data(dataset.edges)",
+                    "        .enter()",
+                    "      .append(\"a\")",
+                    "      .attr(\"xlink:href\", function(d){return \"http://en.wikipedia.org/wiki/\" + d.name;})",
+                    "        .append('text')",
+                    "        .style(\"pointer-events\", \"none\")",
+                    "        .attr({'class':'edgelabel',",
+                    "               'id':function(d,i){return 'edgelabel'+i},",
+                    "               'dx':80,",
+                    "               'dy':0,",
+                    "               'font-size':10,",
+                    "               'fill':'#aaa'});",
+                    "",
+                    "    edgelabels.append('textPath')",
+                    "        .attr('xlink:href',function(d,i) {return '#edgepath'+i})",
+                    "        .style(\"pointer-events\", \"none\")",
+                    "        .text(function(d,i){return d.name;});",
+                    "",
+                    "",
+                    "    svg.append('defs').append('marker')",
+                    "        .attr({'id':'arrowhead',",
+                    "               'viewBox':'-0 -5 10 10',",
+                    "               'refX':25,",
+                    "               'refY':0,",
+                    "               //'markerUnits':'strokeWidth',",
+                    "               'orient':'auto',",
+                    "               'markerWidth':10,",
+                    "               'markerHeight':10,",
+                    "               'xoverflow':'visible'})",
+                    "        .append('svg:path')",
+                    "            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')",
+                    "            .attr('fill', '#ccc')",
+                    "            .attr('stroke','#ccc');",
+                    "     ",
+                    "",
+                    "    force.on(\"tick\", function(){",
+                    "",
+                    "        edges.attr({\"x1\": function(d){return d.source.x;},",
+                    "                    \"y1\": function(d){return d.source.y;},",
+                    "                    \"x2\": function(d){return d.target.x;},",
+                    "                    \"y2\": function(d){return d.target.y;}",
+                    "        });",
+                    "",
+                    "        nodes.attr({\"cx\":function(d){return d.x;},",
+                    "                    \"cy\":function(d){return d.y;}",
+                    "        });",
+                    "",
+                    "        nodelabels.attr(\"x\", function(d) { return d.x; }) ",
+                    "                  .attr(\"y\", function(d) { return d.y; });",
+                    "",
+                    "        edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;",
+                    "                                           //console.log(d)",
+                    "                                           return path});       ",
+                    "/*",
+                    "        edgelabels.attr('transform',function(d,i){",
+                    "            if (d.target.x<d.source.x){",
+                    "                bbox = this.getBBox();",
+                    "                rx = bbox.x+bbox.width/2;",
+                    "                ry = bbox.y+bbox.height/2;",
+                    "                return 'rotate(180 '+rx+' '+ry+')';",
+                    "                }",
+                    "            else {",
+                    "                return 'rotate(0)';",
+                    "                }",
+                    "        });*/",
+                    "    });",
+                    "",
+                    " "
+                ]
+            },
+            "output": {
+                "result": {
+                    "tick": null,
+                    "nodes": null,
+                    "links": null,
+                    "size": null,
+                    "linkDistance": null,
+                    "distance": null,
+                    "linkStrength": null,
+                    "friction": null,
+                    "charge": null,
+                    "chargeDistance": null,
+                    "gravity": null,
+                    "theta": null,
+                    "alpha": null,
+                    "start": null,
+                    "resume": null,
+                    "stop": null,
+                    "drag": null,
+                    "on": null
+                },
+                "selectedType": "Text",
+                "pluginName": "JavaScript",
+                "elapsedTime": 674,
+                "state": {},
+                "height": 66,
+                "evaluationSequenceNumber": 6
+            },
+            "evaluatorReader": true,
+            "lineCount": 146,
+            "isError": false
+        },
+        {
+            "id": "codeHdgiIY",
+            "type": "code",
+            "evaluator": "Clojure",
+            "input": {
+                "body": [
+                    "(def r (kabob-query \"select ?o ?p ?c {?c ?p1 \\\"Morphine\\\" . ?c ?p ?o}\") )",
+                    "(clojure.set/rename r {:p \"p\", :c \"c\", :o \"o\"})"
+                ]
+            },
+            "output": {
+                "state": {
+                    "datatablestate": {
+                        "pagination": {
+                            "use": true,
+                            "rowsToDisplay": 25,
+                            "fixLeft": 0,
+                            "fixRight": 0
+                        },
+                        "columnNames": [
+                            "p",
+                            "c",
+                            "o"
+                        ],
+                        "actualtype": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "actualalign": [
+                            "L",
+                            "L",
+                            "L"
+                        ],
+                        "colorder": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ],
+                        "getCellSho": [
+                            true,
+                            true,
+                            true
+                        ],
+                        "barsOnColumn": {},
+                        "cellHighlightersData": [],
+                        "tableFilter": "",
+                        "showFilter": false,
+                        "columnSearchActive": false,
+                        "columnFilter": [],
+                        "columnWidth": [],
+                        "formatForTimes": {},
+                        "stringFormatForType": {},
+                        "stringFormatForColumn": {},
+                        "tooltips": [],
+                        "headerFontSize": null,
+                        "dataFontSize": null,
+                        "fontColor": [],
+                        "headersVertical": false
+                    }
+                },
+                "result": {
+                    "hasDoubleClickAction": false,
+                    "doubleClickTag": null,
+                    "contextMenuItems": [],
+                    "contextMenuTags": {},
+                    "type": "TableDisplay",
+                    "columnNames": [
+                        "p",
+                        "c",
+                        "o"
+                    ],
+                    "types": [
+                        "string",
+                        "string",
+                        "string"
+                    ],
+                    "subtype": "ListOfMaps",
+                    "stringFormatForTimes": null,
+                    "stringFormatForType": {},
+                    "stringFormatForColumn": {},
+                    "rendererForType": {},
+                    "rendererForColumn": {},
+                    "alignmentForType": {},
+                    "alignmentForColumn": {},
+                    "columnsFrozen": {},
+                    "columnsFrozenRight": {},
+                    "columnsVisible": {},
+                    "columnOrder": [],
+                    "cellHighlighters": [],
+                    "tooltips": [],
+                    "dataFontSize": null,
+                    "headerFontSize": null,
+                    "fontColor": [],
+                    "headersVertical": false,
+                    "values": [
+                        [
+                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "http://www.w3.org/2002/07/owl#Class"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:23292329"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef9"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:23555556"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "Morphia"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "(5alpha,6alpha)-17-methyl-7,8-didehydro-4,5-epoxymorphinan-3,6-diol"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef6"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "-44fa1b42:15a120a711b:-7ef2",
+                            "KEGG COMPOUND:"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef7"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "Morphine"
+                        ],
+                        [
+                            "http://purl.obolibrary.org/obo/IAO_0000115",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "A morphinane alkaloid that is a highly potent opiate analgesic psychoactive drug. Morphine acts directly on the central nervous system (CNS) to relieve pain but has a high potential for addiction, with tolerance and both physical and psychological dependence developing rapidly. Morphine is the most abundant opiate found in Papaver somniferum (the opium poppy)."
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CHEBI:7001"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "KEGG COMPOUND:C01516"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "morfina"
+                        ],
+                        [
+                            "http://www.w3.org/2002/07/owl#annotatedTarget",
+                            "-44fa1b42:15a120a711b:-7ef2",
+                            "Morphine"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:24306419"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:12593758"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "(5alpha,6beta)-17-methyl-7,8-didehydro-4,5-epoxymorphinan-3,6-diol"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "InChI=1S/C17H19NO3/c1-18-7-6-17-10-3-5-13(20)16(17)21-15-12(19)4-2-9(14(15)17)8-11(10)18/h2-5,10-11,13,16,19-20H,6-8H2,1H3/t10-,11+,13-,16-,17-/m0/s1"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CHEBI:25419"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "4-methyl-(13R,14S)-12-oxa-4-azapentacyclo[9.6.1.01,13.05,17.07,18]octadeca-7(18),8,10,15-tetraene-10,14-diol"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:24096538"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef8"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "ChEMBL:6094809"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7efa"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef4"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#id",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CHEBI:17303"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "KNApSAcK:C00001889"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "Morphin"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "PDBeChem:MOI"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:23988259"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "(5R,6S,9R,13S,14R)-4,5-epoxy-N-methyl-7-morphinen-3,6-diol"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "morphium"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "morphinum"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#label",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "morphine"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CHEBI:14622"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "(7R,7AS,12BS)-3-METHYL-2,3,4,4A,7,7A-HEXAHYDRO-1H-4,12-METHANO[1]BENZOFURO[3,2-E]ISOQUINOLINE-7,9-DIOL"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:15019787"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "Beilstein:93704"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7efb"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "http://purl.obolibrary.org/obo/CHEBI_25418"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "17-methyl-7,8-didehydro-4,5alpha-epoxymorphinan-3,6alpha-diol"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "chebi_ontology"
+                        ],
+                        [
+                            "http://www.w3.org/2002/07/owl#annotatedProperty",
+                            "-44fa1b42:15a120a711b:-7ef2",
+                            "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:23325235"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "http://purl.obolibrary.org/obo/CHEBI_38164"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "C17H19NO3"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "[H][C@]12C=C[C@H](O)[C@@H]3Oc4c(O)ccc5C[C@H]1N(C)CC[C@@]23c45"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef3"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "ChEMBL:16033256"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "PDB:1Q0Y"
+                        ],
+                        [
+                            "http://www.w3.org/2002/07/owl#annotatedSource",
+                            "-44fa1b42:15a120a711b:-7ef2",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "KEGG COMPOUND:57-27-2"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7efe"
+                        ],
+                        [
+                            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                            "-44fa1b42:15a120a711b:-7ef2",
+                            "http://www.w3.org/2002/07/owl#Axiom"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "Wikipedia:Morphine"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7ef5"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "BQJCRHHNABKAKU-KBQPJGBKSA-N"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:23927484"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7efc"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "(5alpha,6alpha)-didehydro-4,5-epoxy-17-methylmorphinan-3,6-diol"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "ChemIDplus:57-27-2"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "KEGG DRUG:D08233"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CiteXplore:17667569"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "NIST Chemistry WebBook:57-27-2"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "CHEBI:44202"
+                        ],
+                        [
+                            "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "-44fa1b42:15a120a711b:-7efd"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "MetaCyc:MORPHINE"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasDbXref",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "DrugBank:DB00295"
+                        ],
+                        [
+                            "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+                            "http://purl.obolibrary.org/obo/CHEBI_17303",
+                            "(-)-morphine"
+                        ]
+                    ]
+                },
+                "selectedType": "Table",
+                "pluginName": "Clojure",
+                "shellId": "f44f9ba6-26a6-4da9-8d81-4293f36f08fb",
+                "elapsedTime": 1103,
+                "height": 668
+            },
+            "evaluatorReader": true,
+            "lineCount": 2,
+            "isError": false
+        },
+        {
+            "id": "codeJXAsCN",
+            "type": "code",
+            "evaluator": "HTML",
+            "input": {
+                "body": [
+                    "<div id=\"yasqe\"></div>"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "BeakerDisplay",
+                    "innertype": "Html",
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<div id=\"yasqe\"><div class=\"yasqe\"><div class=\"CodeMirror cm-s-default CodeMirror-wrap\"><div style=\"overflow: hidden; position: relative; width: 3px; height: 0px; top: 5px; left: 49px;\"><textarea autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"false\" tabindex=\"0\" style=\"position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;\"></textarea></div><div class=\"CodeMirror-vscrollbar\" cm-not-content=\"true\" style=\"display: block; bottom: 0px;\"><div style=\"min-width: 1px; height: 428px;\"></div></div><div class=\"CodeMirror-hscrollbar\" cm-not-content=\"true\"><div style=\"height: 100%; min-height: 1px; width: 0px;\"></div></div><div class=\"CodeMirror-scrollbar-filler\" cm-not-content=\"true\"></div><div class=\"CodeMirror-gutter-filler\" cm-not-content=\"true\"></div><div class=\"CodeMirror-scroll\" tabindex=\"-1\"><div class=\"CodeMirror-sizer\" style=\"margin-left: 44px; margin-bottom: -10px; border-right-width: 20px; min-height: 428px; padding-right: 10px; padding-bottom: 0px;\"><div style=\"position: relative; top: 0px;\"><div class=\"CodeMirror-lines\"><div style=\"position: relative; outline: none;\"><div class=\"CodeMirror-measure\"><pre><span>xxxxxxxxxx</span></pre><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\"><div>6</div></div><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\"><div>18</div></div></div><div class=\"CodeMirror-measure\"></div><div style=\"position: relative; z-index: 1;\"></div><div class=\"CodeMirror-cursors\"><div class=\"CodeMirror-cursor\" style=\"left: 4px; top: 0px; height: 18.45px;\">&nbsp;</div></div><div class=\"CodeMirror-code\" style=\"\"><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">1</div><div class=\"CodeMirror-gutter-elt\" style=\"left: 33px; width: 10px;\"><div class=\"CodeMirror-foldgutter-open CodeMirror-guttermarker-subtle\"></div></div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-keyword\">PREFIX</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:</span><span class=\"cm-ws\"> </span><span class=\"cm-variable-3\">&lt;http://purl.obolibrary.org/obo/&gt;</span><span class=\"cm-ws\"> </span><span class=\"cm-keyword\">PREFIX</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:</span><span class=\"cm-ws\"> </span><span class=\"cm-variable-3\">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class=\"cm-ws\"> </span><span class=\"cm-keyword\">PREFIX</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdf:</span><span class=\"cm-ws\"> </span><span class=\"cm-variable-3\">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class=\"cm-ws\"> </span><span class=\"cm-keyword\">PREFIX</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:</span><span class=\"cm-ws\"> </span><span class=\"cm-variable-3\">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class=\"cm-ws\"> </span><span class=\"cm-keyword\">PREFIX</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">uniprot:</span><span class=\"cm-ws\"> </span><span class=\"cm-variable-3\">&lt;http://kabob.ucdenver.edu/iao/uniprot/&gt;</span><span class=\"cm-ws\"> </span><span class=\"cm-keyword\">SELECT</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?location_class</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?location_name</span><span class=\"cm-ws\"> </span><span class=\"cm-keyword\">WHERE</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">{</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">2</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?localization</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:GO_0051179</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">3</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?localization</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?of_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">4</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?of_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdf:type</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:Restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">5</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?of_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:onProperty</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:RO_0002313</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">6</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?of_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:someValuesFrom</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?protein_subclass</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">7</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?protein_subclass</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?protein_class</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">8</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?protein_class</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:CHEBI_36080</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">9</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?protein_name</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:IAO_0000219</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?protein_class</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">10</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?localization</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?to_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">11</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?to_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdf:type</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:Restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">12</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?to_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:onProperty</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:RO_0002339</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">13</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?to_restriction</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">owl:someValuesFrom</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?location_subclass</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">14</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?location_subclass</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?location_class</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">15</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?location_class</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:subClassOf</span><span class=\"cm-punc\">*</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">obo:GO_0005575</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">16</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-atom\">?location_class</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">rdfs:label</span><span class=\"cm-ws\"> </span><span class=\"cm-atom\">?location_name</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">.</span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">17</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-ws\"> &nbsp;</span><span class=\"cm-keyword\">FILTER</span><span class=\"cm-punc\">(</span><span class=\"cm-atom\">?protein_name</span><span class=\"cm-ws\"> </span><span class=\"cm-punc\">=</span><span class=\"cm-ws\"> </span><span class=\"cm-string-2\">uniprot:UNIPROT_P99999_ICE</span><span class=\"cm-punc\">)</span><span class=\"cm-ws\"> </span></span></pre></div><div style=\"position: relative;\"><div class=\"CodeMirror-gutter-wrapper\" style=\"left: -44px;\"><div class=\"CodeMirror-linenumber CodeMirror-gutter-elt\" style=\"left: 4px; width: 21px;\">18</div></div><pre class=\" CodeMirror-line \"><span style=\"padding-right: 0.1px;\"><span class=\"cm-punc\">}</span></span></pre></div></div></div></div></div></div><div style=\"position: absolute; height: 20px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 428px;\"></div><div class=\"CodeMirror-gutters\" style=\"height: 448px;\"><div class=\"CodeMirror-gutter gutterErrorBar\"></div><div class=\"CodeMirror-gutter CodeMirror-linenumbers\" style=\"width: 29px;\"></div><div class=\"CodeMirror-gutter CodeMirror-foldgutter\"></div></div></div><div class=\"yasqe_buttons\" style=\"right: 15px;\"><div class=\"svgImg yasqe_share\" title=\"Share your query\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\"><path d=\"M36.764,50c0,0.308-0.07,0.598-0.088,0.905l32.247,16.119c2.76-2.338,6.293-3.797,10.195-3.797  C87.89,63.228,95,70.338,95,79.109C95,87.89,87.89,95,79.118,95c-8.78,0-15.882-7.11-15.882-15.891c0-0.316,0.07-0.598,0.088-0.905  L31.077,62.085c-2.769,2.329-6.293,3.788-10.195,3.788C12.11,65.873,5,58.771,5,50c0-8.78,7.11-15.891,15.882-15.891  c3.902,0,7.427,1.468,10.195,3.797l32.247-16.119c-0.018-0.308-0.088-0.598-0.088-0.914C63.236,12.11,70.338,5,79.118,5  C87.89,5,95,12.11,95,20.873c0,8.78-7.11,15.891-15.882,15.891c-3.911,0-7.436-1.468-10.195-3.806L36.676,49.086  C36.693,49.394,36.764,49.684,36.764,50z\"></path></svg></div><div class=\"fullscreenToggleBtns\"><div class=\"svgImg yasqe_fullscreenBtn\" title=\"Set editor full screen\"><svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"5 -10 74.074074 100\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\" version=\"0.48.4 r9939\" docname=\"noun_2186_cc.svg\"><metadata><rdf:RDF><cc:Work about=\"\"><dc:format>image/svg+xml</dc:format><dc:type resource=\"http://purl.org/dc/dcmitype/StillImage\"></dc:type></cc:Work></rdf:RDF></metadata><defs></defs><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" pageopacity=\"0\" pageshadow=\"2\" window-width=\"640\" window-height=\"480\" showgrid=\"false\" fit-margin-top=\"0\" fit-margin-left=\"0\" fit-margin-right=\"0\" fit-margin-bottom=\"0\" zoom=\"2.36\" cx=\"44.101509\" cy=\"31.481481\" window-x=\"65\" window-y=\"24\" window-maximized=\"0\" current-layer=\"Layer_1\"></sodipodi:namedview><path d=\"m -7.962963,-10 v 38.889 l 16.667,-16.667 16.667,16.667 5.555,-5.555 -16.667,-16.667 16.667,-16.667 h -38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 92.037037,-10 v 38.889 l -16.667,-16.667 -16.666,16.667 -5.556,-5.555 16.666,-16.667 -16.666,-16.667 h 38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"M -7.962963,90 V 51.111 l 16.667,16.666 16.667,-16.666 5.555,5.556 -16.667,16.666 16.667,16.667 h -38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"M 92.037037,90 V 51.111 l -16.667,16.666 -16.666,-16.666 -5.556,5.556 16.666,16.666 -16.666,16.667 h 38.889 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path></svg></div><div class=\"svgImg yasqe_smallscreenBtn\" title=\"Set editor to normale size\"><svg xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" version=\"1.1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"5 -10 74.074074 100\" enable-background=\"new 0 0 100 100\" xml:space=\"preserve\" version=\"0.48.4 r9939\" docname=\"noun_2186_cc.svg\"><metadata><rdf:RDF><cc:Work about=\"\"><dc:format>image/svg+xml</dc:format><dc:type resource=\"http://purl.org/dc/dcmitype/StillImage\"></dc:type></cc:Work></rdf:RDF></metadata><defs></defs><sodipodi:namedview pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1\" objecttolerance=\"10\" gridtolerance=\"10\" guidetolerance=\"10\" pageopacity=\"0\" pageshadow=\"2\" window-width=\"1855\" window-height=\"1056\" showgrid=\"false\" fit-margin-top=\"0\" fit-margin-left=\"0\" fit-margin-right=\"0\" fit-margin-bottom=\"0\" zoom=\"2.36\" cx=\"44.101509\" cy=\"31.481481\" window-x=\"65\" window-y=\"24\" window-maximized=\"1\" current-layer=\"Layer_1\"></sodipodi:namedview><path d=\"m 30.926037,28.889 0,-38.889 -16.667,16.667 -16.667,-16.667 -5.555,5.555 16.667,16.667 -16.667,16.667 38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 53.148037,28.889 0,-38.889 16.667,16.667 16.666,-16.667 5.556,5.555 -16.666,16.667 16.666,16.667 -38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 30.926037,51.111 0,38.889 -16.667,-16.666 -16.667,16.666 -5.555,-5.556 16.667,-16.666 -16.667,-16.667 38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path><path d=\"m 53.148037,51.111 0,38.889 16.667,-16.666 16.666,16.666 5.556,-5.556 -16.666,-16.666 16.666,-16.667 -38.889,0 z\" connector-curvature=\"0\" style=\"fill:#010101\"></path></svg></div></div><div class=\"yasqe_queryButton query_valid\"><div class=\"svgImg\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" width=\"100%\" height=\"100%\" viewBox=\"0 0 80 80\" enable-background=\"new 0 0 80 80\" xml:space=\"preserve\"><g></g><g>\t<path d=\"M64.622,2.411H14.995c-6.627,0-12,5.373-12,12v49.897c0,6.627,5.373,12,12,12h49.627c6.627,0,12-5.373,12-12V14.411   C76.622,7.783,71.249,2.411,64.622,2.411z M24.125,63.906V15.093L61,39.168L24.125,63.906z\"></path></g></svg></div></div></div></div></div></div>"
+                },
+                "selectedType": "BeakerDisplay",
+                "elapsedTime": 0,
+                "pluginName": "JavaScript",
+                "height": 317
+            },
+            "evaluatorReader": true,
+            "lineCount": 1,
+            "isError": false
+        },
+        {
+            "id": "codea7uzvl",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    "var yasqe = YASQE(document.getElementById(\"yasqe\"), {",
+                    "\tsparql: {",
+                    "\t\tshowQueryButton: true",
+                    "\t}",
+                    "});"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "JavaScript",
+                "elapsedTime": 536
+            },
+            "evaluatorReader": true,
+            "lineCount": 5,
+            "isError": false
+        },
+        {
+            "id": "codeQZBiVE",
+            "type": "code",
+            "evaluator": "JavaScript",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "JavaScript",
+                "elapsedTime": 10
+            },
+            "evaluatorReader": true,
+            "isError": false
+        }
+    ],
+    "namespace": {
+        "result": {
+            "type": "TableDisplay",
+            "subtype": "ListOfMaps",
+            "columnNames": [],
+            "values": [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                []
+            ],
+            "types": []
+        },
+        "person": {
+            "type": "TableDisplay",
+            "subtype": "ListOfMaps",
+            "columnNames": [
+                "firstName",
+                "lastName",
+                "age"
+            ],
+            "values": [
+                [
+                    "John",
+                    "Doe",
+                    46
+                ],
+                [
+                    "Amanda",
+                    "Smith",
+                    23
+                ]
+            ],
+            "types": [
+                "string",
+                "string",
+                "double"
+            ]
+        },
+        "binary_table": {
+            "type": "TableDisplay",
+            "columnNames": [
+                "c0",
+                "c1"
+            ],
+            "values": [
+                [
+                    "0000",
+                    "0"
+                ],
+                [
+                    "0001",
+                    "1"
+                ],
+                [
+                    "0010",
+                    "2"
+                ],
+                [
+                    "0011",
+                    "3"
+                ],
+                [
+                    "0100",
+                    "4"
+                ],
+                [
+                    "0101",
+                    "5"
+                ],
+                [
+                    "0110",
+                    "6"
+                ],
+                [
+                    "0111",
+                    "7"
+                ],
+                [
+                    "1000",
+                    "8"
+                ],
+                [
+                    "1001",
+                    "9"
+                ],
+                [
+                    "1010",
+                    "a"
+                ],
+                [
+                    "1011",
+                    "b"
+                ],
+                [
+                    "1100",
+                    "c"
+                ],
+                [
+                    "1101",
+                    "d"
+                ],
+                [
+                    "1110",
+                    "e"
+                ],
+                [
+                    "1111",
+                    "f"
+                ]
+            ],
+            "subtype": "Matrix"
+        },
+        "m": {
+            "type": "TableDisplay",
+            "values": [
+                [
+                    1,
+                    2
+                ],
+                [
+                    3,
+                    4
+                ],
+                [
+                    5,
+                    6
+                ]
+            ],
+            "subtype": "Matrix",
+            "columnNames": [
+                "c0",
+                "c1"
+            ],
+            "types": [
+                "double",
+                "double"
+            ]
+        },
+        "x": [
+            "mitochondria",
+            "cytoplasm"
+        ],
+        "locations": [
+            "mitochondria",
+            "cytoplasm"
+        ],
+        "graph": "{nodes [{name 0, group 0} {name 1, group 0} {name 2, group 0}], links [{source 0, value 0.390625, target 1} {source 0, value 0.390625, target 2}]}",
+        "graph1": {
+            "nodes": [
+                {
+                    "name": "C00001",
+                    "group": 0
+                },
+                {
+                    "name": "C00002",
+                    "group": 0
+                },
+                {
+                    "name": "C00003",
+                    "group": 1
+                },
+                {
+                    "name": "C00004",
+                    "group": 1
+                },
+                {
+                    "name": "C00005",
+                    "group": 2
+                },
+                {
+                    "name": "C00006",
+                    "group": 2
+                },
+                {
+                    "name": "C00007",
+                    "group": 2
+                },
+                {
+                    "name": "C00008",
+                    "group": 2
+                },
+                {
+                    "name": "C00009",
+                    "group": 2
+                },
+                {
+                    "name": "C00010",
+                    "group": 2
+                }
+            ],
+            "links": [
+                {
+                    "name": "E00001",
+                    "source": 0,
+                    "value": 0.308641975308642,
+                    "target": 1
+                },
+                {
+                    "name": "E00002",
+                    "source": 1,
+                    "value": 0.8264462809917354,
+                    "target": 2
+                },
+                {
+                    "name": "E00003",
+                    "source": 0,
+                    "value": 0.6944444444444445,
+                    "target": 3
+                },
+                {
+                    "name": "E00004",
+                    "source": 0,
+                    "value": 0.4444444444444444,
+                    "target": 4
+                },
+                {
+                    "name": "E00005",
+                    "source": 4,
+                    "value": 0.6944444444444445,
+                    "target": 5
+                }
+            ]
+        },
+        "dataset": {
+            "nodes": [
+                {
+                    "name": "C01516 Morphine",
+                    "group": 0,
+                    "index": 0,
+                    "weight": 3,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "C01735 Morphinone",
+                    "group": 0,
+                    "index": 1,
+                    "weight": 2,
+                    "x": 638.8520486057637,
+                    "y": 82.51339872260081,
+                    "px": 638.8520486057637,
+                    "py": 82.51339872260081
+                },
+                {
+                    "name": "R03591",
+                    "group": 1,
+                    "index": 2,
+                    "weight": 4,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "R03592",
+                    "group": 1,
+                    "index": 3,
+                    "weight": 4,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "Akr1c13",
+                    "group": 4,
+                    "index": 4,
+                    "weight": 3,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "NAD+",
+                    "group": 0,
+                    "index": 5,
+                    "weight": 1,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "NADP+",
+                    "group": 0,
+                    "index": 6,
+                    "weight": 1,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "Thing1",
+                    "group": 2,
+                    "index": 7,
+                    "weight": 0,
+                    "x": 682.3827475932438,
+                    "y": 351.266031281437,
+                    "px": 682.3827475932438,
+                    "py": 351.266031281437
+                },
+                {
+                    "name": "Thing2",
+                    "group": 2,
+                    "index": 8,
+                    "weight": 0,
+                    "x": 723.5485910922158,
+                    "y": 519.3016445527855,
+                    "px": 723.5485910922158,
+                    "py": 519.3016445527855
+                },
+                {
+                    "name": "MMU",
+                    "group": 3,
+                    "index": 9,
+                    "weight": 1,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "MOR",
+                    "group": 4,
+                    "index": 10,
+                    "weight": 2,
+                    "x": 106.25790557498121,
+                    "y": 478.098502055392,
+                    "px": 106.25790557498121,
+                    "py": 478.098502055392
+                },
+                {
+                    "name": "D00842 Morphine Sulfate",
+                    "group": 5,
+                    "index": 11,
+                    "weight": 1,
+                    "x": 106.25790557498121,
+                    "y": 478.098502055392,
+                    "px": 106.25790557498121,
+                    "py": 478.098502055392
+                },
+                {
+                    "name": "Gi",
+                    "group": 4,
+                    "index": 12,
+                    "weight": 4,
+                    "x": 106.25790557498121,
+                    "y": 478.098502055392,
+                    "px": 106.25790557498121,
+                    "py": 478.098502055392
+                },
+                {
+                    "name": "GIRK",
+                    "group": 4,
+                    "index": 13,
+                    "weight": 1,
+                    "x": 106.25790557498121,
+                    "y": 478.098502055392,
+                    "px": 106.25790557498121,
+                    "py": 478.098502055392
+                },
+                {
+                    "name": "VGCC",
+                    "group": 4,
+                    "index": 14,
+                    "weight": 1,
+                    "x": 106.25790557498121,
+                    "y": 478.098502055392,
+                    "px": 106.25790557498121,
+                    "py": 478.098502055392
+                },
+                {
+                    "name": "AC",
+                    "group": 4,
+                    "index": 15,
+                    "weight": 1,
+                    "x": 106.25790557498121,
+                    "y": 478.098502055392,
+                    "px": 106.25790557498121,
+                    "py": 478.098502055392
+                },
+                {
+                    "name": "TAX:3469",
+                    "group": 3,
+                    "index": 16,
+                    "weight": 0,
+                    "x": 988.5508151033891,
+                    "y": 334.1809864837821,
+                    "px": 988.5508151033891,
+                    "py": 334.1809864837821
+                },
+                {
+                    "name": "D08233 Morphine",
+                    "group": 5,
+                    "index": 17,
+                    "weight": 1,
+                    "x": 1185.738589475076,
+                    "y": 67.47829829186594,
+                    "px": 1185.738589475076,
+                    "py": 67.47829829186594
+                },
+                {
+                    "name": "Codeine",
+                    "group": 0,
+                    "index": 18,
+                    "weight": 0,
+                    "x": 81.06203137018966,
+                    "y": 566.6617234988694,
+                    "px": 81.06203137018966,
+                    "py": 566.6617234988694
+                },
+                {
+                    "name": "CYP2D6",
+                    "group": 4,
+                    "index": 19,
+                    "weight": 0,
+                    "x": 767.39649677117,
+                    "y": 292.52175481936956,
+                    "px": 767.39649677117,
+                    "py": 292.52175481936956
+                },
+                {
+                    "name": "HSA",
+                    "group": 3,
+                    "index": 20,
+                    "weight": 0,
+                    "x": 1117.2374224593823,
+                    "y": 28.59590318186622,
+                    "px": 1117.2374224593823,
+                    "py": 28.59590318186622
+                }
+            ],
+            "edges": [
+                {
+                    "name": "reacts",
+                    "source": {
+                        "name": "R03591",
+                        "group": 1,
+                        "index": 2,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "C01516 Morphine",
+                        "group": 0,
+                        "index": 0,
+                        "weight": 3,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "produces",
+                    "source": {
+                        "name": "R03591",
+                        "group": 1,
+                        "index": 2,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "C01735 Morphinone",
+                        "group": 0,
+                        "index": 1,
+                        "weight": 2,
+                        "x": 638.8520486057637,
+                        "y": 82.51339872260081,
+                        "px": 638.8520486057637,
+                        "py": 82.51339872260081
+                    }
+                },
+                {
+                    "name": "catalyzes",
+                    "source": {
+                        "name": "Akr1c13",
+                        "group": 4,
+                        "index": 4,
+                        "weight": 3,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "R03591",
+                        "group": 1,
+                        "index": 2,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "in genome",
+                    "source": {
+                        "name": "Akr1c13",
+                        "group": 4,
+                        "index": 4,
+                        "weight": 3,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "MMU",
+                        "group": 3,
+                        "index": 9,
+                        "weight": 1,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "reacts",
+                    "source": {
+                        "name": "R03592",
+                        "group": 1,
+                        "index": 3,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "C01516 Morphine",
+                        "group": 0,
+                        "index": 0,
+                        "weight": 3,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "produces",
+                    "source": {
+                        "name": "R03592",
+                        "group": 1,
+                        "index": 3,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "C01735 Morphinone",
+                        "group": 0,
+                        "index": 1,
+                        "weight": 2,
+                        "x": 638.8520486057637,
+                        "y": 82.51339872260081,
+                        "px": 638.8520486057637,
+                        "py": 82.51339872260081
+                    }
+                },
+                {
+                    "name": "reacts",
+                    "source": {
+                        "name": "R03591",
+                        "group": 1,
+                        "index": 2,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "NAD+",
+                        "group": 0,
+                        "index": 5,
+                        "weight": 1,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "reacts",
+                    "source": {
+                        "name": "R03592",
+                        "group": 1,
+                        "index": 3,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "NADP+",
+                        "group": 0,
+                        "index": 6,
+                        "weight": 1,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "catalyzes",
+                    "source": {
+                        "name": "Akr1c13",
+                        "group": 4,
+                        "index": 4,
+                        "weight": 3,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "R03592",
+                        "group": 1,
+                        "index": 3,
+                        "weight": 4,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                },
+                {
+                    "name": "targets",
+                    "source": {
+                        "name": "D00842 Morphine Sulfate",
+                        "group": 5,
+                        "index": 11,
+                        "weight": 1,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    },
+                    "target": {
+                        "name": "MOR",
+                        "group": 4,
+                        "index": 10,
+                        "weight": 2,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    }
+                },
+                {
+                    "name": "signals",
+                    "source": {
+                        "name": "MOR",
+                        "group": 4,
+                        "index": 10,
+                        "weight": 2,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    },
+                    "target": {
+                        "name": "Gi",
+                        "group": 4,
+                        "index": 12,
+                        "weight": 4,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    }
+                },
+                {
+                    "name": "signals",
+                    "source": {
+                        "name": "Gi",
+                        "group": 4,
+                        "index": 12,
+                        "weight": 4,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    },
+                    "target": {
+                        "name": "GIRK",
+                        "group": 4,
+                        "index": 13,
+                        "weight": 1,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    }
+                },
+                {
+                    "name": "signals",
+                    "source": {
+                        "name": "Gi",
+                        "group": 4,
+                        "index": 12,
+                        "weight": 4,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    },
+                    "target": {
+                        "name": "VGCC",
+                        "group": 4,
+                        "index": 14,
+                        "weight": 1,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    }
+                },
+                {
+                    "name": "inhibits",
+                    "source": {
+                        "name": "Gi",
+                        "group": 4,
+                        "index": 12,
+                        "weight": 4,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    },
+                    "target": {
+                        "name": "AC",
+                        "group": 4,
+                        "index": 15,
+                        "weight": 1,
+                        "x": 106.25790557498121,
+                        "y": 478.098502055392,
+                        "px": 106.25790557498121,
+                        "py": 478.098502055392
+                    }
+                },
+                {
+                    "name": "same as",
+                    "source": {
+                        "name": "D08233 Morphine",
+                        "group": 5,
+                        "index": 17,
+                        "weight": 1,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    },
+                    "target": {
+                        "name": "C01516 Morphine",
+                        "group": 0,
+                        "index": 0,
+                        "weight": 3,
+                        "x": 1185.738589475076,
+                        "y": 67.47829829186594,
+                        "px": 1185.738589475076,
+                        "py": 67.47829829186594
+                    }
+                }
+            ]
+        },
+        "r": {
+            "type": "TableDisplay",
+            "subtype": "ListOfMaps",
+            "columnNames": [],
+            "values": [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                []
+            ],
+            "types": []
+        },
+        "prefs": {
+            "useOutputPanel": false,
+            "outputLineLimit": 1000,
+            "outputColumnLimit": 50,
+            "theme": {
+                "name": "default",
+                "plotColors": [
+                    "#FF1F77B4",
+                    "#FFFF7F0E",
+                    "#FF2CA02C",
+                    "#FFD62728",
+                    "#FF9467BD",
+                    "#FF8C564B",
+                    "#FFE377C2",
+                    "#FF7F7F7F",
+                    "#FFBCBD22",
+                    "#FF17BECF",
+                    "#FFAEC7E8",
+                    "#FFFFBB78",
+                    "#FF98DF8A",
+                    "#FFFF9896",
+                    "#FFC5B0D5",
+                    "#FFC49C94",
+                    "#FFF7B6D2",
+                    "#FFC7C7C7",
+                    "#FFDBDB8D",
+                    "#FF9EDAE5"
+                ]
+            }
+        },
+        "client": {
+            "type": "TableDisplay",
+            "values": [
+                [
+                    "mac",
+                    true
+                ],
+                [
+                    "windows",
+                    false
+                ],
+                [
+                    "linux",
+                    false
+                ]
+            ],
+            "subtype": "Dictionary",
+            "columnNames": [
+                "Key",
+                "Value"
+            ]
+        },
+        "language": {
+            "JavaScript": {
+                "scripts": ""
+            },
+            "Clojure": {
+                "classPath": "/Users/dcmcshan/Documents/KaBOB/beakertest/target/beakertest-0.1.0-SNAPSHOT-standalone.jar\n/Users/dcmcshan/Documents/KaBOB/sparqler/target/uberjar/sparqler-0.1.0-SNAPSHOT-standalone.jar",
+                "imports": "com.twosigma.beaker.chart.Color\ncom.twosigma.beaker.chart.Filter\ncom.twosigma.beaker.BeakerProgressUpdate\ncom.twosigma.beaker.NamespaceClient\norg.joda.time.ReadablePartial\norg.joda.time.ReadableDateTime\norg.joda.time.ReadablePeriod\norg.joda.time.DateTime\norg.joda.time.DateMidnight\norg.joda.time.YearMonth\norg.joda.time.LocalDate\norg.joda.time.LocalTime\norg.joda.time.DateTimeZone\norg.joda.time.Period\norg.joda.time.PeriodType\norg.joda.time.Interval\norg.joda.time.Years\norg.joda.time.LocalDateTime\norg.joda.time.Chronology\norg.joda.time.format.DateTimeFormat\norg.joda.time.format.DateTimeFormatter\norg.joda.time.format.DateTimePrinter\norg.joda.time.format.DateTimeFormatterBuilder\norg.joda.time.format.DateTimeParser\norg.joda.time.format.ISODateTimeFormat\norg.joda.time.tz.FixedDateTimeZone\norg.joda.time.Months\norg.joda.time.Weeks\norg.joda.time.Days\norg.joda.time.Hours\norg.joda.time.Minutes\norg.joda.time.Seconds\norg.joda.time.MutableDateTime\norg.joda.time.DateTimeUtils\ncom.hp.hpl.jena.query.Syntax\ncom.hp.hpl.jena.query.Query\ncom.hp.hpl.jena.query.QueryExecution\ncom.hp.hpl.jena.query.QueryExecutionFactory\ncom.hp.hpl.jena.query.ARQ\ncom.hp.hpl.jena.query.QueryFactory\ncom.hp.hpl.jena.query.QuerySolution\ncom.hp.hpl.jena.query.QuerySolutionMap\ncom.hp.hpl.jena.query.ResultSet\ncom.hp.hpl.jena.query.ResultSetFormatter\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemote\ncom.hp.hpl.jena.sparql.modify.UpdateProcessRemoteForm\ncom.hp.hpl.jena.update.UpdateFactory\ncom.hp.hpl.jena.update.UpdateExecutionFactory\ncom.hp.hpl.jena.update.UpdateRequest\ncom.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP",
+                "outdir": "",
+                "requirements": "beakertest.core\nsparqler.core"
+            },
+            "IPython": {
+                "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n"
+            }
+        }
+    },
+    "evaluationSequenceNumber": 7
+}
