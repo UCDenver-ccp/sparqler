@@ -205,3 +205,17 @@
     :nameField kiao:hasTemplate iaouniprot:UniProtFileRecord_nameDataField1 \.
     :nameField iao:denotes protein-name \. ;;# uniprot name
     ))
+
+(defn get-location [C N] (list :localization rdfs:subClassOf GO:localization \.
+                         :localization rdfs:subClassOf :of_restriction \.
+                         :of_restriction rdf:type owl:Restriction \.
+                         :of_restriction owl:onProperty RO:transports_or_maintains_localization_of \.
+                         :localization rdfs:subClassOf :to_restriction  \.
+                         :to_restriction rdf:type owl:Restriction \.
+                         :to_restriction owl:onProperty RO:has_target_end_location \.
+                         :to_restriction owl:someValuesFrom :location_subclass \.
+                         :location_subclass rdfs:subClassOf C \.
+                         C rdfs:subClassOf* GO:cellular_component \.
+                         C rdfs:label N))
+
+

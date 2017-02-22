@@ -1,4 +1,5 @@
 (ns sparqler.queries
+   (:use sparqler.terms)
    (:use sparqler.forms)
    (:use boutros.matsu.sparql)
    (:require [boutros.matsu.compiler :refer [encode]]
@@ -7,7 +8,6 @@
 
 
 (defquery by-taxon 
-  "Get genes for a taxon"
   [taxon]
   (select :gene)
   (where :taxon_r owl:onProperty RO:in_taxon \.
@@ -19,10 +19,10 @@
 
 
 (defquery participants 
-  "get participants in a process"
+ 
   [process-id]
   (select process-id :process_id)
-  (where- :specificbp rdfs:subClassOf process-id \.
+  (where :specificbp rdfs:subClassOf process-id \.
           :specificbp rdfs:subClassOf :has_participant_r \.
           :has_participant_r owl:onProperty RO:has_participant \. ;# RO:has_participant
           :has_participant_r owl:someValuesFrom :specificbioentity \.
@@ -33,10 +33,10 @@
 
 
 (defquery cellular-components
-  "Get cellular components"
+
   [src-id bio-id]
   (select [(raw src-id) :source-id] :cc :label)
-  (where- :specificbioentity rdfs:subClassOf bio-id \.
+  (where :specificbioentity rdfs:subClassOf bio-id \.
           :localizes_r owl:onProperty RO:transports_or_maintains_localization_of \.
           :localizes_r owl:someValuesFrom :specificbioentity \.
           :localization rdfs:subClassOf :localizes_r \.
@@ -49,7 +49,7 @@
           :cc rdfs:label :label))
 
 (defquery hasRole
-  "Find role of URI"
+
   [uri]
   (select :role :svf)
   (where uri rdfs:subClassOf :restriction \.
@@ -60,7 +60,7 @@
 
 
 (defquery localize 
-  "localize doc"
+
   [name]
   (select :protein_name :location_class :location_name)
   (where :localization rdfs:subClassOf GO:localization \.
@@ -107,17 +107,17 @@
 
 (defquery modular-localize [name]
   (select :location_class :location_name :protein_class :protein_name)
-  (where+ (get-location :location_class :location_name) \.
+  (where (get-location :location_class :location_name) \.
           (of-protein :with-name name)))
 
 (defquery modular-interactions [name]
   (select :interaction :interaction_name :partner_id )
-  (where+ (get-interactions :protein_class :interaction_name :partner_id) \.
+  (where (get-interactions :protein_class :interaction_name :partner_id) \.
           (of-protein :with-name name)))
 
 (defquery chebi-xref []
   (select [(count :x) :count])
-  (where- :x rdfs:subClassOf CHEBI:chemical-entity))
+  (where :x rdfs:subClassOf CHEBI:chemical-entity))
 
 
 

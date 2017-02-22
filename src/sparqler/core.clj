@@ -113,23 +113,6 @@
   {:tag "(GROUP_CONCAT" :bounds ["(" (str ") AS " (encode as) ")")] :sep "; separator = " :content [v sep]})
 
 
-(defn get-location [C N] (list :localization rdfs:subClassOf GO:localization \.
-                         :localization rdfs:subClassOf :of_restriction \.
-                         :of_restriction rdf:type owl:Restriction \. 
-                         :of_restriction owl:onProperty RO:transports_or_maintains_localization_of \.
-                         :localization rdfs:subClassOf :to_restriction  \.
-                         :to_restriction rdf:type owl:Restriction \. 
-                         :to_restriction owl:onProperty RO:has_target_end_location \.
-                         :to_restriction owl:someValuesFrom :location_subclass \.
-                         :location_subclass rdfs:subClassOf C \.
-                         C rdfs:subClassOf* GO:cellular_component \.
-                         C rdfs:label N))
-
-
-
-
-
-
 ;;;;;;;;;;;;;
 
 ;(def result (sparql/query kabob (localize [:iaouniprot :UNIPROT_P99999_ICE])))
