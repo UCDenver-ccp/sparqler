@@ -117,7 +117,7 @@
 
 ;(def result (sparql/query kabob (localize [:iaouniprot :UNIPROT_P99999_ICE])))
 ;(def human-genes (kabob-query (by-taxon Human)))
-;(def locations (kabob-query (localize iaouniprotHUMAN_CYC)))
+;(def locations (kabob-query (localize iaouniprot:HUMAN_CYC)))
 ;(def g (->MOLECULE (URI. (:uri (first (kabob-query (label "glucose")))))))
 
 
