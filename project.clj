@@ -11,9 +11,9 @@
 
    :plugins [[lein-codox "0.10.2"] [lein-cljsbuild "1.1.5"]]
   
-  
   :codox {:metadata {:doc/format :markdown}
-          :namespaces [cljstest.core sparqler.core sparqler.queries sparqler.terms sparqler.forms]
+          :language :clojurescript
+          :namespaces [cljstest.core]
           :source-uri "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/{filepath}#L{line}"
 	  :source-paths ["src"]
 	  :output-path "doc"

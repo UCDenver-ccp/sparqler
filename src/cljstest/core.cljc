@@ -1,6 +1,4 @@
 (ns cljstest.core)
-#?(:cljs (:require-macros [cljtest.terms :as t])
-    :clj  (:require [cljtest.terms :at t]))
 
 (defn abs
   "Absolute value of a number
@@ -18,5 +16,5 @@
   rdfs:label
 ~~~
   "
-  []
-  (print cljtest.terms/rdfs:label))
+[]
+  (print "hi"))

@@ -1,6 +1,5 @@
 (ns cljstest.terms)
-#?(:cljs (:require-macros [matsu_core :refer [register-namespaces]])
-   :clj  (:require [boutros.matsu.core :refer [register-namespaces]]))
+(defn register-namespaces [x] nil)
 
 (register-namespaces {:obo     "<http://purl.obolibrary.org/obo/>"
                       :rdf     "<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
