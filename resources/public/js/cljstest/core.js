@@ -21,7 +21,7 @@ return ((x__4611__auto__ > y__4612__auto__) ? x__4611__auto__ : y__4612__auto__)
  * 
  */
 cljstest.core.testquery = (function cljstest$core$testquery(){
-return cljs.core.print.call(null,t.rdfs_COLON_label);
+return cljs.core.print.call(null,cljtest.terms.rdfs_COLON_label);
 });
 
 //# sourceMappingURL=core.js.map

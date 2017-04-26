@@ -1,5 +1,5 @@
 (ns cljstest.terms)
-#?(:cljs (:require-macros [boutros.matsu.core :refer [register-namespaces]])
+#?(:cljs (:require-macros [matsu_core :refer [register-namespaces]])
    :clj  (:require [boutros.matsu.core :refer [register-namespaces]]))
 
 (register-namespaces {:obo     "<http://purl.obolibrary.org/obo/>"
