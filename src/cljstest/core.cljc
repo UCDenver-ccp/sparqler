@@ -1,4 +1,4 @@
-(ns cljstest.core)
+(ns cljstest.core (:require [cljstest.terms :as terms :refer [rdfs:label]]))
 
 (defn abs
   "Absolute value of a number
@@ -13,8 +13,8 @@
 (defn testquery
   "Test Query
 ~~~klipse
-  rdfs:label
+  terms/rdfs:label
 ~~~
   "
 []
-  (print "hi"))
+  (print terms/rdfs:label))

@@ -10,27 +10,27 @@ matsu_util.both = new cljs.core.PersistentHashSet(null, new cljs.core.Persistent
  * Insert newline before and after certain SPARQL keywords and syntatic signifiers.
  */
 matsu_util.insert_newlines = (function matsu_util$insert_newlines(s){
-return clojure.string.join.call(null," ",(function (){var iter__5053__auto__ = (function matsu_util$insert_newlines_$_iter__5741(s__5742){
+return clojure.string.join.call(null," ",(function (){var iter__5053__auto__ = (function matsu_util$insert_newlines_$_iter__5754(s__5755){
 return (new cljs.core.LazySeq(null,(function (){
-var s__5742__$1 = s__5742;
+var s__5755__$1 = s__5755;
 while(true){
-var temp__4657__auto__ = cljs.core.seq.call(null,s__5742__$1);
+var temp__4657__auto__ = cljs.core.seq.call(null,s__5755__$1);
 if(temp__4657__auto__){
-var s__5742__$2 = temp__4657__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__5742__$2)){
-var c__5051__auto__ = cljs.core.chunk_first.call(null,s__5742__$2);
+var s__5755__$2 = temp__4657__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__5755__$2)){
+var c__5051__auto__ = cljs.core.chunk_first.call(null,s__5755__$2);
 var size__5052__auto__ = cljs.core.count.call(null,c__5051__auto__);
-var b__5744 = cljs.core.chunk_buffer.call(null,size__5052__auto__);
-if((function (){var i__5743 = (0);
+var b__5757 = cljs.core.chunk_buffer.call(null,size__5052__auto__);
+if((function (){var i__5756 = (0);
 while(true){
-if((i__5743 < size__5052__auto__)){
-var elem = cljs.core._nth.call(null,c__5051__auto__,i__5743);
+if((i__5756 < size__5052__auto__)){
+var elem = cljs.core._nth.call(null,c__5051__auto__,i__5756);
 var e = cljs.core.first.call(null,elem);
-cljs.core.chunk_append.call(null,b__5744,((cljs.core.contains_QMARK_.call(null,matsu_util.before2,e))?[cljs.core.str("\n \n"),cljs.core.str(e)].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.before,e))?[cljs.core.str("\n"),cljs.core.str(e)].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.after,e))?[cljs.core.str(e),cljs.core.str("\n")].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.both,e))?[cljs.core.str("\n"),cljs.core.str(e),cljs.core.str("\n")].join(''):e
+cljs.core.chunk_append.call(null,b__5757,((cljs.core.contains_QMARK_.call(null,matsu_util.before2,e))?[cljs.core.str("\n \n"),cljs.core.str(e)].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.before,e))?[cljs.core.str("\n"),cljs.core.str(e)].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.after,e))?[cljs.core.str(e),cljs.core.str("\n")].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.both,e))?[cljs.core.str("\n"),cljs.core.str(e),cljs.core.str("\n")].join(''):e
 )))));
 
-var G__5745 = (i__5743 + (1));
-i__5743 = G__5745;
+var G__5758 = (i__5756 + (1));
+i__5756 = G__5758;
 continue;
 } else {
 return true;
@@ -38,15 +38,15 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__5744),matsu_util$insert_newlines_$_iter__5741.call(null,cljs.core.chunk_rest.call(null,s__5742__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__5757),matsu_util$insert_newlines_$_iter__5754.call(null,cljs.core.chunk_rest.call(null,s__5755__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__5744),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__5757),null);
 }
 } else {
-var elem = cljs.core.first.call(null,s__5742__$2);
+var elem = cljs.core.first.call(null,s__5755__$2);
 var e = cljs.core.first.call(null,elem);
 return cljs.core.cons.call(null,((cljs.core.contains_QMARK_.call(null,matsu_util.before2,e))?[cljs.core.str("\n \n"),cljs.core.str(e)].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.before,e))?[cljs.core.str("\n"),cljs.core.str(e)].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.after,e))?[cljs.core.str(e),cljs.core.str("\n")].join(''):((cljs.core.contains_QMARK_.call(null,matsu_util.both,e))?[cljs.core.str("\n"),cljs.core.str(e),cljs.core.str("\n")].join(''):e
-)))),matsu_util$insert_newlines_$_iter__5741.call(null,cljs.core.rest.call(null,s__5742__$2)));
+)))),matsu_util$insert_newlines_$_iter__5754.call(null,cljs.core.rest.call(null,s__5755__$2)));
 }
 } else {
 return null;
@@ -75,15 +75,15 @@ var indentstring = (cljs.core.truth_(remove_indent)?remove_indent:indent);
 if(cljs.core.empty_QMARK_.call(null,lines)){
 return result;
 } else {
-var G__5746 = cljs.core.rest.call(null,lines);
-var G__5747 = cljs.core.conj.call(null,result,[cljs.core.str(same_subject),cljs.core.str(indentstring),cljs.core.str(line)].join(''));
-var G__5748 = (cljs.core.truth_(add_indent)?add_indent:(cljs.core.truth_(remove_indent)?remove_indent:indent
+var G__5759 = cljs.core.rest.call(null,lines);
+var G__5760 = cljs.core.conj.call(null,result,[cljs.core.str(same_subject),cljs.core.str(indentstring),cljs.core.str(line)].join(''));
+var G__5761 = (cljs.core.truth_(add_indent)?add_indent:(cljs.core.truth_(remove_indent)?remove_indent:indent
 ));
-var G__5749 = (cljs.core.truth_(semicolon)?semicolon:"");
-lines = G__5746;
-result = G__5747;
-indent = G__5748;
-same_subject = G__5749;
+var G__5762 = (cljs.core.truth_(semicolon)?semicolon:"");
+lines = G__5759;
+result = G__5760;
+indent = G__5761;
+same_subject = G__5762;
 continue;
 }
 break;
