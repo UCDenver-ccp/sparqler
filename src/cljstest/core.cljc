@@ -1,5 +1,6 @@
 (ns cljstest.core)
-(require-macros [cljtest.terms :as t])
+#?(:cljs (:require-macros [cljtest.terms :as t])
+    :clj  (:require-macros [cljtest.terms :at t]))
 
 (defn abs
   "Absolute value of a number
@@ -11,7 +12,7 @@
   (max x (- x)))
 
 
-(defn test-query
+(defn testquery
   "Test Query
 ~~~klipse
   rdfs:label

@@ -13,13 +13,13 @@
   
   
   :codox {:metadata {:doc/format :markdown}
-          :namespaces [cljstest.core cljtest.terms sparqler.core sparqler.queries sparqler.terms sparqler.forms]
+          :namespaces [cljstest.core sparqler.core sparqler.queries sparqler.terms sparqler.forms]
           :source-uri "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/{filepath}#L{line}"
 	  :source-paths ["src"]
 	  :output-path "doc"
           :themes [:default [:klipse
                              {:klipse/external-libs "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/src"
-                              :klipse/require-statement "(ns my.test (:require [cljstest.core :as sparqler :refer [abs test-query]]))"}]]}
+                              :klipse/require-statement "(ns my.test (:require [cljstest.core :as cljstest :refer [abs testquery]]))"}]]}
 
   :cljsbuild {
               :builds
