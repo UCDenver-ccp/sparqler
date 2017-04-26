@@ -13,20 +13,23 @@
   
   
   :codox {:metadata {:doc/format :markdown}
-          :namespaces [cljstest.core sparqler.core sparqler.queries sparqler.terms sparqler.forms]
+          :namespaces [cljstest.core cljtest.terms sparqler.core sparqler.queries sparqler.terms sparqler.forms]
           :source-uri "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/{filepath}#L{line}"
 	  :source-paths ["src"]
 	  :output-path "doc"
           :themes [:default [:klipse
-                             {:klipse/external-libs "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/src/"
-                              :klipse/require-statement "(ns my.test (:require [cljstest.core :as sparqler :refer [abs]]))"}]]}
+                             {:klipse/external-libs "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/src"
+                              :klipse/require-statement "(ns my.test (:require [cljstest.core :as sparqler :refer [abs test-query]]))"}]]}
 
   :cljsbuild {
               :builds
               {
                :dev {
                      :source-paths ["src/cljstest"]
-                     :compiler {
+                     :compiler {:main "cljstest.test"
+                                :asset-path "js"
+                                :output-to "resources/public/js/main.js"
+                                :output-dir "resources/public/js"
                                 :optimizations :none
                                 :pretty-print true}}}}
              

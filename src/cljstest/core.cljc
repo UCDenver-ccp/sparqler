@@ -1,4 +1,5 @@
-(ns cljstest.core)
+(ns cljstest.core
+   (:use cljstest.terms))
 
 (defn abs
   "Absolute value of a number
@@ -8,3 +9,13 @@
 "
 [x]
   (max x (- x)))
+
+
+(defn test-query
+  "Test Query
+~~~klipse
+  rdfs:label
+~~~
+  "
+  []
+  (print rdfs:label))
