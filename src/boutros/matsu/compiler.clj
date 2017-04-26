@@ -2,7 +2,7 @@
   "Compiles the query-map into a valdid SPARQL 1.1 string"
   (:require [clojure.string :as string]
             [clojure.walk :refer [postwalk-replace]]
-            [clj-time.coerce :refer [from-date]]
+            ;[clj-time.coerce :refer [from-date]]
             [boutros.matsu.core :refer [prefixes ns-or-error]]))
 
 
@@ -47,7 +47,7 @@
     (string? x) (str \" (escape-str x) \")
     (= java.net.URI (type x)) (str "<" x ">")
     (= org.joda.time.DateTime (type x)) (encode [(str x) "xsd:dateTime"])
-    (= java.util.Date (type x)) (encode [(str (clj-time.coerce/from-date x)) "xsd:dateTime"])
+    ;(= java.util.Date (type x)) (encode [(str (clj-time.coerce/from-date x)) "xsd:dateTime"])
     (vector? x) (let [[a b] x]
                   (cond
                     (vector? a) (if (seq a) (str '_ (first a)) "[]")

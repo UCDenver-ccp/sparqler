@@ -5,7 +5,7 @@
                  [clj-time "0.13.0"]
                  [criterium "0.4.4"]
 		 [joda-time "2.3"]
-                 [viebel/codox-klipse-theme "0.0.4"]
+                 [viebel/codox-klipse-theme "0.0.5"]
                  ]
   :plugins [[lein-codox "0.10.3"]]  
   :codox {:metadata {:doc/format :markdown}

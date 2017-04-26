@@ -61,6 +61,7 @@
 (def RO:homologous_to [:obo :RO_0002158])
 
 (def MI:interaction_type [:obo :MI_0190])
+(def MI:direct_interaction [:obo :MI_0407])
 
 (def BFO:hasPart [:obo :BFO_0000051])
 
@@ -69,11 +70,13 @@
 (def GO:localization [:obo :GO_0051179]) ; GO:0051179
 (def GO:cellular_component [:obo :GO_0005575])
 (def GO:mitochondria [:obo :GO_0005739])
+(def GO:binding [:obo :GO_0005488])
 
 (def CHEBI:protein [:obo :CHEBI_36080])
 (def CHEBI:ltb4 [:obo :CHEBI_36080])
 (def CHEBI:chemical-entity [:obo :CHEBI_24431])
 (def CHEBI:InChI [:chebi :InChI])
+(def CHEBI:drug [:obo :CHEBI_23888])
 
 (def Human :NCBITaxon_9606)
 (def Mouse :NCBITaxon_10090)
@@ -93,5 +96,8 @@
 (def oboMeta:hasOBONamespace [:oboMeta :hasOBONamespace])
 (def iaouniprot:UniProtFileRecord_nameDataField1 [:iaouniprot :UniProtFileRecord_nameDataField1])
 (def iaouniprot:UniProtFileRecord_primaryAccessionDataField1 [:iaouniprot :UniProtFileRecord_primaryAccessionDataField1])
+(def iaouniprot:UniProtFileRecord_accessionDataField11 [:iaouniprot :UniProtFileRecord_accessionDataField1])
 
 (def GO:angiogenesis [:obo :GO_0001525])
+
+(def iaoreactome:connectsTo [:iaoreactome :connectsTo])
