@@ -7,15 +7,28 @@
 		 [joda-time "2.3"]
                  [viebel/codox-klipse-theme "0.0.5"]
                  ]
-  :plugins [[lein-codox "0.10.3"]]  
+
+
+   :plugins [[lein-codox "0.10.2"] [lein-cljsbuild "1.1.5"]]
+  
+  
   :codox {:metadata {:doc/format :markdown}
-          :namespaces [sparqler.core sparqler.queries sparqler.terms sparqler.forms]
-          :source-uri "https://github.com/UCDenver-ccp/sparqler/tree/master/{filepath}#L{line}"
-         :themes [:default [:klipse
-         {:klipse/external-libs
-          "https://github.com/UCDenver-ccp/sparqler/tree/master/src"
-          :klipse/require-statement
-          "(ns my.test (:require [sparqler.core :as sparqler :refer [localize abs with-interactions]]))"}]]}
-  :target-path "target/%s"
+          :namespaces [cljstest.core sparqler.core sparqler.queries sparqler.terms sparqler.forms]
+          :source-uri "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/{filepath}#L{line}"
+	  :source-paths ["src"]
+	  :output-path "doc"
+          :themes [:default [:klipse
+                             {:klipse/external-libs "https://raw.githubusercontent.com/UCDenver-ccp/sparqler/master/src/"
+                              :klipse/require-statement "(ns my.test (:require [cljstest.core :as sparqler :refer [abs]]))"}]]}
+
+  :cljsbuild {
+              :builds
+              {
+               :dev {
+                     :source-paths ["src/cljstest"]
+                     :compiler {
+                                :optimizations :none
+                                :pretty-print true}}}}
+             
 
   :jvm-opts ["-Xms1024m" "-Xmx1024m"])
