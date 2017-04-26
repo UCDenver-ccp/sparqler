@@ -16,7 +16,7 @@ return ((x__4611__auto__ > y__4612__auto__) ? x__4611__auto__ : y__4612__auto__)
 /**
  * Test Query
  * ~~~klipse
- * terms/rdfs:label
+ * rdfs:label
  * ~~~
  * 
  */
